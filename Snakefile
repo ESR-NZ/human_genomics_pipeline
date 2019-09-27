@@ -5,7 +5,8 @@ Aim: A simple Snakemake workflow to process paired-end sequencing data (WGS) usi
 Date created: 2019-08-21
 Modified: 2019-09-27
 Run: snakemake -n -r -j 24 -p --use-conda
-Workflow diagram: snakemake --dag | dot -Tpng > dag.png
+Rule diagram: snakemake --rulegraph | dot -Tpng > rulegraph.png
+Workflow diagram (specific experiment): snakemake --dag | dot -Tpng > dag.png
 """
 # adapt paths as appropriate
 # hg19
