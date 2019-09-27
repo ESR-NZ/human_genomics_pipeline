@@ -3,4 +3,4 @@ A simple Snakemake workflow to process paired-end sequencing data (WGS) using bw
 
 ## workflow diagram
 
-<center><img src="rulegraph.png"></center>
+<img src="rulegraph.png" class="center">
