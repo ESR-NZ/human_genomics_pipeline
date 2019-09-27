@@ -136,7 +136,7 @@ rule sambamba_index:
     shell:
         "sambamba index -t {threads} -p {input.bams}"
 
-rule readgroup_add:
+rule gatk4_readgroup_add:
     input:
         bams = "mapped/{sample}_bwamem_sorted_mkdups.bam"
     output:
@@ -166,7 +166,7 @@ rule sambamba_index_rgadd:
     shell:
         "sambamba index -t {threads} -p {input.bams}"
 
-rule recal_report:
+rule gatk4_recal_report:
     input:
         bams = "mapped/{sample}_sorted_mkdups_rgreplaced.bam"
     output:
@@ -181,7 +181,7 @@ rule recal_report:
     shell:
         "gatk BaseRecalibrator --reference {GENOME} --input {input.bams} --known-sites {dbSNP} --output {output}"
 
-rule recal:
+rule gatk4_recal:
     input:
         bams = "mapped/{sample}_sorted_mkdups_rgreplaced.bam",
         recal = "mapped/{sample}_recalibration_report.grp"
@@ -197,7 +197,7 @@ rule recal:
     shell:
         "gatk ApplyBQSR --reference {GENOME} --bqsr-recal-file {input.recal} --input {input.bams} --output {output}"
 
-rule gatk_HaplotypeCaller:
+rule gatk4_HaplotypeCaller:
     input:
         bams = "mapped/{sample}_bwa_recal.bam"
     output:
