@@ -1,4 +1,0 @@
-Building DAG of jobs...
-MissingInputException in line 23 of /home/miles/gitrepos/human_genomics_pipeline/Snakefile:
-Missing input files for rule all:
-qc/pre_trim_multiqc/multiqc_report.html
