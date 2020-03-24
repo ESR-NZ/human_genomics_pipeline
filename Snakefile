@@ -9,9 +9,9 @@ Rule diagram: snakemake --rulegraph | dot -Tpng > rulegraph.png
 Workflow diagram (specific experiment): snakemake --dag | dot -Tpng > dag.png
 """
 # adapt paths as appropriate
-# hg19
+# GRCh37
 GENOME = "/data/publicData/genomes/human/GRCh37/hs37d5.fa"
-# hg38
+# GRCh38
 # GENOME = "/data/publicData/genomes/human/GRCh38/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna"
 # temp dir
 TEMPDIR = "/share/tmp"
