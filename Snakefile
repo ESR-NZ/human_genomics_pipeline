@@ -10,30 +10,30 @@ Workflow diagram (specific experiment): snakemake --dag | dot -Tpng > dag.png
 """
 # adapt paths as appropriate
 # GRCh37
-GENOME = "/data/publicData/genomes/human/GRCh37/hs37d5.fa"
+GENOME = "/store/lkemp/publicData/referenceGenome/gatkBundle/GRCh37/ucsc.hg19.fasta"
 # GRCh38
 # GENOME = "/data/publicData/genomes/human/GRCh38/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna"
 # temp dir
-TEMPDIR = "/share/tmp"
+TEMPDIR = "/store/lkemp/tmp/"
 # dbSNP
-dbSNP = "/data/publicData/genomes/human/dbSNP/All_nochr_20180423.vcf.gz"
+dbSNP = "/store/lkemp/publicData/dbSNP/ncbi/GRCh37/build151/GATK/All_20180423.vcf.gz"
 
 # define samples from fastq dir using wildcards
-SAMPLES, = glob_wildcards("fastq/{sample}_1.fastq.gz")
+SAMPLES, = glob_wildcards("../data/exomes/fastq/{sample}_R1.fastq.gz")
 
 rule all:
     input:
-        expand("qc/fastqc/{sample}_1_fastqc.html", sample=SAMPLES),
+        expand("qc/fastqc/{sample}_R1_fastqc.html", sample=SAMPLES),
         "qc/pre_trim_multiqc/multiqc_report.html",
         expand("vcf/{sample}.raw.snps.indels.AS.g.vcf", sample = SAMPLES)
 
 rule fastqc:
     input:
-        R1 = "fastq/{sample}_1.fastq.gz",
-        R2 = "fastq/{sample}_2.fastq.gz"
+        R1 = "../data/exomes/fastq/{sample}_R1.fastq.gz",
+        R2 = "../data/exomes/fastq/{sample}_R2.fastq.gz"
     output:
-        html = ["qc/fastqc/{sample}_1_fastqc.html", "qc/fastqc/{sample}_2_fastqc.html"],
-        zip = ["qc/fastqc/{sample}_1_fastqc.zip", "qc/fastqc/{sample}_2_fastqc.zip"]
+        html = ["qc/fastqc/{sample}_R1_fastqc.html", "qc/fastqc/{sample}_R2_fastqc.html"],
+        zip = ["qc/fastqc/{sample}_R1_fastqc.zip", "qc/fastqc/{sample}_R2_fastqc.zip"]
     params: 
         "--threads 4"
     log:
@@ -47,7 +47,7 @@ rule fastqc:
 
 rule multiqc_pre_trim:
     input:
-        zips = expand(["qc/fastqc/{sample}_1_fastqc.zip", "qc/fastqc/{sample}_2_fastqc.zip"], sample = SAMPLES)
+        zips = expand(["qc/fastqc/{sample}_R1_fastqc.zip", "qc/fastqc/{sample}_R2_fastqc.zip"], sample = SAMPLES)
     output:
         "qc/pre_trim_multiqc/"
     conda:
@@ -57,11 +57,11 @@ rule multiqc_pre_trim:
 
 rule trim_galore_pe:
     input:
-        R1 = "fastq/{sample}_1.fastq.gz",
-        R2 = "fastq/{sample}_2.fastq.gz"
+        R1 = "../data/exomes/fastq/{sample}_R1.fastq.gz",
+        R2 = "../data/exomes/fastq/{sample}_R2.fastq.gz"
     output:
-        "trim_galore/{sample}_1_val_1.fq.gz",
-        "trim_galore/{sample}_2_val_2.fq.gz"
+        "trim_galore/{sample}_R1_val_1.fq.gz",
+        "trim_galore/{sample}_R2_val_2.fq.gz"
     params:
         extra="--illumina -q 20"
     log:
@@ -75,8 +75,8 @@ rule trim_galore_pe:
 
 rule bwa_map:
     input:
-        R1 = "trim_galore/{sample}_1_val_1.fq.gz",
-        R2 = "trim_galore/{sample}_2_val_2.fq.gz"
+        R1 = "trim_galore/{sample}_R1_val_1.fq.gz",
+        R2 = "trim_galore/{sample}_R2_val_2.fq.gz"
     output: 
         temp("mapped/{sample}_bwamem.bam")
     log:
