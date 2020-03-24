@@ -3,5 +3,5 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - samtools ==1.9
+  - samtools ==1.10
   - bwa ==0.7.17
