@@ -24,7 +24,6 @@ SAMPLES, = glob_wildcards("../data/exomes/fastq/{sample}_R1.fastq.gz")
 rule all:
     input:
         expand("qc/fastqc/{sample}_R1_fastqc.html", sample=SAMPLES),
-        "qc/pre_trim_multiqc/multiqc_report.html",
         expand("vcf/{sample}.raw.snps.indels.AS.g.vcf", sample = SAMPLES)
 
 rule fastqc:
