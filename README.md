@@ -90,6 +90,12 @@ Manually set the working directories in the 'Snakefile'. Ensure that the pipelin
 - dbSNP database
 - WGS or WES data
 
+Choose to run the pipeline against either GRCh37 or GRCh38 by setting the BUILD variable. For example...
+
+```bash
+BUILD = "GRCh38"
+```
+
 Create and activate a conda environment with python and snakemake and installed
 
 ```bash

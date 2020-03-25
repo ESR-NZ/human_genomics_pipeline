@@ -8,14 +8,25 @@ Run: snakemake -n -r -j 24 -p --use-conda
 Rule diagram: snakemake --rulegraph | dot -Tpng > rulegraph.png
 Workflow diagram (specific experiment): snakemake --dag | dot -Tpng > dag.png
 """
+
+# set to GRCh37 or GRCh38
+BUILD = "GRCh38"
+
 # adapt paths as appropriate
 # GRCh37
-GENOME = "/store/lkemp/publicData/referenceGenome/gatkBundle/GRCh37/ucsc.hg19.fasta"
-dbSNP = "/store/lkemp/publicData/dbSNP/ncbi/GRCh37/build151/GATK/All_20180423.vcf.gz"
+GENOME37 = "/store/lkemp/publicData/referenceGenome/gatkBundle/GRCh37/ucsc.hg19.fasta"
+dbSNP37 = "/store/lkemp/publicData/dbSNP/ncbi/GRCh37/build151/GATK/All_20180423.vcf.gz"
 
 # GRCh38
-#GENOME = "/store/lkemp/publicData/referenceGenome/gatkBundle/GRCh38/Homo_sapiens_assembly38.fasta"
-#dbSNP = "/store/lkemp/publicData/dbSNP/ncbi/GRCh38/build151/GATK/All_20180418.vcf.gz"
+GENOME38 = "/store/lkemp/publicData/referenceGenome/gatkBundle/GRCh38/Homo_sapiens_assembly38.fasta"
+dbSNP38 = "/store/lkemp/publicData/dbSNP/ncbi/GRCh38/build151/GATK/All_20180418.vcf.gz"
+
+if BUILD == "GRCh37":
+    GENOME = GENOME37
+    dbSNP = dbSNP37
+else :
+    GENOME = GENOME38
+    dbSNP = dbSNP38
 
 # temp dir
 TEMPDIR = "/store/lkemp/tmp/"
