@@ -11,12 +11,14 @@ Workflow diagram (specific experiment): snakemake --dag | dot -Tpng > dag.png
 # adapt paths as appropriate
 # GRCh37
 GENOME = "/store/lkemp/publicData/referenceGenome/gatkBundle/GRCh37/ucsc.hg19.fasta"
+dbSNP = "/store/lkemp/publicData/dbSNP/ncbi/GRCh37/build151/GATK/All_20180423.vcf.gz"
+
 # GRCh38
-# GENOME = "/data/publicData/genomes/human/GRCh38/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna"
+#GENOME = "/store/lkemp/publicData/referenceGenome/gatkBundle/GRCh38/Homo_sapiens_assembly38.fasta"
+#dbSNP = "/store/lkemp/publicData/dbSNP/ncbi/GRCh38/build151/GATK/All_20180418.vcf.gz"
+
 # temp dir
 TEMPDIR = "/store/lkemp/tmp/"
-# dbSNP
-dbSNP = "/store/lkemp/publicData/dbSNP/ncbi/GRCh37/build151/GATK/All_20180423.vcf.gz"
 
 # define samples from fastq dir using wildcards
 SAMPLES, = glob_wildcards("../data/exomes/fastq/{sample}_R1.fastq.gz")
