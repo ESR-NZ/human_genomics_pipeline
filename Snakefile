@@ -27,9 +27,6 @@ else :
     GENOME = GENOME38
     dbSNP = dbSNP38
 
-# temp dir
-TEMPDIR = "../..tmp/"
-
 # define samples from fastq dir using wildcards
 SAMPLES, = glob_wildcards("../data/exomes/fastq/{sample}_R1.fastq.gz")
 
@@ -114,7 +111,7 @@ rule sambamba_sort:
         "envs/sambamba.yaml"
     threads: 4
     shell:
-        "sambamba sort -t {threads} -m 6G --tmpdir={TEMPDIR} -p -o {output} {input.bams}"
+        "sambamba sort -t {threads} -m 6G --tmpdir=config['TEMPDIR'] -p -o {output} {input.bams}"
 
 rule sambamba_mkdups:
     input:
@@ -130,7 +127,7 @@ rule sambamba_mkdups:
     threads: 4
     params: "--sort-buffer-size=6144 --overflow-list-size=600000 --hash-table-size=600000"
     shell:
-        "sambamba markdup -t {threads} {params} --tmpdir={TEMPDIR} -p {input.bams} {output}"
+        "sambamba markdup -t {threads} {params} --tmpdir=config['TEMPDIR'] -p {input.bams} {output}"
 
 rule sambamba_index:
     input:
@@ -221,4 +218,4 @@ rule gatk4_HaplotypeCaller:
         "envs/gatk4.yaml"
     threads: 4
     shell:
-        "gatk HaplotypeCaller --reference {GENOME} --emit-ref-confidence GVCF --dbsnp {dbSNP} --input {input.bams} --output {output} --tmp-dir {TEMPDIR}"
+        "gatk HaplotypeCaller --reference {GENOME} --emit-ref-confidence GVCF --dbsnp {dbSNP} --input {input.bams} --output {output} --tmp-dir config['TEMPDIR']"

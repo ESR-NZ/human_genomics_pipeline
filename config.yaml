@@ -1,3 +1,7 @@
-# set to GRCh37 or GRCh38
+# set pipeline to run against either GRCh37 or GRCh38
 BUILD: 
   - 'GRCh38'
+
+# set temporary directory
+TEMPDIR:
+  - "store/lkemp/tmp/"

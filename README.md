@@ -90,6 +90,13 @@ Set the the appropriate variable in 'config.yaml'. Choose to run the pipeline ag
 BUILD = "GRCh38"
 ```
 
+Also set your temporary directory
+
+```bash
+TEMPDIR:
+  - "store/lkemp/tmp/"
+```
+
 Create and activate a conda environment with python and snakemake and installed
 
 ```bash
