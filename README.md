@@ -84,13 +84,7 @@ wget ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606_b151_GRCh38p7/VCF/GATK/
 
 ### Set up the working environment
 
-Manually set the working directories in the 'Snakefile'. Ensure that the pipeline can find the:
-
-- reference human genome
-- dbSNP database
-- WGS or WES data
-
-Choose to run the pipeline against either GRCh37 or GRCh38 by setting the BUILD variable. For example...
+Set the the appropriate variable in 'config.yaml'. Choose to run the pipeline against either GRCh37 or GRCh38 by setting the BUILD variable. For example...
 
 ```bash
 BUILD = "GRCh38"
