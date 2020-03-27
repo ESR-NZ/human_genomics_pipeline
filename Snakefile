@@ -23,9 +23,10 @@ dbSNP38 = "../../publicData/dbSNP/ncbi/GRCh38/build151/GATK/All_20180418.vcf.gz"
 if config['BUILD'] == "GRCh37":
     GENOME = GENOME37
     dbSNP = dbSNP37
-else :
+elif config['BUILD'] == "GRCh38":
     GENOME = GENOME38
     dbSNP = dbSNP38
+else: print("ERROR: Please choose either the GRCh37 or GRCh38 reference human genome")
 
 # define samples from fastq dir using wildcards
 SAMPLES, = glob_wildcards("../data/exomes/fastq/{sample}_R1.fastq.gz")
