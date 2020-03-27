@@ -9,8 +9,7 @@ Rule diagram: snakemake --rulegraph | dot -Tpng > rulegraph.png
 Workflow diagram (specific experiment): snakemake --dag | dot -Tpng > dag.png
 """
 
-# set to GRCh37 or GRCh38
-BUILD = "GRCh38"
+configfile: "config.yaml"
 
 # adapt paths as appropriate
 # GRCh37
@@ -21,7 +20,7 @@ dbSNP37 = "../../publicData/dbSNP/ncbi/GRCh37/build151/GATK/All_20180423.vcf.gz"
 GENOME38 = "../../publicData/referenceGenome/gatkBundle/GRCh38/Homo_sapiens_assembly38.fasta"
 dbSNP38 = "../../publicData/dbSNP/ncbi/GRCh38/build151/GATK/All_20180418.vcf.gz"
 
-if BUILD == "GRCh37":
+if config['BUILD'] == "GRCh37":
     GENOME = GENOME37
     dbSNP = dbSNP37
 else :

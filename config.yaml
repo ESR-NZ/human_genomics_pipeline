@@ -1,0 +1,3 @@
+# set to GRCh37 or GRCh38
+BUILD: 
+  - 'GRCh38'
