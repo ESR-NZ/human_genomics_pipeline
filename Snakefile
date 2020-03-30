@@ -20,10 +20,10 @@ dbSNP37 = "../../publicData/dbSNP/ncbi/GRCh37/build151/GATK/All_20180423.vcf.gz"
 GENOME38 = "../../publicData/referenceGenome/gatkBundle/GRCh38/Homo_sapiens_assembly38.fasta"
 dbSNP38 = "../../publicData/dbSNP/ncbi/GRCh38/build151/GATK/All_20180418.vcf.gz"
 
-if config['BUILD'] == "GRCh37":
+if config["BUILD"] == "GRCh37":
     GENOME = GENOME37
     dbSNP = dbSNP37
-elif config['BUILD'] == "GRCh38":
+elif config["BUILD"] == "GRCh38":
     GENOME = GENOME38
     dbSNP = dbSNP38
 else: print("ERROR: Please choose either the GRCh37 or GRCh38 reference human genome")
