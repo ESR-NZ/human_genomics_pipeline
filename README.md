@@ -86,16 +86,19 @@ wget ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606_b151_GRCh38p7/VCF/GATK/
 
 Set the the appropriate variable in 'config.yaml'. Choose to run the pipeline against either GRCh37 or GRCh38 by setting the BUILD variable. For example...
 
-```bash
-BUILD = "GRCh38"
+```yaml
+BUILD:
+  "GRCh38"
 ```
 
 Also set your temporary directory
 
-```bash
+```yaml
 TEMPDIR:
-  - "store/lkemp/tmp/"
+  "store/lkemp/tmp/"
 ```
+
+Set the file directories of the public data we downloaded above (reference human genome, dbSNP etc.) and your fastq sequence data (line 16, 17, 20, 21, 32, 41, 42, 69, 70, 87 and 88 of the Snakefile)
 
 Create and activate a conda environment with python and snakemake and installed
 
