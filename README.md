@@ -12,6 +12,7 @@ A simple Snakemake workflow to process paired-end sequencing data (WGS) using bw
       - [GRCh38](#grch38)
     - [Set up the working environment](#set-up-the-working-environment)
     - [Run the pipeline](#run-the-pipeline)
+    - [Resource allocation](#resource-allocation)
   - [Useful links/papers](#useful-linkspapers)
 
 ## workflow diagram
@@ -115,6 +116,14 @@ First start a dry run. If there are no issues, start a full run without the -n f
 ```bash
 snakemake -n -r -j 24 -p --use-conda
 snakemake -r -j 24 -p --use-conda
+```
+
+### Resource allocation
+
+If necessary, the maximum number of CPU cores allocated by changing the -j flag in the snakemake program. For example to scale to run on a laptop/desktop...
+
+```bash
+snakemake -r -j 4 -p --use-conda --use-singularity
 ```
 
 ## Useful links/papers
