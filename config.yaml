@@ -1,6 +1,14 @@
 # set pipeline to run against either GRCh37 or GRCh38
-BUILD: 
+BUILD:
   "GRCh38"
+
+# set file directory of downloaded public data
+PUBLICDIR:
+  "/store/lkemp/publicData/"
+
+# set file directory of your samples
+SAMPLEDIR:
+  "/store/lkemp/exome_project/data/exomes/fastq/"
 
 # set temporary directory
 TEMPDIR:

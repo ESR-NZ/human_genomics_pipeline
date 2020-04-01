@@ -35,9 +35,13 @@ git clone https://github.com/ESR-NZ/human_genomics_pipeline.git
 
 #### GRCh37
 
-Download the reference human genome (GRCh37) and it's associated fasta sequence dictionary file (.dict) and fasta index file (.fai) files
+Download the reference human genome (GRCh37) and it's associated fasta sequence dictionary file (.dict) and fasta index file (.fai) files in a GRCh37 folder within a publicData folder
 
 ```bash
+mkdir publicData
+cd publicData
+mkdir GRCh37
+cd GRCh37
 wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg19/ucsc.hg19.fasta.gz
 gunzip ucsc.hg19.fasta.gz
 wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg19/ucsc.hg19.dict.gz
@@ -61,9 +65,12 @@ wget ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b151_GRCh37p13/VCF/GATK/All
 
 #### GRCh38
 
-Download the reference human genome (GRCh38) and it's associated fasta sequence dictionary file (.dict) and fasta index file (.fai) files
+Download the reference human genome (GRCh38) and it's associated fasta sequence dictionary file (.dict) and fasta index file (.fai) files in a GRCh38 folder within a publicData folder
 
 ```bash
+cd ..
+mkdir GRCh38
+cd GRCh38
 wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/Homo_sapiens_assembly38.fasta.gz
 gunzip Homo_sapiens_assembly38.fasta.gz
 wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/Homo_sapiens_assembly38.dict
@@ -85,7 +92,7 @@ wget ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606_b151_GRCh38p7/VCF/GATK/
 
 ### Set up the working environment
 
-Set the the appropriate variable in 'config.yaml'. Choose to run the pipeline against either GRCh37 or GRCh38 by setting the BUILD variable. For example...
+Set the the appropriate variables in 'config.yaml'. Choose to run the pipeline against either GRCh37 or GRCh38 by setting the BUILD variable. For example...
 
 ```yaml
 BUILD:
@@ -99,7 +106,19 @@ TEMPDIR:
   "/store/lkemp/exome_project/tmp/"
 ```
 
-Set the file directories of the public data we downloaded above (reference human genome, dbSNP etc.) and your fastq sequence data (line 16, 17, 20, 21, 32, 41, 42, 69, 70, 87 and 88 of the Snakefile)
+And the file directories to the publicData folder containing the data we downloaded above
+
+```yaml
+PUBLICDIR:
+  "/store/lkemp/publicData/"
+```
+
+Lastly, set the file directory to the sequence data (fastq files)
+
+```yaml
+SAMPLEDIR:
+  "/store/lkemp/exome_project/data/fastq/"
+```
 
 Create and activate a conda environment with python and snakemake and installed
 

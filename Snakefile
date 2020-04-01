@@ -11,16 +11,19 @@ Workflow diagram (specific experiment): snakemake --dag | dot -Tpng > dag.png
 
 configfile: "config.yaml"
 
-tdir = config['TEMPDIR']
+PUBLICDIR = config["PUBLICDIR"]
 
-# adapt paths as appropriate
+SAMPLEDIR = config["SAMPLEDIR"]
+
+tdir = config["TEMPDIR"]
+
 # GRCh37
-GENOME37 = "../../publicData/referenceGenome/gatkBundle/GRCh37/ucsc.hg19.fasta"
-dbSNP37 = "../../publicData/dbSNP/ncbi/GRCh37/build151/GATK/All_20180423.vcf.gz"
+GENOME37 = expand("{publicdir}referenceGenome/gatkBundle/GRCh37/ucsc.hg19.fasta", publicdir=PUBLICDIR)
+dbSNP37 = expand("{publicdir}dbSNP/ncbi/GRCh37/build151/GATK/All_20180423.vcf.gz", publicdir=PUBLICDIR)
 
 # GRCh38
-GENOME38 = "../../publicData/referenceGenome/gatkBundle/GRCh38/Homo_sapiens_assembly38.fasta"
-dbSNP38 = "../../publicData/dbSNP/ncbi/GRCh38/build151/GATK/All_20180418.vcf.gz"
+GENOME38 = expand("{publicdir}referenceGenome/gatkBundle/GRCh38/Homo_sapiens_assembly38.fasta", publicdir=PUBLICDIR)
+dbSNP38 = expand("{publicdir}dbSNP/ncbi/GRCh38/build151/GATK/All_20180418.vcf.gz", publicdir=PUBLICDIR)
 
 if config["BUILD"] == "GRCh37":
     GENOME = GENOME37
@@ -31,7 +34,7 @@ elif config["BUILD"] == "GRCh38":
 else: print("ERROR: Please choose either the GRCh37 or GRCh38 reference human genome")
 
 # define samples from fastq dir using wildcards
-SAMPLES, = glob_wildcards("../data/exomes/fastq/{sample}_R1.fastq.gz")
+SAMPLES, = glob_wildcards("/store/lkemp/exome_project/data/exomes/fastq/{sample}_R1.fastq.gz")
 
 rule all:
     input:
@@ -40,8 +43,8 @@ rule all:
 
 rule fastqc:
     input:
-        R1 = "../data/exomes/fastq/{sample}_R1.fastq.gz",
-        R2 = "../data/exomes/fastq/{sample}_R2.fastq.gz"
+        R1 = expand("{sampledir}{sample}_R1.fastq.gz", sampledir=SAMPLEDIR, sample=SAMPLES),
+        R2 = expand("{sampledir}{sample}_R2.fastq.gz", sampledir=SAMPLEDIR, sample=SAMPLES)
     output:
         html = ["qc/fastqc/{sample}_R1_fastqc.html", "qc/fastqc/{sample}_R2_fastqc.html"],
         zip = ["qc/fastqc/{sample}_R1_fastqc.zip", "qc/fastqc/{sample}_R2_fastqc.zip"]
@@ -68,8 +71,8 @@ rule multiqc_pre_trim:
 
 rule trim_galore_pe:
     input:
-        R1 = "../data/exomes/fastq/{sample}_R1.fastq.gz",
-        R2 = "../data/exomes/fastq/{sample}_R2.fastq.gz"
+        R1 = expand("{sampledir}{sample}_R1.fastq.gz", sampledir=SAMPLEDIR, sample=SAMPLES),
+        R2 = expand("{sampledir}{sample}_R2.fastq.gz", sampledir=SAMPLEDIR, sample=SAMPLES)
     output:
         "trim_galore/{sample}_R1_val_1.fq.gz",
         "trim_galore/{sample}_R2_val_2.fq.gz"
