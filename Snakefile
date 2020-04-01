@@ -18,12 +18,12 @@ SAMPLEDIR = config["SAMPLEDIR"]
 tdir = config["TEMPDIR"]
 
 # GRCh37
-GENOME37 = expand("{publicdir}referenceGenome/gatkBundle/GRCh37/ucsc.hg19.fasta", publicdir=PUBLICDIR)
-dbSNP37 = expand("{publicdir}dbSNP/ncbi/GRCh37/build151/GATK/All_20180423.vcf.gz", publicdir=PUBLICDIR)
+GENOME37 = expand("{publicdir}GRCh37/ucsc.hg19.fasta", publicdir=PUBLICDIR)
+dbSNP37 = expand("{publicdir}GRCh37/All_20180423.vcf.gz", publicdir=PUBLICDIR)
 
 # GRCh38
-GENOME38 = expand("{publicdir}referenceGenome/gatkBundle/GRCh38/Homo_sapiens_assembly38.fasta", publicdir=PUBLICDIR)
-dbSNP38 = expand("{publicdir}dbSNP/ncbi/GRCh38/build151/GATK/All_20180418.vcf.gz", publicdir=PUBLICDIR)
+GENOME38 = expand("{publicdir}GRCh38/Homo_sapiens_assembly38.fasta", publicdir=PUBLICDIR)
+dbSNP38 = expand("{publicdir}GRCh38/All_20180418.vcf.gz", publicdir=PUBLICDIR)
 
 if config["BUILD"] == "GRCh37":
     GENOME = GENOME37
