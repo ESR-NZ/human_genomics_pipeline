@@ -96,7 +96,7 @@ Also set your temporary directory
 
 ```yaml
 TEMPDIR:
-  "store/lkemp/tmp/"
+  "/store/lkemp/exome_project/tmp/"
 ```
 
 Set the file directories of the public data we downloaded above (reference human genome, dbSNP etc.) and your fastq sequence data (line 16, 17, 20, 21, 32, 41, 42, 69, 70, 87 and 88 of the Snakefile)

@@ -1,7 +1,7 @@
 # set pipeline to run against either GRCh37 or GRCh38
 BUILD: 
-  "GRCh37"
+  "GRCh38"
 
 # set temporary directory
 TEMPDIR:
-  "store/lkemp/tmp/"
+  "/store/lkemp/exome_project/tmp/"

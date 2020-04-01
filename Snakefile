@@ -11,6 +11,8 @@ Workflow diagram (specific experiment): snakemake --dag | dot -Tpng > dag.png
 
 configfile: "config.yaml"
 
+tdir = config['TEMPDIR']
+
 # adapt paths as appropriate
 # GRCh37
 GENOME37 = "../../publicData/referenceGenome/gatkBundle/GRCh37/ucsc.hg19.fasta"
@@ -112,7 +114,7 @@ rule sambamba_sort:
         "envs/sambamba.yaml"
     threads: 4
     shell:
-        "sambamba sort -t {threads} -m 6G --tmpdir=config['TEMPDIR'] -p -o {output} {input.bams}"
+        "sambamba sort -t {threads} -m 6G --tmpdir={tdir} -p -o {output} {input.bams}"
 
 rule sambamba_mkdups:
     input:
@@ -128,7 +130,7 @@ rule sambamba_mkdups:
     threads: 4
     params: "--sort-buffer-size=6144 --overflow-list-size=600000 --hash-table-size=600000"
     shell:
-        "sambamba markdup -t {threads} {params} --tmpdir=config['TEMPDIR'] -p {input.bams} {output}"
+        "sambamba markdup -t {threads} {params} --tmpdir={tdir} -p {input.bams} {output}"
 
 rule sambamba_index:
     input:
@@ -219,4 +221,4 @@ rule gatk4_HaplotypeCaller:
         "envs/gatk4.yaml"
     threads: 4
     shell:
-        "gatk HaplotypeCaller --reference {GENOME} --emit-ref-confidence GVCF --dbsnp {dbSNP} --input {input.bams} --output {output} --tmp-dir config['TEMPDIR']"
+        "gatk HaplotypeCaller --reference {GENOME} --emit-ref-confidence GVCF --dbsnp {dbSNP} --input {input.bams} --output {output} --tmp-dir {tdir}"
