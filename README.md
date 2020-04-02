@@ -62,7 +62,7 @@ Create index files for the genome sequence (.amb, .ann, .bwt, .pac, .sa)
 bwa index -a bwtsw ucsc.hg19.fasta
 ```
 
-Download dbSNP (build 151) from NCBI
+Download dbSNP (build 151) from [NCBI](https://www.ncbi.nlm.nih.gov/variation/docs/human_variation_vcf/)
 
 ```bash
 wget ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b151_GRCh37p13/VCF/GATK/All_20180423.vcf.gz
