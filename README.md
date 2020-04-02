@@ -14,6 +14,7 @@ A simple Snakemake workflow to process paired-end sequencing data (WGS) using bw
     - [Set up the working environment](#set-up-the-working-environment)
     - [Run the pipeline](#run-the-pipeline)
     - [Resource allocation](#resource-allocation)
+  - [Evaluation of a pipeline run](#evaluation-of-a-pipeline-run)
   - [Useful links/papers](#useful-linkspapers)
 
 ## workflow diagram
@@ -155,6 +156,14 @@ If necessary, the maximum number of CPU cores allocated by changing the -j flag 
 
 ```bash
 snakemake -r -j 4 -p --use-conda --use-singularity
+```
+
+## Evaluation of a pipeline run
+
+Generate an interactive html report of the pipeline run with...
+
+```bash
+snakemake --report report.html
 ```
 
 ## Useful links/papers
