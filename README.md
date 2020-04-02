@@ -1,4 +1,5 @@
 # human_genomics_pipeline
+
 A simple Snakemake workflow to process paired-end sequencing data (WGS) using bwa/GATK4.
 
 ## Table of contents
@@ -7,7 +8,7 @@ A simple Snakemake workflow to process paired-end sequencing data (WGS) using bw
   - [Table of contents](#table-of-contents)
   - [workflow diagram](#workflow-diagram)
   - [Set up and run vcf_annotation_pipeline](#set-up-and-run-vcfannotationpipeline)
-    - [Download data/repository](#download-datarepository)
+    - [Download pipeline, reference genome and dbSNP](#download-pipeline-reference-genome-and-dbsnp)
       - [GRCh37](#grch37)
       - [GRCh38](#grch38)
     - [Set up the working environment](#set-up-the-working-environment)
@@ -21,11 +22,11 @@ A simple Snakemake workflow to process paired-end sequencing data (WGS) using bw
 
 ## Set up and run vcf_annotation_pipeline
 
-- **Prerequisite software:**  [Conda 4.8.2](https://docs.conda.io/projects/conda/en/latest/index.html), [gunzip](https://linux.die.net/man/1/gunzip), [bwa](http://bio-bwa.sourceforge.net/)
+- **Prerequisite software:** [Git](https://git-scm.com/), [Conda 4.8.2](https://docs.conda.io/projects/conda/en/latest/index.html), [gunzip](https://linux.die.net/man/1/gunzip), [bwa](http://bio-bwa.sourceforge.net/)
 - **Prerequisite data:** None
 - **OS:** Validated on Ubuntu 16.04
 
-### Download data/repository
+### Download pipeline, reference genome and dbSNP
 
 Clone the [human_genomics_pipeline](https://github.com/ESR-NZ/human_genomics_pipeline) repository
 
@@ -35,13 +36,18 @@ git clone https://github.com/ESR-NZ/human_genomics_pipeline.git
 
 #### GRCh37
 
-Download the reference human genome (GRCh37) and it's associated fasta sequence dictionary file (.dict) and fasta index file (.fai) files in a GRCh37 folder within a publicData folder
+Create a GRCh37 folder within a publicData folder to download the reference genome and dbSNP into
 
 ```bash
 mkdir publicData
 cd publicData
 mkdir GRCh37
 cd GRCh37
+```
+
+Download the reference human genome (GRCh37) and it's associated fasta sequence dictionary file (.dict) and fasta index file (.fai) files from the [GATK resource bundle](https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle)
+
+```bash
 wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg19/ucsc.hg19.fasta.gz
 gunzip ucsc.hg19.fasta.gz
 wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg19/ucsc.hg19.dict.gz
@@ -56,7 +62,7 @@ Create index files for the genome sequence (.amb, .ann, .bwt, .pac, .sa)
 bwa index -a bwtsw ucsc.hg19.fasta
 ```
 
-Download dbSNP (build 151)
+Download dbSNP (build 151) from NCBI
 
 ```bash
 wget ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b151_GRCh37p13/VCF/GATK/All_20180423.vcf.gz
@@ -65,12 +71,18 @@ wget ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b151_GRCh37p13/VCF/GATK/All
 
 #### GRCh38
 
-Download the reference human genome (GRCh38) and it's associated fasta sequence dictionary file (.dict) and fasta index file (.fai) files in a GRCh38 folder within a publicData folder
+Create a GRCh38 folder within a publicData folder to download the reference genome and dbSNP into
 
 ```bash
-cd ..
+mkdir publicData
+cd publicData
 mkdir GRCh38
 cd GRCh38
+```
+
+Download the reference human genome (GRCh38) and it's associated fasta sequence dictionary file (.dict) and fasta index file (.fai) files from the [GATK resource bundle](https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle)
+
+```bash
 wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/Homo_sapiens_assembly38.fasta.gz
 gunzip Homo_sapiens_assembly38.fasta.gz
 wget ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/Homo_sapiens_assembly38.dict
@@ -83,7 +95,7 @@ Create index files for the genome sequence (.amb, .ann, .bwt, .pac, .sa)
 bwa index -a bwtsw Homo_sapiens_assembly38.fasta
 ```
 
-Download dbSNP (build 151)
+Download dbSNP (build 151) from [NCBI](https://www.ncbi.nlm.nih.gov/variation/docs/human_variation_vcf/)
 
 ```bash
 wget ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606_b151_GRCh38p7/VCF/GATK/All_20180418.vcf.gz
@@ -92,14 +104,14 @@ wget ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606_b151_GRCh38p7/VCF/GATK/
 
 ### Set up the working environment
 
-Set the the appropriate variables in 'config.yaml'. Choose to run the pipeline against either GRCh37 or GRCh38 by setting the BUILD variable. For example...
+Set the the appropriate variables in 'config.yaml'. Choose to run the pipeline against either GRCh37 or GRCh38 by setting the BUILD variable
 
 ```yaml
 BUILD:
   "GRCh38"
 ```
 
-Also set your temporary directory
+Also set the directory to your temporary files folder
 
 ```yaml
 TEMPDIR:
