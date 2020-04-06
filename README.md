@@ -26,10 +26,29 @@ A simple Snakemake workflow to process paired-end sequencing data (WGS) using bw
 
 ### 1. Clone pipeline
 
-Clone the [human_genomics_pipeline](https://github.com/ESR-NZ/human_genomics_pipeline) repository
+Clone the [human_genomics_pipeline](https://github.com/ESR-NZ/human_genomics_pipeline) repository into the same directory as a folder named 'fastq' containing your paired end fastq files
 
 ```bash
 git clone https://github.com/ESR-NZ/human_genomics_pipeline.git
+```
+
+Required folder structure:
+
+```bash
+
+.
+|___fastq/
+|     |___sample1_R1
+|     |___sample1_R2
+|     |___sample2_R1
+|     |___sample2_R2
+|
+|___human_genomics_pipeline/
+      |___envs/
+      |___rules/
+      |___Snakefile
+      |___config.yaml
+
 ```
 
 ### 2. Download reference genome and dbSNP
@@ -123,13 +142,6 @@ And the file directories to the publicData folder containing the data we downloa
 ```yaml
 PUBLICDIR:
   "/store/lkemp/publicData/"
-```
-
-Lastly, set the file directory to the sequence data (fastq files)
-
-```yaml
-SAMPLEDIR:
-  "/store/lkemp/exome_project/data/fastq/"
 ```
 
 Create and activate a conda environment with python and snakemake and installed

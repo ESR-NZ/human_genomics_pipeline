@@ -13,8 +13,6 @@ configfile: "config.yaml"
 
 PUBLICDIR = config["PUBLICDIR"]
 
-SAMPLEDIR = config["SAMPLEDIR"]
-
 tdir = config["TEMPDIR"]
 
 # GRCh37
@@ -43,8 +41,8 @@ rule all:
 
 rule fastqc:
     input:
-        R1 = expand("{sampledir}{sample}_R1.fastq.gz", sampledir=SAMPLEDIR, sample=SAMPLES),
-        R2 = expand("{sampledir}{sample}_R2.fastq.gz", sampledir=SAMPLEDIR, sample=SAMPLES)
+        R1 = "../fastq/{sample}_R1.fastq.gz", sample=SAMPLES,
+        R2 = "../fastq/{sample}_R2.fastq.gz", sample=SAMPLES
     output:
         html = ["qc/fastqc/{sample}_R1_fastqc.html", "qc/fastqc/{sample}_R2_fastqc.html"],
         zip = ["qc/fastqc/{sample}_R1_fastqc.zip", "qc/fastqc/{sample}_R2_fastqc.zip"]
@@ -71,8 +69,8 @@ rule multiqc_pre_trim:
 
 rule trim_galore_pe:
     input:
-        R1 = expand("{sampledir}{sample}_R1.fastq.gz", sampledir=SAMPLEDIR, sample=SAMPLES),
-        R2 = expand("{sampledir}{sample}_R2.fastq.gz", sampledir=SAMPLEDIR, sample=SAMPLES)
+        R1 = "../fastq/{sample}_R1.fastq.gz", sample=SAMPLES,
+        R2 = "../fastq/{sample}_R2.fastq.gz", sample=SAMPLES
     output:
         "trim_galore/{sample}_R1_val_1.fq.gz",
         "trim_galore/{sample}_R2_val_2.fq.gz"

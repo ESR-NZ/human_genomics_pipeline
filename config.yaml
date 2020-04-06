@@ -6,10 +6,6 @@ BUILD:
 PUBLICDIR:
   "/store/lkemp/publicData/"
 
-# set file directory of your samples
-SAMPLEDIR:
-  "/store/lkemp/exome_project/data/exomes/fastq/"
-
 # set temporary directory
 TEMPDIR:
   "/store/lkemp/exome_project/tmp/"
