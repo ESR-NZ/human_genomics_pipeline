@@ -2,19 +2,16 @@
 
 A simple Snakemake workflow to process paired-end sequencing data (WGS) using bwa/GATK4.
 
-## Table of contents
-
 - [human_genomics_pipeline](#humangenomicspipeline)
-  - [Table of contents](#table-of-contents)
   - [workflow diagram](#workflow-diagram)
   - [Set up and run vcf_annotation_pipeline](#set-up-and-run-vcfannotationpipeline)
-    - [Download pipeline, reference genome and dbSNP](#download-pipeline-reference-genome-and-dbsnp)
+    - [1. Clone pipeline](#1-clone-pipeline)
+    - [2. Download reference genome and dbSNP](#2-download-reference-genome-and-dbsnp)
       - [GRCh37](#grch37)
       - [GRCh38](#grch38)
-    - [Set up the working environment](#set-up-the-working-environment)
-    - [Run the pipeline](#run-the-pipeline)
-    - [Resource allocation](#resource-allocation)
-  - [Evaluation of a pipeline run](#evaluation-of-a-pipeline-run)
+    - [3. Set up the working environment](#3-set-up-the-working-environment)
+    - [4. Run the pipeline](#4-run-the-pipeline)
+    - [5. Evaluation of a pipeline run](#5-evaluation-of-a-pipeline-run)
   - [Useful links/papers](#useful-linkspapers)
 
 ## workflow diagram
@@ -27,13 +24,15 @@ A simple Snakemake workflow to process paired-end sequencing data (WGS) using bw
 - **Prerequisite data:** None
 - **OS:** Validated on Ubuntu 16.04
 
-### Download pipeline, reference genome and dbSNP
+### 1. Clone pipeline
 
 Clone the [human_genomics_pipeline](https://github.com/ESR-NZ/human_genomics_pipeline) repository
 
 ```bash
 git clone https://github.com/ESR-NZ/human_genomics_pipeline.git
 ```
+
+### 2. Download reference genome and dbSNP
 
 #### GRCh37
 
@@ -103,7 +102,7 @@ wget ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606_b151_GRCh38p7/VCF/GATK/
 wget ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606_b151_GRCh38p7/VCF/GATK/All_20180418.vcf.gz.tbi
 ```
 
-### Set up the working environment
+### 3. Set up the working environment
 
 Set the the appropriate variables in 'config.yaml'. Choose to run the pipeline against either GRCh37 or GRCh38 by setting the BUILD variable
 
@@ -141,7 +140,7 @@ conda activate pipeline_env
 conda install -c bioconda snakemake=5.10.0
 ```
 
-### Run the pipeline
+### 4. Run the pipeline
 
 First start a dry run. If there are no issues, start a full run without the -n flag
 
@@ -150,15 +149,13 @@ snakemake -n -r -j 24 -p --use-conda
 snakemake -r -j 24 -p --use-conda
 ```
 
-### Resource allocation
-
 If necessary, the maximum number of CPU cores allocated by changing the -j flag in the snakemake program. For example to scale to run on a laptop/desktop...
 
 ```bash
 snakemake -r -j 4 -p --use-conda --use-singularity
 ```
 
-## Evaluation of a pipeline run
+### 5. Evaluation of a pipeline run
 
 Generate an interactive html report of the pipeline run with...
 
