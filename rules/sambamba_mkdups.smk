@@ -13,5 +13,7 @@ rule sambamba_mkdups:
     conda:
         "../envs/sambamba.yaml"
     threads: 4
+    message:
+	"Finding duplicate reads in BAM file"
     shell:
         "sambamba markdup -t {threads} {params.other} --tmpdir={params.tdir} -p {input.bams} {output}"

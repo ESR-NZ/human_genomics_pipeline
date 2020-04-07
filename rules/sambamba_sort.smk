@@ -12,5 +12,7 @@ rule sambamba_sort:
     conda:
         "../envs/sambamba.yaml"
     threads: 4
+    message:
+	"Sorting BAM files"
     shell:
         "sambamba sort -t {threads} -m 6G --tmpdir={params.tdir} -p -o {output} {input.bams}"

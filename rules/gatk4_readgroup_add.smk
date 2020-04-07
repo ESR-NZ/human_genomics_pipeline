@@ -10,5 +10,7 @@ rule gatk4_readgroup_add:
     conda:
         "../envs/gatk4.yaml"
     threads: 4
+    message:
+	"Assigning all reads to a single new read-group"
     shell:
         "gatk AddOrReplaceReadGroups --INPUT {input.bams} --OUTPUT {output} --RGID 4 --RGLB lib1 --RGPL illumina --RGPU unit1 --RGSM 20"

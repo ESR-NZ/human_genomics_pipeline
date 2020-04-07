@@ -10,5 +10,7 @@ rule sambamba_index_rgadd:
     conda:
         "../envs/sambamba.yaml"
     threads: 4
+    message:
+	"Building index files for {input.bams}"
     shell:
         "sambamba index -t {threads} -p {input.bams}"

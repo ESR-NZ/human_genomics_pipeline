@@ -14,5 +14,7 @@ rule gatk4_HaplotypeCaller:
     conda:
         "../envs/gatk4.yaml"
     threads: 4
+    message:
+	"Calling germline SNPs and indels via local re-assembly of haplotypes"
     shell:
         "gatk HaplotypeCaller --reference {params.genome} --emit-ref-confidence GVCF --dbsnp {params.dbsnp} --input {input.bams} --output {output} --tmp-dir {params.tdir}"

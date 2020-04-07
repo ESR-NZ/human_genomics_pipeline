@@ -13,5 +13,7 @@ rule bwa_map:
     conda:
         "../envs/bwa.yaml"
     threads: 12
+    message:
+	"Mapping sequences against a reference human genome with BWA-MEM"
     shell: 
         "bwa mem -M -t {threads} {params.genome} {input.R1} {input.R2} | samtools view -@ {threads} -Sbh - > {output}"
