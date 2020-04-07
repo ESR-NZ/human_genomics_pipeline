@@ -13,4 +13,4 @@ rule sambamba_sort:
         "../envs/sambamba.yaml"
     threads: 4
     shell:
-        "sambamba sort -t {threads} -m 6G --tmpdir = {params.tdir} -p -o {output} {input.bams}"
+        "sambamba sort -t {threads} -m 6G --tmpdir={params.tdir} -p -o {output} {input.bams}"

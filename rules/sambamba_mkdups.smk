@@ -13,4 +13,4 @@ rule sambamba_mkdups:
         "../envs/sambamba.yaml"
     threads: 4
     shell:
-        "sambamba markdup -t {threads} {params} --tmpdir = {params.tdir} -p {input.bams} {output} --sort-buffer-size = 6144 --overflow-list-size = 600000 --hash-table-size = 600000"
+        "sambamba markdup -t {threads} {params} --tmpdir={params.tdir} -p {input.bams} {output} --sort-buffer-size=6144 --overflow-list-size=600000 --hash-table-size=600000"
