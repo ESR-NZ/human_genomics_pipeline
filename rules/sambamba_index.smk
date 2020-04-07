@@ -11,6 +11,6 @@ rule sambamba_index:
         "../envs/sambamba.yaml"
     threads: 4
     message:
-	 "Building index files for {input.bams}"
+	    "Building index files for {input.bams}"
     shell:
         "sambamba index -t {threads} -p {input.bams}"

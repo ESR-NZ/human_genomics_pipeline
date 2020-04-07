@@ -13,6 +13,6 @@ rule sambamba_sort:
         "../envs/sambamba.yaml"
     threads: 4
     message:
-	"Sorting BAM files"
+	    "Sorting BAM files"
     shell:
         "sambamba sort -t {threads} -m 6G --tmpdir={params.tdir} -p -o {output} {input.bams}"

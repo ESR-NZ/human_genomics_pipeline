@@ -14,6 +14,6 @@ rule gatk4_recal_report:
         "../envs/gatk4.yaml"
     threads: 4
     message:
-	 "Generating a recalibration table for the following rule (Base Quality Score Recalibration)"
+	    "Generating a recalibration table for the following rule (Base Quality Score Recalibration)"
     shell:
         "gatk BaseRecalibrator --reference {params.genome} --input {input.bams} --known-sites {params.dbsnp} --output {output}"
