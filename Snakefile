@@ -11,20 +11,18 @@ Workflow diagram (specific experiment): snakemake --dag | dot -Tpng > dag.png
 
 configfile: "config.yaml"
 
-tdir = config["TEMPDIR"]
-
 # define samples from fastq dir using wildcards
 SAMPLES, = glob_wildcards("/store/lkemp/exome_project/data/exomes/fastq/{sample}_R1.fastq.gz")
 
 rule all:
     input:
-        expand("qc/fastqc/{sample}_R1_fastqc.html", sample=SAMPLES),
+        expand("qc/fastqc/{sample}_R1_fastqc.html", sample = SAMPLES),
         expand("vcf/{sample}.raw.snps.indels.AS.g.vcf", sample = SAMPLES)
 
 rule fastqc:
     input:
-        R1 = "../fastq/{sample}_R1.fastq.gz", sample=SAMPLES,
-        R2 = "../fastq/{sample}_R2.fastq.gz", sample=SAMPLES
+        R1 = "../fastq/{sample}_R1.fastq.gz", sample = SAMPLES,
+        R2 = "../fastq/{sample}_R2.fastq.gz", sample = SAMPLES
     output:
         html = ["qc/fastqc/{sample}_R1_fastqc.html", "qc/fastqc/{sample}_R2_fastqc.html"],
         zip = ["qc/fastqc/{sample}_R1_fastqc.zip", "qc/fastqc/{sample}_R2_fastqc.zip"]
@@ -51,13 +49,13 @@ rule multiqc_pre_trim:
 
 rule trim_galore_pe:
     input:
-        R1 = "../fastq/{sample}_R1.fastq.gz", sample=SAMPLES,
-        R2 = "../fastq/{sample}_R2.fastq.gz", sample=SAMPLES
+        R1 = "../fastq/{sample}_R1.fastq.gz", sample = SAMPLES,
+        R2 = "../fastq/{sample}_R2.fastq.gz", sample = SAMPLES
     output:
         "trim_galore/{sample}_R1_val_1.fq.gz",
         "trim_galore/{sample}_R2_val_2.fq.gz"
     params:
-        extra="--illumina -q 20"
+        extra = "--illumina -q 20"
     log:
         "logs/trim_galore/{sample}.log"
     benchmark:
@@ -74,7 +72,7 @@ rule bwa_map:
     output: 
         temp("mapped/{sample}_bwamem.bam")
     params:
-        genome=expand("{genome}", genome=config["GENOME"])
+        genome = expand("{genome}", genome = config["GENOME"])
     log:
         "logs/bwamem/{sample}.log"
     benchmark:
@@ -90,6 +88,8 @@ rule sambamba_sort:
         bams = "mapped/{sample}_bwamem.bam"
     output:
         temp("mapped/{sample}_bwamem_sorted.bam")
+    params:
+        tdir = expand("{tdir}", tdir = config["TEMPDIR"])
     log:
         "logs/sambamba_sort/{sample}.log"
     benchmark:
@@ -98,13 +98,15 @@ rule sambamba_sort:
         "envs/sambamba.yaml"
     threads: 4
     shell:
-        "sambamba sort -t {threads} -m 6G --tmpdir={tdir} -p -o {output} {input.bams}"
+        "sambamba sort -t {threads} -m 6G --tmpdir = {params.tdir} -p -o {output} {input.bams}"
 
 rule sambamba_mkdups:
     input:
         bams = "mapped/{sample}_bwamem_sorted.bam"
     output:
         temp("mapped/{sample}_bwamem_sorted_mkdups.bam")
+    params:
+        tdir = expand("{tdir}", tdir = config["TEMPDIR"])
     log:
         "logs/sambamba_mkdups/{sample}.log"
     benchmark:
@@ -112,9 +114,8 @@ rule sambamba_mkdups:
     conda:
         "envs/sambamba.yaml"
     threads: 4
-    params: "--sort-buffer-size=6144 --overflow-list-size=600000 --hash-table-size=600000"
     shell:
-        "sambamba markdup -t {threads} {params} --tmpdir={tdir} -p {input.bams} {output}"
+        "sambamba markdup -t {threads} {params} --tmpdir = {params.tdir} -p {input.bams} {output} --sort-buffer-size = 6144 --overflow-list-size = 600000 --hash-table-size = 600000"
 
 rule sambamba_index:
     input:
@@ -167,8 +168,8 @@ rule gatk4_recal_report:
     output:
         "mapped/{sample}_recalibration_report.grp"
     params:
-        genome=expand("{genome}", genome=config["GENOME"]),
-        dbsnp=expand("{dbsnp}", dbsnp=config["dbSNP"])
+        genome = expand("{genome}", genome = config["GENOME"]),
+        dbsnp = expand("{dbsnp}", dbsnp = config["dbSNP"])
     log:
         "logs/gatk_recalrep/{sample}.log"
     benchmark:
@@ -186,7 +187,7 @@ rule gatk4_recal:
     output:
         "mapped/{sample}_bwa_recal.bam"
     params:
-        genome=expand("{genome}", genome=config["GENOME"])
+        genome = expand("{genome}", genome = config["GENOME"])
     log:
         "logs/gatk_recal/{sample}.log"
     benchmark:
@@ -203,8 +204,9 @@ rule gatk4_HaplotypeCaller:
     output:
         "vcf/{sample}.raw.snps.indels.AS.g.vcf"
     params:
-        genome=expand("{genome}", genome=config["GENOME"]),
-        dbsnp=expand("{dbsnp}", dbsnp=config["dbSNP"])
+        genome = expand("{genome}", genome = config["GENOME"]),
+        dbsnp = expand("{dbsnp}", dbsnp = config["dbSNP"]),
+        tdir = expand("{tdir}", tdir = config["TEMPDIR"])
     log:
         "logs/gatk_haplocall/{sample}.log"
     benchmark:
@@ -213,4 +215,4 @@ rule gatk4_HaplotypeCaller:
         "envs/gatk4.yaml"
     threads: 4
     shell:
-        "gatk HaplotypeCaller --reference {params.genome} --emit-ref-confidence GVCF --dbsnp {params.dbsnp} --input {input.bams} --output {output} --tmp-dir {tdir}"
+        "gatk HaplotypeCaller --reference {params.genome} --emit-ref-confidence GVCF --dbsnp {params.dbsnp} --input {input.bams} --output {output} --tmp-dir {params.tdir}"
