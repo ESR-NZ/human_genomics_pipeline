@@ -4,7 +4,8 @@ rule sambamba_mkdups:
     output:
         temp("mapped/{sample}_bwamem_sorted_mkdups.bam")
     params:
-        tdir = expand("{tdir}", tdir = config["TEMPDIR"])
+        tdir = expand("{tdir}", tdir = config["TEMPDIR"]),
+	other = "--sort-buffer-size=6144 --overflow-list-size=600000 --hash-table-size=600000"
     log:
         "logs/sambamba_mkdups/{sample}.log"
     benchmark:
@@ -13,4 +14,4 @@ rule sambamba_mkdups:
         "../envs/sambamba.yaml"
     threads: 4
     shell:
-        "sambamba markdup -t {threads} {params} --tmpdir={params.tdir} -p {input.bams} {output} --sort-buffer-size=6144 --overflow-list-size=600000 --hash-table-size=600000"
+        "sambamba markdup -t {threads} {params.other} --tmpdir={params.tdir} -p {input.bams} {output}"
