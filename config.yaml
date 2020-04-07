@@ -1,11 +1,6 @@
-# set pipeline to run against either GRCh37 or GRCh38
-BUILD:
-  "GRCh38"
+##### set file directories #####
 
-# set file directory of downloaded public data
-PUBLICDIR:
-  "/store/lkemp/publicData/"
-
-# set temporary directory
-TEMPDIR:
-  "/store/lkemp/exome_project/tmp/"
+# links to reference human genome, dbSNP database and temporary file directory
+GENOME: "/store/lkemp/publicData/referenceGenome/gatkBundle/GRCh38/Homo_sapiens_assembly38.fasta"
+dbSNP: "/store/lkemp/publicData/dbSNP/ncbi/GRCh38/build151/GATK/All_20180418.vcf.gz"
+TEMPDIR: "/store/lkemp/exome_project/tmp/"

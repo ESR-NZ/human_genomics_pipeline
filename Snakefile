@@ -11,25 +11,7 @@ Workflow diagram (specific experiment): snakemake --dag | dot -Tpng > dag.png
 
 configfile: "config.yaml"
 
-PUBLICDIR = config["PUBLICDIR"]
-
 tdir = config["TEMPDIR"]
-
-# GRCh37
-GENOME37 = expand("{publicdir}GRCh37/ucsc.hg19.fasta", publicdir=PUBLICDIR)
-dbSNP37 = expand("{publicdir}GRCh37/All_20180423.vcf.gz", publicdir=PUBLICDIR)
-
-# GRCh38
-GENOME38 = expand("{publicdir}GRCh38/Homo_sapiens_assembly38.fasta", publicdir=PUBLICDIR)
-dbSNP38 = expand("{publicdir}GRCh38/All_20180418.vcf.gz", publicdir=PUBLICDIR)
-
-if config["BUILD"] == "GRCh37":
-    GENOME = GENOME37
-    dbSNP = dbSNP37
-elif config["BUILD"] == "GRCh38":
-    GENOME = GENOME38
-    dbSNP = dbSNP38
-else: print("ERROR: Please choose either the GRCh37 or GRCh38 reference human genome")
 
 # define samples from fastq dir using wildcards
 SAMPLES, = glob_wildcards("/store/lkemp/exome_project/data/exomes/fastq/{sample}_R1.fastq.gz")
@@ -91,16 +73,17 @@ rule bwa_map:
         R2 = "trim_galore/{sample}_R2_val_2.fq.gz"
     output: 
         temp("mapped/{sample}_bwamem.bam")
+    params:
+        genome=expand("{genome}", genome=config["GENOME"])
     log:
         "logs/bwamem/{sample}.log"
     benchmark:
         "benchmarks/bwamem/{sample}.bwamem"
     conda:
         "envs/bwa.yaml"
-    # params:
-    #     ""
     threads: 12
-    shell: "bwa mem -M -t {threads} {GENOME} {input.R1} {input.R2} | samtools view -@ {threads} -Sbh - > {output}"
+    shell: 
+        "bwa mem -M -t {threads} {params.genome} {input.R1} {input.R2} | samtools view -@ {threads} -Sbh - > {output}"
 
 rule sambamba_sort:
     input:
@@ -183,6 +166,9 @@ rule gatk4_recal_report:
         bams = "mapped/{sample}_sorted_mkdups_rgreplaced.bam"
     output:
         "mapped/{sample}_recalibration_report.grp"
+    params:
+        genome=expand("{genome}", genome=config["GENOME"]),
+        dbsnp=expand("{dbsnp}", dbsnp=config["dbSNP"])
     log:
         "logs/gatk_recalrep/{sample}.log"
     benchmark:
@@ -191,7 +177,7 @@ rule gatk4_recal_report:
         "envs/gatk4.yaml"
     threads: 4
     shell:
-        "gatk BaseRecalibrator --reference {GENOME} --input {input.bams} --known-sites {dbSNP} --output {output}"
+        "gatk BaseRecalibrator --reference {params.genome} --input {input.bams} --known-sites {params.dbsnp} --output {output}"
 
 rule gatk4_recal:
     input:
@@ -199,6 +185,8 @@ rule gatk4_recal:
         recal = "mapped/{sample}_recalibration_report.grp"
     output:
         "mapped/{sample}_bwa_recal.bam"
+    params:
+        genome=expand("{genome}", genome=config["GENOME"])
     log:
         "logs/gatk_recal/{sample}.log"
     benchmark:
@@ -207,13 +195,16 @@ rule gatk4_recal:
         "envs/gatk4.yaml"
     threads: 4
     shell:
-        "gatk ApplyBQSR --reference {GENOME} --bqsr-recal-file {input.recal} --input {input.bams} --output {output}"
+        "gatk ApplyBQSR --reference {params.genome} --bqsr-recal-file {input.recal} --input {input.bams} --output {output}"
 
 rule gatk4_HaplotypeCaller:
     input:
         bams = "mapped/{sample}_bwa_recal.bam"
     output:
         "vcf/{sample}.raw.snps.indels.AS.g.vcf"
+    params:
+        genome=expand("{genome}", genome=config["GENOME"]),
+        dbsnp=expand("{dbsnp}", dbsnp=config["dbSNP"])
     log:
         "logs/gatk_haplocall/{sample}.log"
     benchmark:
@@ -222,4 +213,4 @@ rule gatk4_HaplotypeCaller:
         "envs/gatk4.yaml"
     threads: 4
     shell:
-        "gatk HaplotypeCaller --reference {GENOME} --emit-ref-confidence GVCF --dbsnp {dbSNP} --input {input.bams} --output {output} --tmp-dir {tdir}"
+        "gatk HaplotypeCaller --reference {params.genome} --emit-ref-confidence GVCF --dbsnp {params.dbsnp} --input {input.bams} --output {output} --tmp-dir {tdir}"

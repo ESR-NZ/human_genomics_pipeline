@@ -55,15 +55,6 @@ Required folder structure:
 
 #### GRCh37
 
-Create a GRCh37 folder within a publicData folder to download the reference genome and dbSNP into
-
-```bash
-mkdir publicData
-cd publicData
-mkdir GRCh37
-cd GRCh37
-```
-
 Download the reference human genome (GRCh37) and it's associated fasta sequence dictionary file (.dict) and fasta index file (.fai) files from the [GATK resource bundle](https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle)
 
 ```bash
@@ -90,15 +81,6 @@ wget ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b151_GRCh37p13/VCF/GATK/All
 
 #### GRCh38
 
-Create a GRCh38 folder within a publicData folder to download the reference genome and dbSNP into
-
-```bash
-mkdir publicData
-cd publicData
-mkdir GRCh38
-cd GRCh38
-```
-
 Download the reference human genome (GRCh38) and it's associated fasta sequence dictionary file (.dict) and fasta index file (.fai) files from the [GATK resource bundle](https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle)
 
 ```bash
@@ -123,26 +105,7 @@ wget ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606_b151_GRCh38p7/VCF/GATK/
 
 ### 3. Set up the working environment
 
-Set the the appropriate variables in 'config.yaml'. Choose to run the pipeline against either GRCh37 or GRCh38 by setting the BUILD variable
-
-```yaml
-BUILD:
-  "GRCh38"
-```
-
-Also set the directory to your temporary files folder
-
-```yaml
-TEMPDIR:
-  "/store/lkemp/exome_project/tmp/"
-```
-
-And the file directories to the publicData folder containing the data we downloaded above
-
-```yaml
-PUBLICDIR:
-  "/store/lkemp/publicData/"
-```
+Set the the working directories in the config file (config.yaml) to the reference genome, dbSNP and a temporary file directory.
 
 Create and activate a conda environment with python and snakemake and installed
 
