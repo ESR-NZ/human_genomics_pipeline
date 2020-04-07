@@ -14,7 +14,7 @@ Workflow diagram (specific experiment): snakemake --dag | dot -Tpng > dag.png
 configfile: "config.yaml"
 
 # define samples from fastq dir using wildcards
-SAMPLES, = glob_wildcards("/store/lkemp/exome_project/data/exomes/fastq/{sample}_R1.fastq.gz")
+SAMPLES, = glob_wildcards("../fastq/{sample}_R1.fastq.gz")
 
 ##### target rules #####
 

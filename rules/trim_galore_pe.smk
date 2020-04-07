@@ -1,7 +1,7 @@
 rule trim_galore_pe:
     input:
-        R1 = "../fastq/{sample}_R1.fastq.gz", sample = SAMPLES,
-        R2 = "../fastq/{sample}_R2.fastq.gz", sample = SAMPLES
+        R1 = "../fastq/{sample}_R1.fastq.gz",
+        R2 = "../fastq/{sample}_R2.fastq.gz"
     output:
         "trim_galore/{sample}_R1_val_1.fq.gz",
         "trim_galore/{sample}_R2_val_2.fq.gz"
