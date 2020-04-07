@@ -4,7 +4,7 @@ A simple Snakemake workflow to process paired-end sequencing data (WGS) using bw
 
 - [human_genomics_pipeline](#humangenomicspipeline)
   - [workflow diagram](#workflow-diagram)
-  - [Set up and run vcf_annotation_pipeline](#set-up-and-run-vcfannotationpipeline)
+  - [Set up and run human_genomics_pipeline](#set-up-and-run-humangenomicspipeline)
     - [1. Clone pipeline](#1-clone-pipeline)
     - [2. Download reference genome and dbSNP](#2-download-reference-genome-and-dbsnp)
       - [GRCh37](#grch37)
@@ -18,7 +18,7 @@ A simple Snakemake workflow to process paired-end sequencing data (WGS) using bw
 
 <img src="rulegraph.png" class="center">
 
-## Set up and run vcf_annotation_pipeline
+## Set up and run human_genomics_pipeline
 
 - **Prerequisite software:** [Git](https://git-scm.com/), [Conda 4.8.2](https://docs.conda.io/projects/conda/en/latest/index.html), [gunzip](https://linux.die.net/man/1/gunzip), [bwa](http://bio-bwa.sourceforge.net/)
 - **Prerequisite data:** None
