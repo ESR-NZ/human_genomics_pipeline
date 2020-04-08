@@ -16,4 +16,4 @@ rule fastqc:
     message:
         "Undertaking quality control checks on raw sequence data"
     shell:
-        "fastqc {params} {input.R1} {input.R2} --outdir qc/fastqc 2> {log}"
+        "fastqc {input.R1} {input.R2} --outdir qc/fastqc 2> {log} {params}"

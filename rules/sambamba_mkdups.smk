@@ -5,7 +5,7 @@ rule sambamba_mkdups:
         temp("mapped/{sample}_bwamem_sorted_mkdups.bam")
     params:
         tdir = expand("{tdir}", tdir = config["TEMPDIR"]),
-	other = "--sort-buffer-size=6144 --overflow-list-size=600000 --hash-table-size=600000"
+        other = "--sort-buffer-size=6144 --overflow-list-size=600000 --hash-table-size=600000"
     log:
         "logs/sambamba_mkdups/{sample}.log"
     benchmark:
@@ -16,4 +16,4 @@ rule sambamba_mkdups:
     message:
 	    "Finding duplicate reads in BAM file"
     shell:
-        "sambamba markdup -t {threads} {params.other} --tmpdir={params.tdir} -p {input.bams} {output}"
+        "sambamba markdup -p {input.bams} --tmpdir={params.tdir} {params.other} -t {threads}"

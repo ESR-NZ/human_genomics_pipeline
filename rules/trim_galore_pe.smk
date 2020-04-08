@@ -6,7 +6,7 @@ rule trim_galore_pe:
         "trim_galore/{sample}_R1_val_1.fq.gz",
         "trim_galore/{sample}_R2_val_2.fq.gz"
     params:
-        extra = "--illumina -q 20"
+        extra = "--illumina --fastqc -q 20"
     log:
         "logs/trim_galore/{sample}.log"
     benchmark:
@@ -16,4 +16,4 @@ rule trim_galore_pe:
     message:
 	    "Applying quality and adapter trimming of input fastq files: {input.R1} and {input.R2}"
     shell:
-        "trim_galore --illumina --fastqc --paired {input.R1} {input.R2} --output_dir trim_galore/"
+        "trim_galore --paired {input.R1} {input.R2} --output_dir trim_galore/ {params.extra}"

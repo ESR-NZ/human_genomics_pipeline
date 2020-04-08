@@ -13,4 +13,4 @@ rule sambamba_index_rgadd:
     message:
 	    "Building index files for {input.bams}"
     shell:
-        "sambamba index -t {threads} -p {input.bams}"
+        "sambamba index -p {input.bams} -t {threads}"

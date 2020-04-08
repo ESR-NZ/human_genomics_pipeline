@@ -2,7 +2,7 @@ rule gatk4_recal_report:
     input:
         bams = "mapped/{sample}_sorted_mkdups_rgreplaced.bam"
     output:
-        "mapped/{sample}_recalibration_report.grp"
+        grp = "mapped/{sample}_recalibration_report.grp"
     params:
         genome = expand("{genome}", genome = config["GENOME"]),
         dbsnp = expand("{dbsnp}", dbsnp = config["dbSNP"])
@@ -16,4 +16,4 @@ rule gatk4_recal_report:
     message:
 	    "Generating a recalibration table for the following rule (Base Quality Score Recalibration)"
     shell:
-        "gatk BaseRecalibrator --reference {params.genome} --input {input.bams} --known-sites {params.dbsnp} --output {output}"
+        "gatk BaseRecalibrator -I {input.bams} -O {output.grp} -R {params.genome} --known-sites {params.dbsnp}"
