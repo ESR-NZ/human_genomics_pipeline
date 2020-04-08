@@ -14,7 +14,8 @@ rule gatk4_HaplotypeCaller:
         "benchmarks/gatk_haplocall/{sample}.gatkhaplocall"
     conda:
         "../envs/gatk4.yaml"
+    threads: 4
     message:
         "Calling germline SNPs and indels via local re-assembly of haplotypes"
     shell:
-        "gatk HaplotypeCaller -I {input.bams} -O {output.vcf} -R {params.genome} -D {params.dbsnp} --tmp-dir {params.tdir} -ERC {params.mode}"
+        "gatk HaplotypeCaller -I {input.bams} -O {output.vcf} -R {params.genome} -D {params.dbsnp} --tmp-dir {params.tdir} -ERC {params.mode} --native-pair-hmm-threads {threads}"
