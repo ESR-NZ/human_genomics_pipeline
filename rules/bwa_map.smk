@@ -14,6 +14,6 @@ rule bwa_map:
         "../envs/bwa.yaml"
     threads: 12
     message:
-	    "Mapping sequences against a reference human genome with BWA-MEM"
+        "Mapping sequences against a reference human genome with BWA-MEM"
     shell: 
         "bwa mem {input.R1} {input.R2} {params.genome} -t {threads} -M | samtools view -@ {threads} -Sbh - > {output}"

@@ -6,6 +6,6 @@ rule multiqc_pre_trim:
     conda:
         "../envs/multiqc.yaml"
     message:
-	    "Searching for analysis logs to compile a HTML report"
+        "Searching for analysis logs to compile a HTML report"
     shell:
         "multiqc {input.zips} --outdir {output}"

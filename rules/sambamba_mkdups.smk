@@ -14,6 +14,6 @@ rule sambamba_mkdups:
         "../envs/sambamba.yaml"
     threads: 4
     message:
-	    "Finding duplicate reads in BAM file"
+        "Finding duplicate reads in BAM file"
     shell:
         "sambamba markdup -p {input.bams} --tmpdir={params.tdir} {params.other} -t {threads}"

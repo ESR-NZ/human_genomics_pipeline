@@ -12,8 +12,7 @@ rule gatk4_recal_report:
         "benchmarks/gatk_recalrep/{sample}.gatkrecalrep"
     conda:
         "../envs/gatk4.yaml"
-    threads: 4
     message:
-	    "Generating a recalibration table for the following rule (Base Quality Score Recalibration)"
+        "Generating a recalibration table for the following rule (Base Quality Score Recalibration)"
     shell:
         "gatk BaseRecalibrator -I {input.bams} -O {output.grp} -R {params.genome} --known-sites {params.dbsnp}"

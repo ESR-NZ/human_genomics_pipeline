@@ -12,7 +12,6 @@ rule gatk4_recal:
         "benchmarks/gatk_recal/{sample}.gatkrecal"
     conda:
         "../envs/gatk4.yaml"
-    threads: 4
     message:
 	    "Applying base quality score recalibration and producing a recalibrated BAM file"
     shell:

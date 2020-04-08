@@ -14,6 +14,6 @@ rule sambamba_sort:
         "../envs/sambamba.yaml"
     threads: 4
     message:
-	    "Sorting BAM files"
+        "Sorting BAM files"
     shell:
         "sambamba sort -p {input.bams} -o {output} --tmpdir={params.tdir} -m {params.memory} -t {threads}"

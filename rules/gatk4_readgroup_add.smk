@@ -11,8 +11,7 @@ rule gatk4_readgroup_add:
         "benchmarks/gatk_readgroup/{sample}.readgroup"
     conda:
         "../envs/gatk4.yaml"
-    threads: 4
     message:
-	    "Assigning all reads to a single new read-group"
+        "Assigning all reads to a single new read-group"
     shell:
         "gatk AddOrReplaceReadGroups -I {input.bams} -O {output} {params.extra}"
