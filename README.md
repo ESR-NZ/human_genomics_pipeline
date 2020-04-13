@@ -112,7 +112,7 @@ Create and activate a conda environment with python and snakemake and installed
 ```bash
 conda create -n pipeline_env python=3.7
 conda activate pipeline_env
-conda install -c bioconda snakemake=5.10.0
+conda install -c bioconda snakemake=5.14.0
 ```
 
 ### 4. Run the pipeline
