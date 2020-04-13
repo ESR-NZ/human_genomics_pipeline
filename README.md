@@ -127,7 +127,7 @@ snakemake -r -j 24 -p --use-conda
 If necessary, the maximum number of CPU cores allocated by changing the -j flag in the snakemake program. For example to scale to run on a laptop/desktop...
 
 ```bash
-snakemake -r -j 4 -p --use-conda --use-singularity
+snakemake -r -j 4 -p --use-conda
 ```
 
 ### 5. Evaluation of a pipeline run
