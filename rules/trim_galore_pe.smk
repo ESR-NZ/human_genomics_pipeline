@@ -6,7 +6,7 @@ rule trim_galore_pe:
         "trim_galore/{sample}_R1_val_1.fq.gz",
         "trim_galore/{sample}_R2_val_2.fq.gz"
     params:
-        extra = "--illumina --fastqc -q 20 --cores 4"
+        extra = expand("{extra}", extra = config["EXTRA"])
     log:
         "logs/trim_galore/{sample}.log"
     benchmark:
