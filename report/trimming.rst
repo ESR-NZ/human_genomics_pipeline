@@ -1,1 +1,1 @@
-Results of trimming with trim_galore
+Run logs of trimming with trim_galore
