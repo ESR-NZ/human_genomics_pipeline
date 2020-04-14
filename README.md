@@ -117,11 +117,15 @@ conda install -c bioconda snakemake=5.14.0
 
 ### 4. Run the pipeline
 
-First start a dry run. If there are no issues, start a full run without the -n flag
+Choose the appropriate config file:
 
+- use 'config_GRCh37.yaml' to run the pipeline against the GRCh37 reference genome
+- use 'config_GRCh38.yaml' to run the pipeline against the GRCh38 reference genome
+
+First start a dry run. If there are no issues, start a full run without the -n flag. 
 ```bash
-snakemake -n -r -j 24 -p --use-conda
-snakemake -r -j 24 -p --use-conda
+snakemake -n -r -j 24 -p --use-conda --configfile config_GRCh38.yaml
+snakemake -r -j 24 -p --use-conda --configfile config_GRCh38.yaml
 ```
 
 If necessary, the maximum number of CPU cores allocated by changing the -j flag in the snakemake program. For example to scale to run on a laptop/desktop...

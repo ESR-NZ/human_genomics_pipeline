@@ -9,14 +9,12 @@ Rule diagram: snakemake --rulegraph | dot -Tpng > rulegraph.png
 Workflow diagram (specific experiment): snakemake --dag | dot -Tpng > dag.png
 """
 
-##### load config and other set up #####
-
-configfile: "config.yaml"
+##### Set up #####
 
 # define samples from fastq dir using wildcards
 SAMPLES, = glob_wildcards("../fastq/{sample}_R1.fastq.gz")
 
-##### target rules #####
+##### Target rules #####
 
 rule all:
     input:
