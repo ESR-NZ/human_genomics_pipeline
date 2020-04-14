@@ -3,8 +3,8 @@ Author: Miles Benton
 Affiliation: ESR
 Aim: A simple Snakemake workflow to process paired-end sequencing data (WGS) using bwa/GATK4. Designed to be used before vcf_annotation_pipeline.
 Date created: 2019-08-21
-Modified: 2020-03-24
-Run: snakemake -n -r -j 24 -p --use-conda
+Modified: 2020-04-14
+Run: snakemake -n -r -j 24 -p --use-conda --configfile config_GRCh38.yaml
 Rule diagram: snakemake --rulegraph | dot -Tpng > rulegraph.png
 Workflow diagram (specific experiment): snakemake --dag | dot -Tpng > dag.png
 """
