@@ -140,7 +140,7 @@ snakemake -r -j 4 -p --use-conda --configfile config_GRCh38.yaml
 Generate an interactive html report of the pipeline run with...
 
 ```bash
-snakemake --report report.html
+snakemake --report report.html --configfile config_GRCh38.yaml
 ```
 
 ## Useful links/papers
