@@ -131,7 +131,7 @@ snakemake -r -j 24 -p --use-conda --configfile config_GRCh38.yaml
 If necessary, the maximum number of CPU cores allocated by changing the -j flag in the snakemake program. For example to scale to run on a laptop/desktop...
 
 ```bash
-snakemake -r -j 4 -p --use-conda
+snakemake -r -j 4 -p --use-conda --configfile config_GRCh38.yaml
 ```
 
 ### 5. Evaluation of a pipeline run
