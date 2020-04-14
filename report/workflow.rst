@@ -1,0 +1,1 @@
+This genomic pipeline processes paired-end sequencing data (WGS) using bwa/GATK4.

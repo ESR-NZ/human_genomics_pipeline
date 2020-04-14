@@ -21,6 +21,10 @@ rule all:
         expand("qc/fastqc/{sample}_R1_fastqc.html", sample = SAMPLES),
         expand("vcf/{sample}.raw.snps.indels.AS.g.vcf", sample = SAMPLES)
 
+#### Set up report #####
+
+report: "report/workflow.rst"
+
 ##### load rules #####
 
 include: "rules/fastqc.smk"
