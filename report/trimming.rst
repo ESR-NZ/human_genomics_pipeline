@@ -1,0 +1,1 @@
+Results of trimming with trim_galore

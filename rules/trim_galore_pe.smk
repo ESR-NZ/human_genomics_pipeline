@@ -4,7 +4,11 @@ rule trim_galore_pe:
         R2 = "../fastq/{sample}_R2.fastq.gz"
     output:
         "trim_galore/{sample}_R1_val_1.fq.gz",
-        "trim_galore/{sample}_R2_val_2.fq.gz"
+        "trim_galore/{sample}_R2_val_2.fq.gz",
+        report("trim_galore/{sample}_R1.fastq.gz_trimming_report.txt", caption = "trimming.rst", category = "Trimming"),
+        report("trim_galore/{sample}_R2.fastq.gz_trimming_report.txt", caption = "trimming.rst", category = "Trimming"),
+        report("trim_galore/{sample}_R1_val_1_fastqc.html", caption = "posttrimming.rst", category = "Post-trimming quality"),
+        report("trim_galore/{sample}_R2_val_2_fastqc.html", caption = "posttrimming.rst", category = "Post-trimming quality")
     params:
         extra = expand("{extra}", extra = config["EXTRA"])
     log:
