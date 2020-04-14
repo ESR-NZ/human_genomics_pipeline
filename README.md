@@ -105,7 +105,12 @@ wget ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606_b151_GRCh38p7/VCF/GATK/
 
 ### 3. Set up the working environment
 
-Set the the working directories in the config file (config.yaml) to the reference genome, dbSNP and a temporary file directory.
+Choose the appropriate config file:
+
+- use 'config_GRCh37.yaml' to run the pipeline against the GRCh37 reference genome
+- use 'config_GRCh38.yaml' to run the pipeline against the GRCh38 reference genome
+
+Set the the working directories in the config file to the reference genome, dbSNP and a temporary file directory.
 
 Create and activate a conda environment with python and snakemake and installed
 
@@ -117,12 +122,8 @@ conda install -c bioconda snakemake=5.14.0
 
 ### 4. Run the pipeline
 
-Choose the appropriate config file:
+First start a dry run. If there are no issues, start a full run without the -n flag. Specify the config file to be used.
 
-- use 'config_GRCh37.yaml' to run the pipeline against the GRCh37 reference genome
-- use 'config_GRCh38.yaml' to run the pipeline against the GRCh38 reference genome
-
-First start a dry run. If there are no issues, start a full run without the -n flag. 
 ```bash
 snakemake -n -r -j 24 -p --use-conda --configfile config_GRCh38.yaml
 snakemake -r -j 24 -p --use-conda --configfile config_GRCh38.yaml
