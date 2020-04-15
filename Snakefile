@@ -19,6 +19,7 @@ SAMPLES, = glob_wildcards("../fastq/{sample}_R1.fastq.gz")
 rule all:
     input:
         expand("qc/pre_trim_multiqc/multiqc_report.html"),
+        expand("qc/post_trim_multiqc/multiqc_report.html"),
         expand("vcf/{sample}.raw.snps.indels.AS.g.vcf", sample = SAMPLES)
 
 #### Set up report #####
@@ -30,6 +31,7 @@ report: "report/workflow.rst"
 include: "rules/fastqc.smk"
 include: "rules/multiqc_pre_trim.smk"
 include: "rules/trim_galore_pe.smk"
+include: "rules/multiqc_post_trim.smk"
 include: "rules/bwa_map.smk"
 include: "rules/sambamba_sort.smk"
 include: "rules/sambamba_mkdups.smk"
