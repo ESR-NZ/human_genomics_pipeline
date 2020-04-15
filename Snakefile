@@ -18,8 +18,8 @@ SAMPLES, = glob_wildcards("../fastq/{sample}_R1.fastq.gz")
 
 rule all:
     input:
-        expand("qc/pre_trim_multiqc/multiqc_report.html"),
-        expand("qc/post_trim_multiqc/multiqc_report.html"),
+        expand("qc/pre_trim_multiqc/pre_trim_multiqc_report.html"),
+        expand("qc/post_trim_multiqc/post_trim_multiqc_report.html"),
         expand("vcf/{sample}.raw.snps.indels.AS.g.vcf", sample = SAMPLES)
 
 #### Set up report #####
