@@ -1,0 +1,1 @@
+This genomic pipeline processes paired-end sequencing data (WGS) using bwa/GATK4. It was run against the GRCh38 reference genome.

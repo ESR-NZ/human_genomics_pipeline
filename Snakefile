@@ -24,7 +24,7 @@ rule all:
 
 #### Set up report #####
 
-report: "report/workflow.rst"
+report: config["REPORTWORKFLOW"]
 
 ##### load rules #####
 

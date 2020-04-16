@@ -14,3 +14,8 @@ MODE: "GVCF"
 # rule trim_galore_pe
 # Set additional parameters. See https://github.com/FelixKrueger/TrimGalore/blob/master/Docs/Trim_Galore_User_Guide.md
 EXTRA: "--illumina --fastqc -q 20 --cores 4"
+
+##### fixed - don't change #####
+
+# Overall description of the pipeline/workflow
+REPORTWORKFLOW: "report/workflow_37.rst"
