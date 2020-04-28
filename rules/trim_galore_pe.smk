@@ -10,7 +10,7 @@ rule trim_galore_pe:
         report("trim_galore/{sample}_R1.fastq.gz_trimming_report.txt", caption = "../report/trimming.rst", category = "Trimming"),
         report("trim_galore/{sample}_R2.fastq.gz_trimming_report.txt", caption = "../report/trimming.rst", category = "Trimming")
     params:
-        extra = expand("{extra}", extra = config["EXTRA"])
+        extra = "--illumina --fastqc -q 20 --cores 4"
     log:
         "logs/trim_galore/{sample}.log"
     benchmark:

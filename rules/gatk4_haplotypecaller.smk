@@ -7,7 +7,7 @@ rule gatk4_HaplotypeCaller:
         genome = expand("{genome}", genome = config["GENOME"]),
         dbsnp = expand("{dbsnp}", dbsnp = config["dbSNP"]),
         tdir = expand("{tdir}", tdir = config["TEMPDIR"]),
-        mode = expand("{mode}", mode = config["MODE"])
+        mode = "GVCF"
     log:
         "logs/gatk_haplocall/{sample}.log"
     benchmark:
