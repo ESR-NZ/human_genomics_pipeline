@@ -1,9 +1,9 @@
 ##### set file directories #####
 
 # links to reference human genome, dbSNP database and temporary file directory
-GENOME: "/store/lkemp/publicData/referenceGenome/gatkBundle/GRCh38/Homo_sapiens_assembly38.fasta"
-dbSNP: "/store/lkemp/publicData/dbSNP/ncbi/GRCh38/build151/GATK/All_20180418.vcf.gz"
-TEMPDIR: "/store/lkemp/exome_project/tmp/"
+GENOME: "/path/to/reference/human/genome/Homo_sapiens_assembly38.fasta"
+dbSNP: "/path/to/dbSNP/database/All_20180418.vcf.gz"
+TEMPDIR: "/file/path/to/tmp/"
 
 ##### configuration #####
 
