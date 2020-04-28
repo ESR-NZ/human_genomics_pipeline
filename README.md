@@ -144,6 +144,8 @@ See the [snakemake documentation](https://snakemake.readthedocs.io/en/v4.5.1/exe
 
 ### 7. Evaluate the pipeline run
 
+Generate an interactive html report
+
 ```bash
 snakemake --report report.html --configfile config.yaml
 ```
