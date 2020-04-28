@@ -105,8 +105,8 @@ wget ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606_b151_GRCh38p7/VCF/GATK/
 
 ### 4. Choose and modify an appropriate configuration file
 
-- Use 'config_GRCh37.yaml' to run the pipeline against the GRCh37 reference genome
-- Use 'config_GRCh38.yaml' to run the pipeline against the GRCh38 reference genome
+- Use 'GRCh37_config_template.yaml' to run the pipeline against the GRCh37 reference genome
+- Use 'GRCh38_config_template.yaml' to run the pipeline against the GRCh38 reference genome
 
 Ensure this choice is defined in your configuration file. For example:
 
@@ -121,6 +121,8 @@ GENOME: "/home/lkemp/publicData/referenceGenome/Homo_sapiens_assembly38.fasta.gz
 dbSNP: "/home/lkemp/publicData/dbSNP/All_20180418.vcf.gz"
 TEMPDIR: "/home/lkemp/tmp/"
 ```
+
+Save your modified config file with a descriptive name
 
 ### 5. Create and activate a conda environment with python and snakemake and installed
 
@@ -137,13 +139,13 @@ Specify the config file to be used with the `--configfile` flag and modify the n
 Dry run:
 
 ```bash
-snakemake -n -j 24 --use-conda --configfile config.yaml
+snakemake -n -j 24 --use-conda --configfile your_config.yaml
 ```
 
 Full run:
 
 ```bash
-snakemake -j 24 --use-conda --configfile config.yaml
+snakemake -j 24 --use-conda --configfile your_config.yaml
 ```
 
 See the [snakemake documentation](https://snakemake.readthedocs.io/en/v4.5.1/executable.html) for additional run parameters.
@@ -153,7 +155,7 @@ See the [snakemake documentation](https://snakemake.readthedocs.io/en/v4.5.1/exe
 Generate an interactive html report
 
 ```bash
-snakemake --report report.html --configfile config.yaml
+snakemake --report report.html --configfile your_config.yaml
 ```
 
 ### 8. Commit and push to your forked version of the repo
