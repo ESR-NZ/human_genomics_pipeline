@@ -5,5 +5,5 @@ BUILD: "GRCh38"
 
 # links to reference human genome, dbSNP database and temporary file directory
 GENOME: "/path/to/reference/human/genome/Homo_sapiens_assembly38.fasta"
-dbSNP: "/path/to/dbSNP/database/All_20180418.vcf.gz"
+dbSNP: "/path/to/dbSNP/All_20180418.vcf.gz"
 TEMPDIR: "/file/path/to/tmp/"
