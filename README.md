@@ -16,7 +16,6 @@ A simple Snakemake workflow to process paired-end sequencing data (WGS) using bw
     - [7. Evaluate the pipeline run](#7-evaluate-the-pipeline-run)
     - [8. Commit and push to your forked version of the repo](#8-commit-and-push-to-your-forked-version-of-the-repo)
     - [9. Create a pull request with the upstream repo to merge any useful changes (optional)](#9-create-a-pull-request-with-the-upstream-repo-to-merge-any-useful-changes-optional)
-    - [10. Merge any new changes from the upstream repo to your forked repo (optional)](#10-merge-any-new-changes-from-the-upstream-repo-to-your-forked-repo-optional)
   - [Useful reading](#useful-reading)
 
 ## workflow diagram
@@ -171,10 +170,6 @@ To maintain reproducibility, commit and push:
 Contributions and feedback are more than welcome! :blush:
 
 See [here](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) for help creating a pull request.
-
-### 10. Merge any new changes from the [upstream repo](https://github.com/ESR-NZ/human_genomics_pipeline) to your forked repo (optional)
-
-See [here](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/merging-an-upstream-repository-into-your-fork) for help merging an upstream repo to your fork.
 
 ## Useful reading
 
