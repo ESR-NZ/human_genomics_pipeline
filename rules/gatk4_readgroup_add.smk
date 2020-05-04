@@ -20,5 +20,5 @@ rule gatk4_readgroup_add:
         -I {input} \
         -O {output} \
         --TMP_DIR {params.tdir} \
-        {paramsother}
+        {params.other}
         """
