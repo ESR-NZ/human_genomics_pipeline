@@ -5,7 +5,7 @@ rule gatk4_HaplotypeCaller:
         genome = expand("{genome}", genome = config["FILEDIR"]["GENOME"]),
         dbsnp = expand("{dbsnp}", dbsnp = config["FILEDIR"]["dbSNP"])
     output:
-        "vcf/{sample}.raw.snps.indels.AS.g.vcf"
+        "vcf/{sample}_raw_snps_indels_AS_g.vcf"
     params:
         tdir = expand("{tdir}", tdir = config["TEMPDIR"]),
         other = "-ERC GVCF"

@@ -21,7 +21,7 @@ rule all:
     input:
         expand("qc/multiqc/pre_trim_multiqc_report.html"),
         expand("qc/multiqc/post_trim_multiqc_report.html"),
-        expand("mapped/{sample}_bwa_recal.bam", sample = SAMPLES)
+        expand("vcf/{sample}_raw_snps_indels_AS_g.vcf", sample = SAMPLES)
 
 #### Set up report #####
 
