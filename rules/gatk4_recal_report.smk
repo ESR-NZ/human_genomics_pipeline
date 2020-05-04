@@ -4,7 +4,7 @@ rule gatk4_recal_report:
         genome = expand("{genome}", genome = config["FILEDIR"]["GENOME"]),
         dbsnp = expand("{dbsnp}", dbsnp = config["FILEDIR"]["dbSNP"])
     output:
-        "mapped/{sample}_recalibration_report.grp"
+        report("mapped/{sample}_recalibration_report.grp", caption = "../report/recalibration.rst", category = "Base recalibration")
     log:
         "logs/gatk_recalrep/{sample}.log"
     benchmark:

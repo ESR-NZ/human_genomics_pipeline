@@ -22,8 +22,8 @@ rule gatk4_HaplotypeCaller:
         """
         gatk HaplotypeCaller \
         -I {input.bams} \
-        -R {params.genome} \
-        -D {params.dbsnp} \
+        -R {input.genome} \
+        -D {input.dbsnp} \
         -O {output} \
         --tmp-dir {params.tdir} \
         -ERC {params.other} \
