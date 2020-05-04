@@ -5,8 +5,6 @@ rule gatk4_recal_report:
         dbsnp = expand("{dbsnp}", dbsnp = config["FILEDIR"]["dbSNP"])
     output:
         "mapped/{sample}_recalibration_report.grp"
-    params:
-        tdir = expand("{tdir}", tdir = config["TEMPDIR"])
     log:
         "logs/gatk_recalrep/{sample}.log"
     benchmark:
@@ -21,6 +19,5 @@ rule gatk4_recal_report:
         -I {input.bams} \
         -R {input.genome} \
         --known-sites {input.dbsnp} \
-        -O {output} \
-        --TMP_DIR {params.tdir}
+        -O {output}
         """
