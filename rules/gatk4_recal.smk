@@ -5,8 +5,6 @@ rule gatk4_recal:
         genome = expand("{genome}", genome = config["FILEDIR"]["GENOME"])
     output:
         "mapped/{sample}_bwa_recal.bam"
-    params:
-        tdir = expand("{tdir}", tdir = config["TEMPDIR"])
     log:
         "logs/gatk_recal/{sample}.log"
     benchmark:
@@ -21,6 +19,5 @@ rule gatk4_recal:
         -I {input.bams} \
         -bqsr {input.recal} \
         -R {input.genome} \
-        -O {output} \
-        --TMP_DIR {params.tdir}
+        -O {output}
         """
