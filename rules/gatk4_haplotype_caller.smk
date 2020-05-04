@@ -26,6 +26,6 @@ rule gatk4_HaplotypeCaller:
         -D {input.dbsnp} \
         -O {output} \
         --tmp-dir {params.tdir} \
-        -ERC {params.other} \
+        {params.other} \
         --native-pair-hmm-threads {threads}
         """
