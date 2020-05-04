@@ -1,6 +1,6 @@
 rule sambamba_index_rgadd:
     input:
-        bams = "mapped/{sample}_sorted_mkdups_rgreplaced.bam"
+        "mapped/{sample}_sorted_mkdups_rgreplaced.bam"
     output:
         temp("mapped/{sample}_sorted_mkdups_rgreplaced.bam.bai")
     log:
@@ -11,6 +11,6 @@ rule sambamba_index_rgadd:
         "../envs/sambamba.yaml"
     threads: 4
     message:
-        "Building index files for {input.bams}"
+        "Building index files for BAM files"
     shell:
-        "sambamba index -p {input.bams} -t {threads}"
+        "sambamba index -p {input} -t {threads}"

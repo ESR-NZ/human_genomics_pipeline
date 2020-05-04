@@ -1,0 +1,1 @@
+This genomic pipeline processes paired-end sequencing data (WGS or WES) using bwa/GATK4. This analysis was run against the {{ snakemake.config["BUILD"] }} reference genome from this directory: {{ snakemake.config["FILEDIR"]["GENOME"] }}. The pipeline also utilised the dbSNP database from this directory: {{ snakemake.config["FILEDIR"]["dbSNP"] }}.

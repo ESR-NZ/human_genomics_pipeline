@@ -1,11 +1,12 @@
 rule gatk4_recal_report:
     input:
-        bams = "mapped/{sample}_sorted_mkdups_rgreplaced.bam"
+        bams = "mapped/{sample}_sorted_mkdups_rgreplaced.bam",
+        genome = expand("{genome}", genome = config["FILEDIR"]["GENOME"]),
+        dbsnp = expand("{dbsnp}", dbsnp = config["FILEDIR"]["dbSNP"])
     output:
-        grp = "mapped/{sample}_recalibration_report.grp"
+        "mapped/{sample}_recalibration_report.grp"
     params:
-        genome = expand("{genome}", genome = config["GENOME"]),
-        dbsnp = expand("{dbsnp}", dbsnp = config["dbSNP"])
+        tdir = expand("{tdir}", tdir = config["TEMPDIR"])
     log:
         "logs/gatk_recalrep/{sample}.log"
     benchmark:
@@ -15,4 +16,11 @@ rule gatk4_recal_report:
     message:
         "Generating a recalibration table for the following rule (Base Quality Score Recalibration)"
     shell:
-        "gatk BaseRecalibrator -I {input.bams} -O {output.grp} -R {params.genome} --known-sites {params.dbsnp}"
+        """
+        gatk BaseRecalibrator \
+        -I {input.bams} \
+        -R {input.genome} \
+        --known-sites {input.dbsnp} \
+        -O {output} \
+        --TMP_DIR {params.tdir}
+        """

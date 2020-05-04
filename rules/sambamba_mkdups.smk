@@ -1,6 +1,6 @@
 rule sambamba_mkdups:
     input:
-        bams = "mapped/{sample}_bwamem_sorted.bam"
+        "mapped/{sample}_bwamem_sorted.bam"
     output:
         bam = temp("mapped/{sample}_bwamem_sorted_mkdups.bam"),
         index = temp("mapped/{sample}_bwamem_sorted_mkdups.bam.bai")
@@ -15,6 +15,6 @@ rule sambamba_mkdups:
         "../envs/sambamba.yaml"
     threads: 4
     message:
-        "Finding duplicate reads in BAM file"
+        "Finding duplicate reads in BAM files"
     shell:
-        "sambamba markdup -p {input.bams} {output.bam} --tmpdir={params.tdir} {params.other} -t {threads}"
+        "sambamba markdup -p {input} {output.bam} --tmpdir={params.tdir} {params.other} -t {threads}"

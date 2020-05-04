@@ -1,12 +1,12 @@
 rule sambamba_sort:
     input:
-        bams = "mapped/{sample}_bwamem.bam"
+        "mapped/{sample}_bwamem.bam"
     output:
-        bam = temp("mapped/{sample}_bwamem_sorted.bam"),
+        bams = temp("mapped/{sample}_bwamem_sorted.bam"),
         index = temp("mapped/{sample}_bwamem_sorted.bam.bai")
     params:
         tdir = expand("{tdir}", tdir = config["TEMPDIR"]),
-        memory = "6G"
+        other = "-m 6G"
     log:
         "logs/sambamba_sort/{sample}.log"
     benchmark:
@@ -17,4 +17,4 @@ rule sambamba_sort:
     message:
         "Sorting BAM files"
     shell:
-        "sambamba sort -p {input.bams} -o {output.bam} --tmpdir={params.tdir} -m {params.memory} -t {threads}"
+        "sambamba sort -p {input} -o {output.bams} --tmpdir={params.tdir} {params.other} -t {threads}"

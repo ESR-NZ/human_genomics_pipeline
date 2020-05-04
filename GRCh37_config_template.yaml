@@ -1,9 +1,10 @@
-# Specify the build of reference human genome used (either GRCh37 or GRCh38)
+# Specify the build of reference genome used (either 'GRCh37' or 'GRCh38')
 BUILD: "GRCh37"
 
-##### set file directories #####
+# File directories to reference genome and dbSNP database
+FILEDIR:
+  GENOME: "/path/to/reference/human/genome/ucsc.hg19.fasta"
+  dbSNP: "/path/to/dbSNP/All_20180423.vcf.gz"
 
-# links to reference human genome, dbSNP database and temporary file directory
-GENOME: "/path/to/reference/human/genome/ucsc.hg19.fasta"
-dbSNP: "/path/to/dbSNP/All_20180423.vcf.gz"
+# Temporary file directory
 TEMPDIR: "/file/path/to/tmp/"

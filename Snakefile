@@ -15,24 +15,17 @@ Workflow diagram (specific experiment): snakemake --dag --configfile your_config
 # define samples from fastq dir using wildcards
 SAMPLES, = glob_wildcards("../fastq/{sample}_R1.fastq.gz")
 
-# Define which overall workflow description should be used in the final report based on the build of reference human genome
-if config['BUILD'] == "GRCh37":
-    REPORTWORKFLOW = "report/workflow_37.rst"
-elif config['BUILD'] == "GRCh38":
-    REPORTWORKFLOW = "report/workflow_38.rst"
-else: print("ERROR: Please choose either the GRCh37 or GRCh38 build of the reference human genome")
-
 ##### Target rules #####
 
 rule all:
     input:
         expand("qc/multiqc/pre_trim_multiqc_report.html"),
         expand("qc/multiqc/post_trim_multiqc_report.html"),
-        expand("vcf/{sample}.raw.snps.indels.AS.g.vcf", sample = SAMPLES)
+        expand("mapped/{sample}_bwa_recal.bam", sample = SAMPLES)
 
 #### Set up report #####
 
-report: REPORTWORKFLOW
+report: "report/workflow.rst"
 
 ##### load rules #####
 
@@ -48,4 +41,4 @@ include: "rules/gatk4_readgroup_add.smk"
 include: "rules/sambamba_index_rgadd.smk"
 include: "rules/gatk4_recal_report.smk"
 include: "rules/gatk4_recal.smk"
-include: "rules/gatk4_haplotypecaller.smk"
+include: "rules/gatk4_haplotype_caller.smk"

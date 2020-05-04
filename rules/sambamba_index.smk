@@ -1,6 +1,6 @@
 rule sambamba_index:
     input:
-        bams = "mapped/{sample}_bwamem_sorted_mkdups.bam"
+        "mapped/{sample}_bwamem_sorted_mkdups.bam"
     output:
         temp("mapped/{sample}_bwamem_sorted_mkdups.bam.bai")
     log:
@@ -11,6 +11,6 @@ rule sambamba_index:
         "../envs/sambamba.yaml"
     threads: 4
     message:
-        "Building index files for {input.bams}"
+        "Building index files for BAM files"
     shell:
-        "sambamba index -p {input.bams} -t {threads}"
+        "sambamba index -p {input} -t {threads}"

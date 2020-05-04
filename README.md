@@ -1,6 +1,6 @@
 # human_genomics_pipeline
 
-A simple Snakemake workflow to process paired-end sequencing data (WGS) using bwa/GATK4.
+A simple Snakemake workflow to process paired-end sequencing data (WGS or WES) using bwa/GATK4.
 
 - [human_genomics_pipeline](#humangenomicspipeline)
   - [workflow diagram](#workflow-diagram)
@@ -111,14 +111,19 @@ wget ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606_b151_GRCh38p7/VCF/GATK/
 Ensure this choice is defined in your configuration file. For example:
 
 ```yaml
+# Specify the build of reference genome used (either 'GRCh37' or 'GRCh38')
 BUILD: "GRCh38"
 ```
 
 Set the the working directories in the config file to the reference human genome file, dbSNP database file and a temporary directory. For example:
 
 ```yaml
-GENOME: "/home/lkemp/publicData/referenceGenome/Homo_sapiens_assembly38.fasta.gz"
-dbSNP: "/home/lkemp/publicData/dbSNP/All_20180418.vcf.gz"
+# File directories to reference genome and dbSNP database
+FILEDIR:
+  GENOME: "/home/lkemp/publicData/referenceGenome/Homo_sapiens_assembly38.fasta.gz"
+  dbSNP: "/home/lkemp/publicData/dbSNP/All_20180418.vcf.gz"
+
+# Temporary file directory
 TEMPDIR: "/home/lkemp/tmp/"
 ```
 
