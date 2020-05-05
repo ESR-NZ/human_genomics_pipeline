@@ -1,4 +1,4 @@
-rule gatk4_recal:
+rule gatk4_ApplyBQSR:
     input:
         bams = "mapped/{sample}_sorted_mkdups_rgreplaced.bam",
         recal = "mapped/{sample}_recalibration_report.grp",

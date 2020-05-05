@@ -1,4 +1,4 @@
-rule gatk4_readgroup_add:
+rule gatk4_AddOrReplaceReadGroups:
     input:
         "mapped/{sample}_bwamem_sorted_mkdups.bam"
     output:
