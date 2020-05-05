@@ -5,7 +5,7 @@ rule sambamba_mkdups:
         bam = temp("mapped/{sample}_bwamem_sorted_mkdups.bam"),
         index = temp("mapped/{sample}_bwamem_sorted_mkdups.bam.bai")
     params:
-        tdir = expand("{tdir}", tdir = config["TEMPDIR"]),
+        tdir = expand("{tdir}", tdir = config['TEMPDIR']),
         other = "--sort-buffer-size=6144 --overflow-list-size=600000 --hash-table-size=600000"
     log:
         "logs/sambamba_mkdups/{sample}.log"

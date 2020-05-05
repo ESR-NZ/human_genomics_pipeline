@@ -5,7 +5,7 @@ rule sambamba_sort:
         bams = temp("mapped/{sample}_bwamem_sorted.bam"),
         index = temp("mapped/{sample}_bwamem_sorted.bam.bai")
     params:
-        tdir = expand("{tdir}", tdir = config["TEMPDIR"]),
+        tdir = expand("{tdir}", tdir = config['TEMPDIR']),
         other = "-m 6G"
     log:
         "logs/sambamba_sort/{sample}.log"

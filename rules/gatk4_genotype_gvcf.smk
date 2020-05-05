@@ -1,7 +1,7 @@
 rule gatk4_GenotypeGVCFs:
     input:
         vcf = "raw/{sample}_haplotype_combined.vcf",
-        genome = expand("{genome}", genome = config['FILEDIR']["GENOME"])
+        genome = expand("{genome}", genome = config['FILEDIR']['GENOME'])
     output:
         "vcf/{sample}_raw_snps_indels_AS_g.vcf"
     params:

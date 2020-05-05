@@ -4,8 +4,8 @@ rule gatk4_CombineGVCFs:
         vcf1 = "vcf/{sample}_haplotype.vcf",
         vcf2 = "vcf/{sample}_haplotype.vcf",
         vcf3 = "vcf/{sample}_haplotype.vcf",
-        genome = expand("{genome}", genome = config['FILEDIR']["GENOME"]),
-        dbsnp = expand("{dbsnp}", dbsnp = config['FILEDIR']["dbSNP"])
+        genome = expand("{genome}", genome = config['FILEDIR']['GENOME']),
+        dbsnp = expand("{dbsnp}", dbsnp = config['FILEDIR']['dbSNP'])
     output:
         temp("vcf/{sample}_haplotype_gvcf_combined.vcf")
     params:

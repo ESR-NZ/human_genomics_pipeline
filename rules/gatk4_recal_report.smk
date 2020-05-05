@@ -1,8 +1,8 @@
 rule gatk4_recal_report:
     input:
         bams = "mapped/{sample}_sorted_mkdups_rgreplaced.bam",
-        genome = expand("{genome}", genome = config["FILEDIR"]["GENOME"]),
-        dbsnp = expand("{dbsnp}", dbsnp = config["FILEDIR"]["dbSNP"])
+        genome = expand("{genome}", genome = config['FILEDIR']['GENOME']),
+        dbsnp = expand("{dbsnp}", dbsnp = config['FILEDIR']['dbSNP'])
     output:
         report("mapped/{sample}_recalibration_report.grp", caption = "../report/recalibration.rst", category = "Base recalibration")
     log:

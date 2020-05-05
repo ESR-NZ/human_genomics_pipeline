@@ -2,7 +2,7 @@ rule gatk4_recal:
     input:
         bams = "mapped/{sample}_sorted_mkdups_rgreplaced.bam",
         recal = "mapped/{sample}_recalibration_report.grp",
-        genome = expand("{genome}", genome = config["FILEDIR"]["GENOME"])
+        genome = expand("{genome}", genome = config['FILEDIR']['GENOME'])
     output:
         "mapped/{sample}_bwa_recal.bam"
     log:
