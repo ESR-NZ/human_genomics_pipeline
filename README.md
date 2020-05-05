@@ -144,13 +144,13 @@ Specify the config file to be used with the `--configfile` flag and modify the n
 Dry run:
 
 ```bash
-snakemake -n -j 24 --use-conda --configfile your_config.yaml
+snakemake -n -j 24 --use-conda --configfile config.yaml
 ```
 
 Full run:
 
 ```bash
-snakemake -j 24 --use-conda --configfile your_config.yaml
+snakemake -j 24 --use-conda --configfile config.yaml
 ```
 
 See the [snakemake documentation](https://snakemake.readthedocs.io/en/v4.5.1/executable.html) for additional run parameters.
@@ -160,7 +160,7 @@ See the [snakemake documentation](https://snakemake.readthedocs.io/en/v4.5.1/exe
 Generate an interactive html report
 
 ```bash
-snakemake --report report.html --configfile your_config.yaml --report-stylesheet custom-stylesheet.css
+snakemake --report report.html --configfile config.yaml --report-stylesheet custom-stylesheet.css
 ```
 
 ### 8. Commit and push to your forked version of the repo
