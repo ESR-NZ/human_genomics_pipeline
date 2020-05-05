@@ -1,0 +1,10 @@
+#brand {
+  margin: auto;
+  height: 30px;
+  width: 311px;
+  background-color: #FFFFFF;
+  background-repeat: no-repeat;
+  background-size: 79px 30px;
+  background-position: center;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/f/f8/ESR_New_Zealand_logo.jpg");
+}

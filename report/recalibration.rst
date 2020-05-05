@@ -1,1 +1,1 @@
-Base Quality Score Recalibration report
+`Base Quality Score Recalibration <https://gatk.broadinstitute.org/hc/en-us/articles/360042477672-BaseRecalibrator>`_ report

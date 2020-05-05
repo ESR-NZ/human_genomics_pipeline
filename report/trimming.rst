@@ -1,1 +1,0 @@
-Run logs of trimming with trim_galore

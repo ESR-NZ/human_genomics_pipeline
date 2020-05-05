@@ -1,1 +1,0 @@
-FastQC report (compiled into a MultiQC report) providing general statistics on the sequence data
