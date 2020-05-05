@@ -1,9 +1,9 @@
 rule gatk4_CombineGVCFs:
     input:
         # Fix wildcard naming of three input vcfs
-        vcf1 = "vcf/{sample}_haplotype.vcf",
-        vcf2 = "vcf/{sample}_haplotype.vcf",
-        vcf3 = "vcf/{sample}_haplotype.vcf",
+        vcf1 = "vcf/{cohort}_{sample}_haplotype.vcf",
+        vcf2 = "vcf/{cohort}_{sample}_haplotype.vcf",
+        vcf3 = "vcf/{cohort}_{sample}_haplotype.vcf",
         genome = expand("{genome}", genome = config['FILEDIR']['GENOME']),
         dbsnp = expand("{dbsnp}", dbsnp = config['FILEDIR']['dbSNP'])
     output:

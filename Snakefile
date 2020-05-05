@@ -13,8 +13,13 @@ Workflow diagram (specific experiment): snakemake --dag --configfile config.yaml
 
 ##### Set up #####
 
-# define samples from fastq dir using wildcards
-SAMPLES, = glob_wildcards("../fastq/{sample}_R1.fastq.gz")
+# define single or cohort samples from fastq dir using wildcards
+if config['DATA'] == "Single":
+    SAMPLES, = glob_wildcards("../fastq/{sample}_R1.fastq.gz")
+elif config['DATA'] == "Cohort":
+    # Fix cohort wildcard
+    SAMPLES, = glob_wildcards("../fastq/{cohort}_R1.fastq.gz")
+else: print("ERROR: Please check your configuration settings")
 
 ##### Target rules #####
 
@@ -45,7 +50,8 @@ include: "rules/gatk_apply_bqsr.smk"
 
 if config['DATA'] == "Single":
     include: "rules/gatk_haplotype_caller_single.smk"
-elif config['DATA'] == "Cohort":
+
+if config['DATA'] == "Cohort":
     include: "rules/gatk_haplotype_caller_gvcf.smk"
-    include: "rules/gatk_combine_gvcf"
-    include: "rules/gatk_genotype_gvcf"
+    include: "rules/gatk_combine_gvcf.smk"
+    include: "rules/gatk_genotype_gvcf.smk"
