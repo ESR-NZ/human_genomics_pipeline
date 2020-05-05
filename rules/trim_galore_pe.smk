@@ -7,8 +7,8 @@ rule trim_galore_pe:
         "trim_galore/{sample}_R2_val_2.fq.gz",
         "trim_galore/{sample}_R1_val_1_fastqc.zip",
         "trim_galore/{sample}_R2_val_2_fastqc.zip",
-        report("trim_galore/{sample}_R1.fastq.gz_trimming_report.txt", caption = "../report/trimming.rst", category = "Trimming"),
-        report("trim_galore/{sample}_R2.fastq.gz_trimming_report.txt", caption = "../report/trimming.rst", category = "Trimming")
+        report("trim_galore/{sample}_R1.fastq.gz_trimming_report.txt", caption = "../report/trimming_R1.rst", category = "Trimming"),
+        report("trim_galore/{sample}_R2.fastq.gz_trimming_report.txt", caption = "../report/trimming_R2.rst", category = "Trimming")
     params:
         "--illumina --fastqc -q 20 --cores 4"
     log:

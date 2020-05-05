@@ -14,10 +14,4 @@ rule gatk4_recal:
     message:
 	    "Applying base quality score recalibration and producing a recalibrated BAM file"
     shell:
-        """
-        gatk ApplyBQSR \
-        -I {input.bams} \
-        -bqsr {input.recal} \
-        -R {input.genome} \
-        -O {output}
-        """
+        "gatk ApplyBQSR -I {input.bams} -bqsr {input.recal} -R {input.genome} -O {output}"

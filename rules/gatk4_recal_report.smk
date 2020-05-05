@@ -14,10 +14,4 @@ rule gatk4_recal_report:
     message:
         "Generating a recalibration table for the following rule (Base Quality Score Recalibration)"
     shell:
-        """
-        gatk BaseRecalibrator \
-        -I {input.bams} \
-        -R {input.genome} \
-        --known-sites {input.dbsnp} \
-        -O {output}
-        """
+        "gatk BaseRecalibrator -I {input.bams} -R {input.genome} --known-sites {input.dbsnp} -O {output}"
