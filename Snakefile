@@ -6,7 +6,7 @@ Date created: 2019-08-21
 Modified: 2020-04-29
 Dry run: snakemake -n -j 24 --use-conda --configfile config.yaml
 Full run: snakemake -j 24 --use-conda --configfile config.yaml
-Report: snakemake --report report.html --configfile config.yaml --report-stylesheet custom-stylesheet.css
+Report: snakemake --report report.html --configfile config.yaml --report-stylesheet stylesheet.css
 Rule diagram: snakemake --rulegraph --configfile config.yaml | dot -Tpng > rulegraph.png
 Workflow diagram (specific experiment): snakemake --dag --configfile config.yaml | dot -Tpng > dag.png
 """

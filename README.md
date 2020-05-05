@@ -160,7 +160,7 @@ See the [snakemake documentation](https://snakemake.readthedocs.io/en/v4.5.1/exe
 Generate an interactive html report
 
 ```bash
-snakemake --report report.html --configfile config.yaml --report-stylesheet custom-stylesheet.css
+snakemake --report report.html --configfile config.yaml --report-stylesheet stylesheet.css
 ```
 
 ### 8. Commit and push to your forked version of the repo
