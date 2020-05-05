@@ -4,10 +4,11 @@ Affiliation: ESR
 Aim: A simple Snakemake workflow to process paired-end sequencing data (WGS) using bwa/GATK4. Designed to be used before vcf_annotation_pipeline.
 Date created: 2019-08-21
 Modified: 2020-04-29
-Dry run: snakemake -n -j 24 --use-conda --configfile your_config.yaml
-Full run: snakemake -j 24 --use-conda --configfile your_config.yaml
-Rule diagram: snakemake --rulegraph --configfile your_config.yaml | dot -Tpng > rulegraph.png
-Workflow diagram (specific experiment): snakemake --dag --configfile your_config.yaml | dot -Tpng > dag.png
+Dry run: snakemake -n -j 24 --use-conda --configfile config.yaml
+Full run: snakemake -j 24 --use-conda --configfile config.yaml
+Report: snakemake --report report.html --configfile config.yaml --report-stylesheet custom-stylesheet.css
+Rule diagram: snakemake --rulegraph --configfile config.yaml | dot -Tpng > rulegraph.png
+Workflow diagram (specific experiment): snakemake --dag --configfile config.yaml | dot -Tpng > dag.png
 """
 
 ##### Set up #####
@@ -41,4 +42,10 @@ include: "rules/gatk4_readgroup_add.smk"
 include: "rules/sambamba_index_rgadd.smk"
 include: "rules/gatk4_recal_report.smk"
 include: "rules/gatk4_recal.smk"
-include: "rules/gatk4_haplotype_caller.smk"
+
+if config['DATA'] == "Single":
+    include: "rules/gatk4_haplotype_caller_single.smk"
+elif config['DATA'] == "Cohort":
+    include: "rules/gatk4_haplotype_caller_gvcf.smk"
+    include: "rules/gatk4_combine_gvcf"
+    include: "rules/gatk4_genotype_gvcf"

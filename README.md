@@ -10,7 +10,7 @@ A simple Snakemake workflow to process paired-end sequencing data (WGS or WES) u
     - [3. Create a local copy of the reference human genome and dbSNP database (either GRCh37 or GRCh38)](#3-create-a-local-copy-of-the-reference-human-genome-and-dbsnp-database-either-grch37-or-grch38)
       - [GRCh37](#grch37)
       - [GRCh38](#grch38)
-    - [4. Choose and modify an appropriate configuration file](#4-choose-and-modify-an-appropriate-configuration-file)
+    - [4. Modify the configuration file](#4-modify-the-configuration-file)
     - [5. Create and activate a conda environment with python and snakemake and installed](#5-create-and-activate-a-conda-environment-with-python-and-snakemake-and-installed)
     - [6. Run the pipeline](#6-run-the-pipeline)
     - [7. Evaluate the pipeline run](#7-evaluate-the-pipeline-run)
@@ -103,16 +103,16 @@ wget ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606_b151_GRCh38p7/VCF/GATK/
 wget ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606_b151_GRCh38p7/VCF/GATK/All_20180418.vcf.gz.tbi
 ```
 
-### 4. Choose and modify an appropriate configuration file
+### 4. Modify the configuration file
 
-- Use 'GRCh37_config_template.yaml' to run the pipeline against the GRCh37 reference genome
-- Use 'GRCh38_config_template.yaml' to run the pipeline against the GRCh38 reference genome
-
-Ensure this choice is defined in your configuration file. For example:
+Specify whether you are running your analysis against the GRCh37 or GRCh38 build of the reference genome and whether the data is a part of a cohort or not. For example:
 
 ```yaml
 # Specify the build of reference genome used (either 'GRCh37' or 'GRCh38')
 BUILD: "GRCh38"
+
+# Specify the type of input data (either 'Single' or 'Cohort')
+DATA: "Single"
 ```
 
 Set the the working directories in the config file to the reference human genome file, dbSNP database file and a temporary directory. For example:
@@ -160,7 +160,7 @@ See the [snakemake documentation](https://snakemake.readthedocs.io/en/v4.5.1/exe
 Generate an interactive html report
 
 ```bash
-snakemake --report report.html --configfile your_config.yaml
+snakemake --report report.html --configfile your_config.yaml --report-stylesheet custom-stylesheet.css
 ```
 
 ### 8. Commit and push to your forked version of the repo
