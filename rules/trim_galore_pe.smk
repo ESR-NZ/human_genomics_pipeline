@@ -14,7 +14,7 @@ rule trim_galore_pe:
     log:
         "logs/trim_galore/{sample}.log"
     benchmark:
-        report("benchmarks/trim_galore/{sample}.trim", caption = benchmarking.rst, category = "Benchmarking")
+        report("benchmarks/trim_galore/{sample}.trim", caption = "../report/benchmarking.rst", category = "Benchmarking")
     conda:
         "../envs/trim_galore.yaml"
     message:

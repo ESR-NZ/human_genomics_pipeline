@@ -11,7 +11,7 @@ rule gatk4_GenotypeGVCFs:
     log:
         "logs/gatk_genotype_gvcf/{sample}.log"
     benchmark:
-        report("benchmarks/gatk_genotype_gvcf/{sample}.gatkgenotypegvcf", caption = benchmarking.rst, category = "Benchmarking")
+        report("benchmarks/gatk_genotype_gvcf/{sample}.gatkgenotypegvcf", caption = "../report/benchmarking.rst", category = "Benchmarking")
     conda:
         "../envs/gatk4.yaml"
     message:
