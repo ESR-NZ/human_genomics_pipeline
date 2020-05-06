@@ -1,6 +1,6 @@
 rule bwa_map:
     input:
-        genome = expand("{genome}", genome = config['FILEDIR']['GENOME']),
+        genome = expand("{refgenome}", refgenome = config['REFGENOME']),
         R1 = "trim_galore/{sample}_R1_val_1.fq.gz",
         R2 = "trim_galore/{sample}_R2_val_2.fq.gz"
     output: 
@@ -15,4 +15,4 @@ rule bwa_map:
     message:
         "Mapping sequences against a reference human genome with BWA-MEM"
     shell: 
-        "bwa mem {input.genome} {input.R1} {input.R2} -t {threads} -M | samtools view -@ {threads} -Sbh - > {output}"
+        "bwa mem {input.refgenome} {input.R1} {input.R2} -t {threads} -M | samtools view -@ {threads} -Sbh - > {output}"

@@ -3,7 +3,7 @@ rule gatk4_ApplyBQSR:
         bams = "mapped/{sample}_sorted_mkdups_rgreplaced.bam",
         index = "mapped/{sample}_sorted_mkdups_rgreplaced.bam.bai",
         recal = "mapped/{sample}_recalibration_report.grp",
-        genome = expand("{genome}", genome = config['FILEDIR']['GENOME'])
+        genome = expand("{refgenome}", refgenome = config['REFGENOME'])
     output:
         "mapped/{sample}_bwa_recal.bam"
     params:
@@ -18,4 +18,4 @@ rule gatk4_ApplyBQSR:
     message:
 	    "Applying base quality score recalibration and producing a recalibrated BAM file"
     shell:
-        "gatk ApplyBQSR -I {input.bams} -bqsr {input.recal} -R {input.genome} -O {output} {params.padding} {params.intervals}"
+        "gatk ApplyBQSR -I {input.bams} -bqsr {input.recal} -R {input.refgenome} -O {output} {params.padding} {params.intervals}"

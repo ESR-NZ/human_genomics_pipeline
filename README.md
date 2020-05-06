@@ -105,37 +105,32 @@ wget ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606_b151_GRCh38p7/VCF/GATK/
 
 ### 4. Modify the configuration file
 
-Specify whether you are running your analysis against the GRCh37 or GRCh38 build of the reference genome, whether the data is to be analysed on it's own ('Single') or as a part of a cohort ('Cohort') and whether the data was produced with Whole Genome Sequencing ('WGS') or Whole Exome Sequencing ('WES'). For example:
+Specify whether you are running your analysis against the GRCh37 or GRCh38 build of the reference genome and whether the data is to be analysed on it's own ('Single') or as a part of a cohort ('Cohort'). For example:
 
 ```yaml
-# Specify the build of reference genome used (either 'GRCh37' or 'GRCh38')
-BUILD: "GRCh38"
-
 # Specify the type of input data (either 'Single' or 'Cohort')
 DATA: "Single"
-
-# Specify the sequencing type (either 'WES' or 'WGS')
-SEQUENCING: "WES"
 ```
 
-If analysing WES data, pass a design file (.bed) indicating the genomic regions that were sequenced (see [here](https://leahkemp.github.io/documentation/human_genomic_pipelines/design_files.html) for more information on accessing design files). Also set the level of padding. For example:
+If analysing whole exome sequencing (WES) data, pass a design file (.bed) indicating the genomic regions that were sequenced (see [here](https://leahkemp.github.io/documentation/human_genomic_pipelines/design_files.html) for more information on accessing design files). Also set the level of padding. For example:
+
+*Note: If not analysing WES data, leave these fields blanks*
 
 ```yaml
 WES:
-  # These setting apply to WES (leave blank if analysing WGS)
+  # These setting apply to WES (leave blank if NOT analysing WES)
   # Genomic intervals over which to operate
-  INTERVALS: "-L /home/lkemp/publicData/sure_select_human_all_exon_V7/S31285117_hs_hg38/S31285117_AllTracks.bed"
+  INTERVALS: "-L /home/lkemp/publicData/sure_select_human_all_exon_V7/S31285117_AllTracks.bed"
   # Amount of padding (in bp) to add to each interval
   PADDING: "-ip 100"
 ```
 
-Set the the working directories in the config file to the reference human genome file, dbSNP database file and a temporary directory. For example:
+Set the the working directories in the config file to the reference human genome file (GRCh37 or GRCh38), dbSNP database file (GRCh37 or GRCh38) and a temporary directory. For example:
 
 ```yaml
 # File directories to reference genome and dbSNP database
-FILEDIR:
-  GENOME: "/home/lkemp/publicData/referenceGenome/Homo_sapiens_assembly38.fasta.gz"
-  dbSNP: "/home/lkemp/publicData/dbSNP/All_20180418.vcf.gz"
+REFGENOME: "/home/lkemp/publicData/referenceGenome/Homo_sapiens_assembly38.fasta.gz"
+dbSNP: "/home/lkemp/publicData/dbSNP/All_20180418.vcf.gz"
 
 # Temporary file directory
 TEMPDIR: "/home/lkemp/tmp/"

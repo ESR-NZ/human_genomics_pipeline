@@ -1,8 +1,8 @@
 rule gatk4_HaplotypeCaller_GVCF:
     input:
         bams = "mapped/{sample}_bwa_recal.bam",
-        genome = expand("{genome}", genome = config['FILEDIR']['GENOME']),
-        dbsnp = expand("{dbsnp}", dbsnp = config['FILEDIR']['dbSNP'])
+        genome = expand("{refgenome}", refgenome = config['REFGENOME']),
+        dbsnp = expand("{dbsnp}", dbsnp = config['dbSNP'])
     output:
         "vcf/{sample}_haplotype_gvcf.vcf"
     params:
@@ -20,4 +20,4 @@ rule gatk4_HaplotypeCaller_GVCF:
     message:
         "Calling germline SNPs and indels via local re-assembly of haplotypes"
     shell:
-        "gatk HaplotypeCaller -I {input.bams} -R {input.genome} -D {input.dbsnp} -O {output} --tmp-dir {params.tdir} --native-pair-hmm-threads {threads} {params.padding} {params.intervals} {params.other}"
+        "gatk HaplotypeCaller -I {input.bams} -R {input.refgenome} -D {input.dbsnp} -O {output} --tmp-dir {params.tdir} --native-pair-hmm-threads {threads} {params.padding} {params.intervals} {params.other}"

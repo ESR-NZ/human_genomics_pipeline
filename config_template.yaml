@@ -1,23 +1,16 @@
-# Specify the build of reference human genome used (either GRCh37 or GRCh38)
-BUILD: "GRCh38"
-
 # Specify the type of input data (either 'Single' or 'Cohort')
 DATA: "Single"
 
-# Specify the sequencing type (either 'WES' or 'WGS')
-SEQUENCING: "WES"
+# File directories to reference genome and dbSNP database
+GENOME: "/path/to/reference/human/genome/Homo_sapiens_assembly38.fasta"
+dbSNP: "/path/to/dbSNP/All_20180418.vcf.gz"
+
+# Temporary file directory
+TEMPDIR: "/file/path/to/tmp/"
 
 WES:
-  # These setting apply to WES (leave blank if analysing WGS)
+  # These setting apply to WES (leave blank if NOT analysing WES)
   # Genomic intervals over which to operate
   INTERVALS: "-L /path/to/regions/.bed"
   # Amount of padding (in bp) to add to each interval
   PADDING: "-ip 100"
-
-# File directories to reference genome and dbSNP database
-FILEDIR:
-  GENOME: "/path/to/reference/human/genome/Homo_sapiens_assembly38.fasta"
-  dbSNP: "/path/to/dbSNP/All_20180418.vcf.gz"
-
-# Temporary file directory
-TEMPDIR: "/file/path/to/tmp/"

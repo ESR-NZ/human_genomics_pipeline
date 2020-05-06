@@ -4,8 +4,8 @@ rule gatk4_CombineGVCFs:
         vcf1 = "vcf/{cohort}_{sample}_haplotype.vcf",
         vcf2 = "vcf/{cohort}_{sample}_haplotype.vcf",
         vcf3 = "vcf/{cohort}_{sample}_haplotype.vcf",
-        genome = expand("{genome}", genome = config['FILEDIR']['GENOME']),
-        dbsnp = expand("{dbsnp}", dbsnp = config['FILEDIR']['dbSNP'])
+        genome = expand("{refgenome}", refgenome = config['GENOME']),
+        dbsnp = expand("{dbsnp}", dbsnp = config['dbSNP'])
     output:
         temp("vcf/{sample}_haplotype_gvcf_combined.vcf")
     params:
@@ -23,5 +23,5 @@ rule gatk4_CombineGVCFs:
     shell: 
         """
         gatk --java-options "-Xmx64g -Xms64g" CombineGVCFs \
-        -R {input.genome} --variant {input.vcf1} --variant {input.vcf2} --variant {input.vcf3} -O {output} {params.padding} {params.intervals} {params.other}
+        -R {input.refgenome} --variant {input.vcf1} --variant {input.vcf2} --variant {input.vcf3} -O {output} {params.padding} {params.intervals} {params.other}
         """
