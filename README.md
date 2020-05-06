@@ -118,7 +118,7 @@ DATA: "Single"
 SEQUENCING: "WES"
 ```
 
-If analysing WES data, set the level of padding and pass a .bed file indicating the genomic regions that were sequenced. For example:
+If analysing WES data, pass a bed file (.bed) indicating the genomic regions that were sequenced. Also set the level of padding. For example:
 
 ```yaml
 WES:
