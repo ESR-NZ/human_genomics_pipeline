@@ -8,7 +8,7 @@ rule gatk4_HaplotypeCaller_GVCF:
     params:
         tdir = expand("{tdir}", tdir = config['TEMPDIR']),
         padding = expand("{padding}", padding = config['WES']['PADDING']),
-        intervals = expand("{intervals}", intervals = config['WES']['INTERVALS'])
+        intervals = expand("{intervals}", intervals = config['WES']['INTERVALS']),
         other = "-ERC GVCF"
     log:
         "logs/gatk_haplocall/{sample}.log"

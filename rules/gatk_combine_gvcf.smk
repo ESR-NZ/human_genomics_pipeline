@@ -4,7 +4,7 @@ rule gatk4_CombineGVCFs:
         vcf1 = "vcf/{cohort}_{sample}_haplotype.vcf",
         vcf2 = "vcf/{cohort}_{sample}_haplotype.vcf",
         vcf3 = "vcf/{cohort}_{sample}_haplotype.vcf",
-        refgenome = expand("{refgenome}", refgenome = config['GENOME']),
+        refgenome = expand("{refgenome}", refgenome = config['REFGENOME']),
         dbsnp = expand("{dbsnp}", dbsnp = config['dbSNP'])
     output:
         temp("vcf/{sample}_haplotype_gvcf_combined.vcf")
