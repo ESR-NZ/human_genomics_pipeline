@@ -15,7 +15,7 @@ rule gatk4_CombineGVCFs:
     log:
         "logs/gatk_combinegvcf/{sample}.log"
     benchmark:
-        "benchmarks/gatk_combinegvcf/{sample}.gatkcombinegvcf"
+        report("benchmarks/gatk_combinegvcf/{sample}.gatkcombinegvcf", caption = benchmarking.rst, category = "Benchmarking")
     conda:
         "../envs/gatk4.yaml"
     message:

@@ -13,7 +13,7 @@ Workflow diagram (specific experiment): snakemake --dag --configfile config.yaml
 
 ##### Set up #####
 
-# define single or cohort samples from fastq dir using wildcards
+# Define single or cohort samples from fastq dir using wildcards
 if config['DATA'] == "Single":
     SAMPLES, = glob_wildcards("../fastq/{sample}_R1.fastq.gz")
 elif config['DATA'] == "Cohort":

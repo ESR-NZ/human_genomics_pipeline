@@ -10,7 +10,7 @@ rule sambamba_mkdups:
     log:
         "logs/sambamba_mkdups/{sample}.log"
     benchmark:
-        "benchmarks/sambamba_mkdups/{sample}.sambamba"
+        report("benchmarks/sambamba_mkdups/{sample}.sambamba", caption = benchmarking.rst, category = "Benchmarking")
     conda:
         "../envs/sambamba.yaml"
     threads: 4

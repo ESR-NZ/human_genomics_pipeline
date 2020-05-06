@@ -8,7 +8,7 @@ rule fastqc:
     log:
         "logs/fastqc/{sample}.log"
     benchmark:
-        "benchmarks/fastqc/{sample}.fastqc"
+        report("benchmarks/fastqc/{sample}.fastqc", caption = benchmarking.rst, category = "Benchmarking")
     conda:
         "../envs/fastqc.yaml"
     threads: 4

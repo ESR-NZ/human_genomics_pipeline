@@ -12,7 +12,7 @@ rule gatk4_BaseRecalibrator:
     log:
         "logs/gatk_recalrep/{sample}.log"
     benchmark:
-        "benchmarks/gatk_recalrep/{sample}.gatkrecalrep"
+        report("benchmarks/gatk_recalrep/{sample}.gatkrecalrep", caption = benchmarking.rst, category = "Benchmarking")
     conda:
         "../envs/gatk4.yaml"
     message:

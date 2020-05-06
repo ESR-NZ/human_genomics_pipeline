@@ -10,7 +10,7 @@ rule sambamba_sort:
     log:
         "logs/sambamba_sort/{sample}.log"
     benchmark:
-        "benchmarks/sambamba_sort/{sample}.sambamba"
+        report("benchmarks/sambamba_sort/{sample}.sambamba", caption = benchmarking.rst, category = "Benchmarking")
     conda:
         "../envs/sambamba.yaml"
     threads: 4
