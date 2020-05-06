@@ -1,6 +1,7 @@
 rule gatk4_ApplyBQSR:
     input:
         bams = "mapped/{sample}_sorted_mkdups_rgreplaced.bam",
+        index = "mapped/{sample}_sorted_mkdups_rgreplaced.bam.bai",
         recal = "mapped/{sample}_recalibration_report.grp",
         genome = expand("{genome}", genome = config['FILEDIR']['GENOME'])
     output:
