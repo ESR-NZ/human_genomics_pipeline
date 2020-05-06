@@ -118,7 +118,7 @@ DATA: "Single"
 SEQUENCING: "WES"
 ```
 
-If analysing WES data, pass a bed file (.bed) indicating the genomic regions that were sequenced. Also set the level of padding. For example:
+If analysing WES data, pass a design file (.bed) indicating the genomic regions that were sequenced (see [here](https://leahkemp.github.io/documentation/human_genomic_pipelines/design_files.html) for more information on accessing design files). Also set the level of padding. For example:
 
 ```yaml
 WES:
