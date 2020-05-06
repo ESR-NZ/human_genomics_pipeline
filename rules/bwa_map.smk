@@ -8,7 +8,7 @@ rule bwa_map:
     log:
         "logs/bwamem/{sample}.log"
     benchmark:
-        report("benchmarks/bwamem/{sample}.bwamem", caption = "../report/benchmarking.rst", category = "Benchmarking")
+        "benchmarks/bwamem/{sample}.bwamem"
     conda:
         "../envs/bwa.yaml"
     threads: 12

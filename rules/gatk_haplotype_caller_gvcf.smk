@@ -13,7 +13,7 @@ rule gatk4_HaplotypeCaller_GVCF:
     log:
         "logs/gatk_haplocall/{sample}.log"
     benchmark:
-        report("benchmarks/gatk_haplocall/{sample}.gatkhaplocall", caption = "../report/benchmarking.rst", category = "Benchmarking")
+        "benchmarks/gatk_haplocall/{sample}.gatkhaplocall"
     conda:
         "../envs/gatk4.yaml"
     threads: 4

@@ -12,7 +12,7 @@ rule gatk4_ApplyBQSR:
     log:
         "logs/gatk_recal/{sample}.log"
     benchmark:
-        report("benchmarks/gatk_recal/{sample}.gatkrecal", caption = "../report/benchmarking.rst", category = "Benchmarking")
+        "benchmarks/gatk_recal/{sample}.gatkrecal"
     conda:
         "../envs/gatk4.yaml"
     message:

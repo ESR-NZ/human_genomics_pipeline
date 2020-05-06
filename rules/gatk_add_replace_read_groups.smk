@@ -9,7 +9,7 @@ rule gatk4_AddOrReplaceReadGroups:
     log:
         "logs/gatk_readgroup/{sample}.log"
     benchmark:
-        report("benchmarks/gatk_readgroup/{sample}.readgroup", caption = "../report/benchmarking.rst", category = "Benchmarking")
+        "benchmarks/gatk_readgroup/{sample}.readgroup"
     conda:
         "../envs/gatk4.yaml"
     message:

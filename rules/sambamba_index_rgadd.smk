@@ -6,7 +6,7 @@ rule sambamba_index_rgadd:
     log:
         "logs/sambamba_index/{sample}_rg.log"
     benchmark:
-        report("benchmarks/sambamba_index/{sample}_rg.sambamba", caption = "../report/benchmarking.rst", category = "Benchmarking")
+        "benchmarks/sambamba_index/{sample}_rg.sambamba"
     conda:
         "../envs/sambamba.yaml"
     threads: 4
