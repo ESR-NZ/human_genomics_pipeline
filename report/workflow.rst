@@ -3,3 +3,4 @@ human_genomics_pipeline processes paired-end sequencing data (WGS or WES) using 
 Run parameters:
     * Reference genome build: {{ snakemake.config["BUILD"] }}
     * Input data type: {{ snakemake.config["DATA"] }}
+    * Sequencing type {{ snakemake.config["SEQUENCING"] }}
