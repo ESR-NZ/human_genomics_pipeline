@@ -5,7 +5,9 @@ rule gatk4_GenotypeGVCFs:
     output:
         "vcf/{sample}_raw_snps_indels_AS_g.vcf"
     params:
-        "-G StandardAnnotation -G AS_StandardAnnotation"
+        padding = expand("{padding}", padding = config['WES']['PADDING']),
+        intervals = expand("{intervals}", intervals = config['WES']['INTERVALS']),
+        other = "-G StandardAnnotation -G AS_StandardAnnotation"
     log:
         "logs/gatk_genotype_gvcf/{sample}.log"
     benchmark:
@@ -17,5 +19,5 @@ rule gatk4_GenotypeGVCFs:
     shell:
         """
         gatk --java-options "-Xmx64g -Xms64g" GenotypeGVCFs \
-            -R {input.genome} -V {input.vcf} -O {output}
+            -R {input.genome} -V {input.vcf} -O {output} {params.padding} {params.intervals} {params.other}
         """

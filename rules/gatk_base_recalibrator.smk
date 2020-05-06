@@ -5,6 +5,9 @@ rule gatk4_BaseRecalibrator:
         dbsnp = expand("{dbsnp}", dbsnp = config['FILEDIR']['dbSNP'])
     output:
         report("mapped/{sample}_recalibration_report.grp", caption = "../report/recalibration.rst", category = "Base recalibration")
+    params:
+        padding = expand("{padding}", padding = config['WES']['PADDING']),
+        intervals = expand("{intervals}", intervals = config['WES']['INTERVALS'])
     log:
         "logs/gatk_recalrep/{sample}.log"
     benchmark:
@@ -14,4 +17,4 @@ rule gatk4_BaseRecalibrator:
     message:
         "Generating a recalibration table for the following rule (Base Quality Score Recalibration)"
     shell:
-        "gatk BaseRecalibrator -I {input.bams} -R {input.genome} --known-sites {input.dbsnp} -O {output}"
+        "gatk BaseRecalibrator -I {input.bams} -R {input.genome} --known-sites {input.dbsnp} -O {output} {params.padding} {params.intervals}"

@@ -6,7 +6,9 @@ rule gatk4_HaplotypeCaller_single:
     output:
         "vcf/{sample}_raw_snps_indels_AS_g.vcf"
     params:
-        tdir = expand("{tdir}", tdir = config["TEMPDIR"])
+        tdir = expand("{tdir}", tdir = config['TEMPDIR']),
+        padding = expand("{padding}", padding = config['WES']['PADDING']),
+        intervals = expand("{intervals}", intervals = config['WES']['INTERVALS'])
     log:
         "logs/gatk_haplocall/{sample}.log"
     benchmark:
@@ -17,4 +19,4 @@ rule gatk4_HaplotypeCaller_single:
     message:
         "Calling germline SNPs and indels via local re-assembly of haplotypes"
     shell:
-        "gatk HaplotypeCaller -I {input.bams} -R {input.genome} -D {input.dbsnp} -O {output} --tmp-dir {params.tdir} --native-pair-hmm-threads {threads}"
+        "gatk HaplotypeCaller -I {input.bams} -R {input.genome} -D {input.dbsnp} -O {output} --tmp-dir {params.tdir} --native-pair-hmm-threads {threads} {params.padding} {params.intervals}"

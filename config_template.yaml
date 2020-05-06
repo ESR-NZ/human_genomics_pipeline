@@ -4,6 +4,16 @@ BUILD: "GRCh38"
 # Specify the type of input data (either 'Single' or 'Cohort')
 DATA: "Single"
 
+# Specify the sequencing type (either 'WES' or 'WGS')
+SEQUENCING: "WES"
+
+WES:
+  # These setting apply to WES (leave blank if analysing WGS)
+  # Genomic intervals over which to operate
+  INTERVALS: "-L /path/to/regions/.bed"
+  # Amount of padding (in bp) to add to each interval
+  PADDING: "-ip 100"
+
 # File directories to reference genome and dbSNP database
 FILEDIR:
   GENOME: "/path/to/reference/human/genome/Homo_sapiens_assembly38.fasta"

@@ -9,7 +9,9 @@ rule gatk4_CombineGVCFs:
     output:
         temp("vcf/{sample}_haplotype_gvcf_combined.vcf")
     params:
-        "-G StandardAnnotation -G AS_StandardAnnotation"
+        padding = expand("{padding}", padding = config['WES']['PADDING']),
+        intervals = expand("{intervals}", intervals = config['WES']['INTERVALS']),
+        other = "-G StandardAnnotation -G AS_StandardAnnotation"
     log:
         "logs/gatk_combinegvcf/{sample}.log"
     benchmark:
@@ -21,5 +23,5 @@ rule gatk4_CombineGVCFs:
     shell: 
         """
         gatk --java-options "-Xmx64g -Xms64g" CombineGVCFs \
-        -R {input.genome} --variant {input.vcf1} --variant {input.vcf2} --variant {input.vcf3} -O {output} {params}
+        -R {input.genome} --variant {input.vcf1} --variant {input.vcf2} --variant {input.vcf3} -O {output} {params.padding} {params.intervals} {params.other}
         """

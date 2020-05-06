@@ -105,7 +105,7 @@ wget ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606_b151_GRCh38p7/VCF/GATK/
 
 ### 4. Modify the configuration file
 
-Specify whether you are running your analysis against the GRCh37 or GRCh38 build of the reference genome and whether the data is a part of a cohort or not. For example:
+Specify whether you are running your analysis against the GRCh37 or GRCh38 build of the reference genome, whether the data is a part of a cohort or not and the type of sequencing used to produce the data. For example:
 
 ```yaml
 # Specify the build of reference genome used (either 'GRCh37' or 'GRCh38')
@@ -113,6 +113,20 @@ BUILD: "GRCh38"
 
 # Specify the type of input data (either 'Single' or 'Cohort')
 DATA: "Single"
+
+# Specify the sequencing type (either 'WES' or 'WGS')
+SEQUENCING: "WES"
+```
+
+If analysing WES data, set the level of padding and pass a .bed file indicating the genomic regions that were sequenced. For example:
+
+```yaml
+WES:
+  # These setting apply to WES (leave blank if analysing WGS)
+  # Genomic intervals over which to operate
+  INTERVALS: "-L /home/lkemp/publicData/sure_select_human_all_exon_V7/S31285117_hs_hg38/S31285117_Regions.bed"
+  # Amount of padding (in bp) to add to each interval
+  PADDING: "-ip 100"
 ```
 
 Set the the working directories in the config file to the reference human genome file, dbSNP database file and a temporary directory. For example:
