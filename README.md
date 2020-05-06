@@ -124,7 +124,7 @@ If analysing WES data, set the level of padding and pass a .bed file indicating 
 WES:
   # These setting apply to WES (leave blank if analysing WGS)
   # Genomic intervals over which to operate
-  INTERVALS: "-L /home/lkemp/publicData/sure_select_human_all_exon_V7/S31285117_hs_hg38/S31285117_Regions.bed"
+  INTERVALS: "-L /home/lkemp/publicData/sure_select_human_all_exon_V7/S31285117_hs_hg38/S31285117_AllTracks.bed"
   # Amount of padding (in bp) to add to each interval
   PADDING: "-ip 100"
 ```

@@ -1,6 +1,7 @@
 rule gatk4_BaseRecalibrator:
     input:
         bams = "mapped/{sample}_sorted_mkdups_rgreplaced.bam",
+        index = "mapped/{sample}_sorted_mkdups_rgreplaced.bam.bai",
         genome = expand("{genome}", genome = config['FILEDIR']['GENOME']),
         dbsnp = expand("{dbsnp}", dbsnp = config['FILEDIR']['dbSNP'])
     output:
