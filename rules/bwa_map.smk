@@ -1,6 +1,6 @@
 rule bwa_map:
     input:
-        genome = expand("{refgenome}", refgenome = config['REFGENOME']),
+        refgenome = expand("{refgenome}", refgenome = config['REFGENOME']),
         R1 = "trim_galore/{sample}_R1_val_1.fq.gz",
         R2 = "trim_galore/{sample}_R2_val_2.fq.gz"
     output: 

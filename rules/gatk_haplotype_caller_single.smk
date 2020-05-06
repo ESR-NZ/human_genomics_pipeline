@@ -1,7 +1,7 @@
 rule gatk4_HaplotypeCaller_single:
     input:
         bams = "mapped/{sample}_bwa_recal.bam",
-        genome = expand("{refgenome}", refgenome = config['REFGENOME']),
+        refgenome = expand("{refgenome}", refgenome = config['REFGENOME']),
         dbsnp = expand("{dbsnp}", dbsnp = config['dbSNP'])
     output:
         "vcf/{sample}_raw_snps_indels_AS_g.vcf"

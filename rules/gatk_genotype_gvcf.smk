@@ -1,7 +1,7 @@
 rule gatk4_GenotypeGVCFs:
     input:
         vcf = "vcf/{sample}_haplotype_gvcf_combined.vcf",
-        genome = expand("{refgenome}", refgenome = config['REFGENOME'])
+        refgenome = expand("{refgenome}", refgenome = config['REFGENOME'])
     output:
         "vcf/{sample}_raw_snps_indels_AS_g.vcf"
     params:

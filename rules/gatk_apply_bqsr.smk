@@ -3,7 +3,7 @@ rule gatk4_ApplyBQSR:
         bams = "mapped/{sample}_sorted_mkdups_rgreplaced.bam",
         index = "mapped/{sample}_sorted_mkdups_rgreplaced.bam.bai",
         recal = "mapped/{sample}_recalibration_report.grp",
-        genome = expand("{refgenome}", refgenome = config['REFGENOME'])
+        refgenome = expand("{refgenome}", refgenome = config['REFGENOME'])
     output:
         "mapped/{sample}_bwa_recal.bam"
     params:

@@ -2,7 +2,7 @@ rule gatk4_BaseRecalibrator:
     input:
         bams = "mapped/{sample}_sorted_mkdups_rgreplaced.bam",
         index = "mapped/{sample}_sorted_mkdups_rgreplaced.bam.bai",
-        genome = expand("{refgenome}", refgenome = config['REFGENOME']),
+        refgenome = expand("{refgenome}", refgenome = config['REFGENOME']),
         dbsnp = expand("{dbsnp}", dbsnp = config['dbSNP'])
     output:
         report("mapped/{sample}_recalibration_report.grp", caption = "../report/recalibration.rst", category = "Base recalibration")

@@ -1,7 +1,7 @@
 rule gatk4_HaplotypeCaller_GVCF:
     input:
         bams = "mapped/{sample}_bwa_recal.bam",
-        genome = expand("{refgenome}", refgenome = config['REFGENOME']),
+        refgenome = expand("{refgenome}", refgenome = config['REFGENOME']),
         dbsnp = expand("{dbsnp}", dbsnp = config['dbSNP'])
     output:
         "vcf/{sample}_haplotype_gvcf.vcf"
