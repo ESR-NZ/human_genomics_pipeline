@@ -33,7 +33,7 @@ See [here](https://help.github.com/en/github/getting-started-with-github/fork-a-
 
 ### 2. Take the pipeline to the data on your local machine
 
-Clone the forked [human_genomics_pipeline](https://github.com/ESR-NZ/human_genomics_pipeline) repo into the same directory as your paired end fastq data to be processed. Required folder structure:
+Clone the forked [human_genomics_pipeline](https://github.com/ESR-NZ/human_genomics_pipeline) repo into the same directory as your paired end fastq data to be processed. Required folder structure and file naming convention:
 
 ```bash
 
