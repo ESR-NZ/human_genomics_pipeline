@@ -105,7 +105,7 @@ wget ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606_b151_GRCh38p7/VCF/GATK/
 
 ### 4. Modify the configuration file
 
-Specify whether you are running your analysis against the GRCh37 or GRCh38 build of the reference genome, whether the data is a part of a cohort or not and the type of sequencing used to produce the data. For example:
+Specify whether you are running your analysis against the GRCh37 or GRCh38 build of the reference genome, whether the data is to be analysed on it's own ('Single') or as a part of a cohort ('Cohort') and whether the data was produced with Whole Genome Sequencing ('WGS') or Whole Exome Sequencing ('WES'). For example:
 
 ```yaml
 # Specify the build of reference genome used (either 'GRCh37' or 'GRCh38')
