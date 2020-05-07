@@ -11,11 +11,13 @@ A simple Snakemake workflow to process paired-end sequencing data (WGS or WES) u
       - [GRCh37](#grch37)
       - [GRCh38](#grch38)
     - [4. Modify the configuration file](#4-modify-the-configuration-file)
-    - [5. Create and activate a conda environment with python and snakemake and installed](#5-create-and-activate-a-conda-environment-with-python-and-snakemake-and-installed)
-    - [6. Run the pipeline](#6-run-the-pipeline)
-    - [7. Evaluate the pipeline run](#7-evaluate-the-pipeline-run)
-    - [8. Commit and push to your forked version of the repo](#8-commit-and-push-to-your-forked-version-of-the-repo)
-    - [9. Create a pull request with the upstream repo to merge any useful changes (optional)](#9-create-a-pull-request-with-the-upstream-repo-to-merge-any-useful-changes-optional)
+    - [5. Modify the run scripts](#5-modify-the-run-scripts)
+    - [6. Create and activate a conda environment with python and snakemake and installed](#6-create-and-activate-a-conda-environment-with-python-and-snakemake-and-installed)
+    - [7. Run the pipeline](#7-run-the-pipeline)
+    - [8. Evaluate the pipeline run](#8-evaluate-the-pipeline-run)
+    - [9. Commit and push to your forked version of the repo](#9-commit-and-push-to-your-forked-version-of-the-repo)
+    - [10. Repeat step 9 each time you re-run the analysis with different parameters](#10-repeat-step-9-each-time-you-re-run-the-analysis-with-different-parameters)
+    - [11. Create a pull request with the upstream repo to merge any useful changes (optional)](#11-create-a-pull-request-with-the-upstream-repo-to-merge-any-useful-changes-optional)
   - [Useful reading](#useful-reading)
 
 ## workflow diagram
@@ -108,7 +110,7 @@ wget ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606_b151_GRCh38p7/VCF/GATK/
 Specify whether you are running your analysis against the GRCh37 or GRCh38 build of the reference genome and whether the data is to be analysed on it's own ('Single') or as a part of a cohort ('Cohort'). For example:
 
 ```yaml
-# Specify the type of input data (either 'Single' or 'Cohort')
+# Type of input data (either 'Single' or 'Cohort')
 DATA: "Single"
 ```
 
@@ -123,22 +125,46 @@ dbSNP: "/home/lkemp/publicData/dbSNP/All_20180418.vcf.gz"
 TEMPDIR: "/home/lkemp/tmp/"
 ```
 
-If analysing whole exome sequencing (WES) data, pass a design file (.bed) indicating the genomic regions that were sequenced (see [here](https://leahkemp.github.io/documentation/human_genomic_pipelines/design_files.html) for more information on accessing design files). Also set the level of padding. For example:
+If analysing WES data, pass a design file (.bed) indicating the genomic regions that were sequenced (see [here](https://leahkemp.github.io/documentation/human_genomic_pipelines/design_files.html) for more information on accessing design files). Also set the level of padding. For example:
 
-*Note: If not analysing WES data, leave these fields blank*
+*If NOT analysing WES data, leave these fields blank*
 
 ```yaml
+# WES settings (leave blank if analysing other data such as WGS)
 WES:
-  # These setting apply to WES (leave blank if NOT analysing WES)
   # Genomic intervals over which to operate
   INTERVALS: "-L /home/lkemp/publicData/sure_select_human_all_exon_V7/S31285117_AllTracks.bed"
-  # Amount of padding (in bp) to add to each interval
+  # Padding (in bp) to add to each interval
   PADDING: "-ip 100"
 ```
 
 Save your modified config file with a descriptive name
 
-### 5. Create and activate a conda environment with python and snakemake and installed
+### 5. Modify the run scripts
+
+Set the singularity bind location to a directory that contains the CADD database with the `--singularity-args` flag (eg. `'-B /home/lkemp/publicData/'`). Also specify your config file to be used with the `--configfile` flag and modify the number of cores to be used with the `-j` flag. For example:
+
+Dry run (dryrun.sh):
+
+```bash
+snakemake -n -j 24 --use-conda --use-singularity --singularity-args '-B /home/lkemp/publicData/' --configfile config_37_single_WES.yaml
+```
+
+Full run (fullrun.sh):
+
+```bash
+snakemake -j 24 --use-conda --use-singularity --singularity-args '-B /home/lkemp/publicData/' --configfile config_37_single_WES.yaml
+```
+
+Report (report.sh)
+
+```bash
+snakemake --report report.html --configfile config_37_single_WES.yaml --report-stylesheet ESR_stylesheet.css
+```
+
+See the [snakemake documentation](https://snakemake.readthedocs.io/en/v4.5.1/executable.html) for additional run parameters.
+
+### 6. Create and activate a conda environment with python and snakemake and installed
 
 ```bash
 conda create -n pipeline_env python=3.7
@@ -146,40 +172,39 @@ conda activate pipeline_env
 conda install -c bioconda snakemake=5.14.0
 ```
 
-### 6. Run the pipeline
+### 7. Run the pipeline
 
-Specify the config file to be used with the `--configfile` flag and modify the number of cores to be used with the `-j` flag. First carry out a dry run. If there are no issues, start a full run without the `-n` flag.
-
-Dry run:
+First carry out a dry run
 
 ```bash
-snakemake -n -j 24 --use-conda --configfile config.yaml
+bash dryrun.sh
 ```
 
-Full run:
+If there are no issues, start a full run
 
 ```bash
-snakemake -j 24 --use-conda --configfile config.yaml
+bash fullrun.sh
 ```
 
-See the [snakemake documentation](https://snakemake.readthedocs.io/en/v4.5.1/executable.html) for additional run parameters.
-
-### 7. Evaluate the pipeline run
+### 8. Evaluate the pipeline run
 
 Generate an interactive html report
 
 ```bash
-snakemake --report report.html --configfile config.yaml --report-stylesheet stylesheet.css
+bash report.sh
 ```
 
-### 8. Commit and push to your forked version of the repo
+### 9. Commit and push to your forked version of the repo
 
 To maintain reproducibility, commit and push:
 
-- All modified configuration file/s
-- Output from the run such as reports and plots (optional)
+- All configuration files
+- All run scripts
+- The final report
 
-### 9. Create a pull request with the [upstream repo](https://github.com/ESR-NZ/human_genomics_pipeline) to merge any useful changes (optional)
+### 10. Repeat step 9 each time you re-run the analysis with different parameters
+
+### 11. Create a pull request with the [upstream repo](https://github.com/ESR-NZ/human_genomics_pipeline) to merge any useful changes (optional)
 
 Contributions and feedback are more than welcome! :blush:
 
