@@ -177,13 +177,13 @@ conda install -c bioconda snakemake=5.14.0
 First carry out a dry run
 
 ```bash
-bash dryrun.sh
+dryrun.sh
 ```
 
 If there are no issues, start a full run
 
 ```bash
-bash fullrun.sh
+fullrun.sh
 ```
 
 ### 8. Evaluate the pipeline run
@@ -191,7 +191,7 @@ bash fullrun.sh
 Generate an interactive html report
 
 ```bash
-bash report.sh
+report.sh
 ```
 
 ### 9. Commit and push to your forked version of the repo
