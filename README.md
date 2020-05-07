@@ -107,6 +107,8 @@ wget ftp://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606_b151_GRCh38p7/VCF/GATK/
 
 ### 4. Modify the configuration file
 
+Either edit the 'config_template.yaml' file from scratch, or edit a config file 'config_examples'.
+
 Specify whether you are running your analysis against the GRCh37 or GRCh38 build of the reference genome and whether the data is to be analysed on it's own ('Single') or as a part of a cohort ('Cohort'). For example:
 
 ```yaml
@@ -177,13 +179,13 @@ conda install -c bioconda snakemake=5.14.0
 First carry out a dry run
 
 ```bash
-dryrun.sh
+bash dryrun.sh
 ```
 
 If there are no issues, start a full run
 
 ```bash
-fullrun.sh
+bash fullrun.sh
 ```
 
 ### 8. Evaluate the pipeline run
@@ -191,7 +193,7 @@ fullrun.sh
 Generate an interactive html report
 
 ```bash
-report.sh
+bash report.sh
 ```
 
 ### 9. Commit and push to your forked version of the repo
