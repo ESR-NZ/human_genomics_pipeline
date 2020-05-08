@@ -1,6 +1,6 @@
 # human_genomics_pipeline
 
-A simple Snakemake workflow to process paired-end sequencing data (WGS or WES) using bwa/GATK4.
+A simple Snakemake workflow to process paired-end sequencing data (WGS or WES) using [bwa](http://bio-bwa.sourceforge.net/), [sambamba](https://lomereiter.github.io/sambamba/) and [GATK4](https://gatk.broadinstitute.org/hc/en-us).
 
 - [human_genomics_pipeline](#humangenomicspipeline)
   - [workflow diagram](#workflow-diagram)
@@ -31,7 +31,7 @@ A simple Snakemake workflow to process paired-end sequencing data (WGS or WES) u
 
 ### 1. Fork the pipeline repo to a personal or lab account
 
-See [here](https://help.github.com/en/github/getting-started-with-github/fork-a-repo#fork-an-example-repository) for help forking a github repository
+See [here](https://help.github.com/en/github/getting-started-with-github/fork-a-repo#fork-an-example-repository) for help
 
 ### 2. Take the pipeline to the data on your local machine
 
@@ -51,7 +51,7 @@ Clone the forked [human_genomics_pipeline](https://github.com/ESR-NZ/human_genom
 
 ```
 
-See [here](https://help.github.com/en/github/getting-started-with-github/fork-a-repo#keep-your-fork-synced) for help cloning a forked github repository.
+See [here](https://help.github.com/en/github/getting-started-with-github/fork-a-repo#keep-your-fork-synced) for help
 
 ### 3. Create a local copy of the reference human genome and dbSNP database (either GRCh37 or GRCh38)
 
@@ -210,7 +210,7 @@ To maintain reproducibility, commit and push:
 
 Contributions and feedback are more than welcome! :blush:
 
-See [here](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) for help creating a pull request.
+See [here](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) for help
 
 ## Useful reading
 
