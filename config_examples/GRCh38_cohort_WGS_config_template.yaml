@@ -1,0 +1,20 @@
+############################
+##### Overall workflow #####
+############################
+
+# Type of input data (either 'Single' or 'Cohort')
+DATA: "Cohort"
+
+# File directories to reference genome and dbSNP database
+REFGENOME: "/path/to/reference/human/genome/Homo_sapiens_assembly38.fasta.gz"
+dbSNP: "/path/to/dbSNP/All_20180418.vcf.gz"
+
+# Temporary file directory
+TEMPDIR: "/file/path/to/tmp/"
+
+# WES settings (leave blank if analysing other data such as WGS)
+WES:
+  # Genomic intervals over which to operate
+  INTERVALS: ""
+  # Padding (in bp) to add to each interval
+  PADDING: ""
