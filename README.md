@@ -158,7 +158,7 @@ Dry run (dryrun.sh):
 snakemake -n -j 24 --use-conda --use-singularity --singularity-args '-B /home/lkemp/publicData/' --configfile config_37_single_WES.yaml
 ```
 
-Full run (fullrun.sh):
+Full run (run.sh):
 
 ```bash
 snakemake -j 24 --use-conda --use-singularity --singularity-args '-B /home/lkemp/publicData/' --configfile config_37_single_WES.yaml
@@ -191,7 +191,7 @@ bash dryrun.sh
 If there are no issues, start a full run
 
 ```bash
-bash fullrun.sh
+bash run.sh
 ```
 
 ### 8. Evaluate the pipeline run
