@@ -155,19 +155,28 @@ Set the singularity bind location to a directory that contains the CADD database
 Dry run (dryrun.sh):
 
 ```bash
-snakemake -n -j 24 --use-conda --use-singularity --singularity-args '-B /home/lkemp/publicData/' --configfile config_37_single_WES.yaml
+snakemake \
+-n -j 24 \
+--use-conda \
+--configfile config_37_single_WES.yaml
 ```
 
 Full run (run.sh):
 
 ```bash
-snakemake -j 24 --use-conda --use-singularity --singularity-args '-B /home/lkemp/publicData/' --configfile config_37_single_WES.yaml
+snakemake \
+-j 24 \
+--use-conda \
+--configfile config_37_single_WES.yaml
 ```
 
 Report (report.sh)
 
 ```bash
-snakemake --report report.html --configfile config_37_single_WES.yaml --report-stylesheet ESR_stylesheet.css
+snakemake \
+--report ESR_report.html \
+--configfile config_37_single_WES.yaml \
+--report-stylesheet ESR_stylesheet.css
 ```
 
 See the [snakemake documentation](https://snakemake.readthedocs.io/en/v4.5.1/executable.html) for additional run parameters.
