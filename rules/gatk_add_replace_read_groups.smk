@@ -5,7 +5,7 @@ rule gatk4_AddOrReplaceReadGroups:
         temp("mapped/{sample}_sorted_mkdups_rgreplaced.bam")
     params:
         tdir = expand("{tdir}", tdir = config['TEMPDIR']),
-        other = "-ID 4 -LB lib1 -PL illumina -PU unit1 -SM 20"
+        other = "-ID 4 -LB lib1 -PL illumina -PU unit1 -SM {sample}"
     log:
         "logs/gatk_readgroup/{sample}.log"
     benchmark:
