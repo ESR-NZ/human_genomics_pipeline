@@ -1,3 +1,6 @@
 #!/bin/bash -x
 
-snakemake -n -j 24 --use-conda --configfile config.yaml
+snakemake \
+-n -j 24 \
+--use-conda \
+--configfile config.yaml
