@@ -208,9 +208,8 @@ See the [snakemake documentation](https://snakemake.readthedocs.io/en/v4.5.1/exe
 ### 6. Create and activate a conda environment with python and snakemake and installed
 
 ```bash
-conda create -n pipeline_env python=3.7
-conda activate pipeline_env
-conda install -c bioconda snakemake=5.14.0
+conda env create -f pipeline_run_env.yml
+conda activate pipeline_run_env
 ```
 
 ### 7. Run the pipeline
