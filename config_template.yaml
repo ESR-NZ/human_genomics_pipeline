@@ -18,3 +18,11 @@ WES:
   INTERVALS: ""
   # Padding (in bp) to add to each interval
   PADDING: ""
+
+##############################
+##### Base recalibration #####
+##############################
+
+# Resources used for base recalibration
+RECALIBRATION:
+  RESOURCES: ""

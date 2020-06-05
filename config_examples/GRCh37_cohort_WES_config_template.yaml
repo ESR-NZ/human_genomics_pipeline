@@ -18,3 +18,13 @@ WES:
   INTERVALS: "-L /path/to/regions/.bed"
   # Padding (in bp) to add to each interval
   PADDING: "-ip 100"
+
+##############################
+##### Base recalibration #####
+##############################
+
+# Resources used for base recalibration
+RECALIBRATION:
+  RESOURCES: "--known-sites /path/to/dbSNP/All_20180423.vcf.gz
+              --known-sites /path/to/mills/Mills_and_1000G_gold_standard.indels.hg19.sites.vcf.gz
+              --known-sites /path/to/1000G/indels/1000G_phase1.indels.hg19.sites.vcf.gz"
