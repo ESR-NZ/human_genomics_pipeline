@@ -16,6 +16,6 @@ rule gatk4_ApplyBQSR:
     conda:
         "../envs/gatk4.yaml"
     message:
-	    "Applying base quality score recalibration and producing a recalibrated BAM file"
+        "Applying base quality score recalibration and producing a recalibrated BAM file"
     shell:
         "gatk ApplyBQSR -I {input.bams} -bqsr {input.recal} -R {input.refgenome} -O {output} {params.padding} {params.intervals}"
