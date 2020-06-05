@@ -142,7 +142,7 @@ Set the the working directories in the config file to the reference human genome
 
 ```yaml
 # File directories to reference genome and dbSNP database
-REFGENOME: "/home/lkemp/publicData/referenceGenome/Homo_sapiens_assembly38.fasta.gz"
+REFGENOME: "/home/lkemp/publicData/referenceGenome/Homo_sapiens_assembly38.fasta"
 dbSNP: "/home/lkemp/publicData/dbSNP/All_20180418.vcf.gz"
 
 # Temporary file directory
