@@ -6,7 +6,7 @@
 DATA: "Cohort"
 
 # File directories to reference genome and dbSNP database
-REFGENOME: "/path/to/reference/human/genome/Homo_sapiens_assembly38.fasta.gz"
+REFGENOME: "/path/to/reference/human/genome/Homo_sapiens_assembly38.fasta"
 dbSNP: "/path/to/dbSNP/All_20180418.vcf.gz"
 
 # Temporary file directory
