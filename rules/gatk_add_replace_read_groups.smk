@@ -1,6 +1,7 @@
 rule gatk4_AddOrReplaceReadGroups:
     input:
-        "mapped/{sample}_bwamem_sorted_mkdups.bam"
+        bams = "mapped/{sample}_bwamem_sorted_mkdups.bam",
+        index = "mapped/{sample}_bwamem_sorted_mkdups.bam.bai"
     output:
         temp("mapped/{sample}_sorted_mkdups_rgreplaced.bam")
     params:
@@ -15,4 +16,4 @@ rule gatk4_AddOrReplaceReadGroups:
     message:
         "Assigning all reads to a single new read-group"
     shell:
-        "gatk AddOrReplaceReadGroups -I {input} -O {output} --TMP_DIR {params.tdir} {params.other}"
+        "gatk AddOrReplaceReadGroups -I {input.bams} -O {output} --TMP_DIR {params.tdir} {params.other}"
