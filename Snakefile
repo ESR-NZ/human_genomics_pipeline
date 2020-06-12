@@ -35,6 +35,8 @@ report: "report/workflow.rst"
 
 ##### load rules #####
 
+localrules: multiqc_pre_trim, multiqc_post_trim, sambamba_index, sambamba_index_rgadd
+
 include: "rules/fastqc.smk"
 include: "rules/multiqc_pre_trim.smk"
 include: "rules/trim_galore_pe.smk"
