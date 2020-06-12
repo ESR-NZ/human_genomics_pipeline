@@ -11,13 +11,15 @@ A simple Snakemake workflow to process paired-end sequencing data (WGS or WES) u
       - [GRCh37](#grch37)
       - [GRCh38](#grch38)
     - [4. Modify the configuration file](#4-modify-the-configuration-file)
-    - [5. Modify the run scripts](#5-modify-the-run-scripts)
-    - [6. Create and activate a conda environment with python and snakemake and installed](#6-create-and-activate-a-conda-environment-with-python-and-snakemake-and-installed)
-    - [7. Run the pipeline](#7-run-the-pipeline)
-    - [8. Evaluate the pipeline run](#8-evaluate-the-pipeline-run)
-    - [9. Commit and push to your forked version of the repo](#9-commit-and-push-to-your-forked-version-of-the-repo)
-    - [10. Repeat step 9 each time you re-run the analysis with different parameters](#10-repeat-step-9-each-time-you-re-run-the-analysis-with-different-parameters)
-    - [11. Create a pull request with the upstream repo to merge any useful changes (optional)](#11-create-a-pull-request-with-the-upstream-repo-to-merge-any-useful-changes-optional)
+    - [5. Configure to run on a HPC (optional)](#5-configure-to-run-on-a-hpc-optional)
+    - [6. Modify the run scripts](#6-modify-the-run-scripts)
+      - [HPC](#hpc)
+    - [7. Create and activate a conda environment with python and snakemake installed](#7-create-and-activate-a-conda-environment-with-python-and-snakemake-installed)
+    - [8. Run the pipeline](#8-run-the-pipeline)
+    - [9. Evaluate the pipeline run](#9-evaluate-the-pipeline-run)
+    - [10. Commit and push to your forked version of the repo](#10-commit-and-push-to-your-forked-version-of-the-repo)
+    - [11. Repeat step 10 each time you re-run the analysis with different parameters](#11-repeat-step-10-each-time-you-re-run-the-analysis-with-different-parameters)
+    - [12. Create a pull request with the upstream repo to merge any useful changes (optional)](#12-create-a-pull-request-with-the-upstream-repo-to-merge-any-useful-changes-optional)
   - [Useful reading](#useful-reading)
 
 ## workflow diagram
@@ -172,7 +174,30 @@ RECALIBRATION:
 
 Save your modified config file with a descriptive name
 
-### 5. Modify the run scripts
+### 5. Configure to run on a HPC (optional)
+
+In theory, this cluster configuration should be adaptable to other job scheduler systems, but here I will demonstrate how to integrate this pipeline with slurm.
+
+Configure `account:`, `partition:` and `nodelist:` in default section of 'cluster.json' in order to set the parameters for slurm sbatch (see documentation [here](https://snakemake.readthedocs.io/en/stable/snakefiles/configuration.html#cluster-configuration-deprecated) and [here](https://slurm.schedmd.com/)). For example:
+
+```json
+{
+    "__default__" :
+    {
+        "account" : "lkemp",
+        "nodes" : 1,
+        "ntasks" : 4,
+        "partition" : "prod",
+        "nodelist" : "kscprod-bio4"
+    }
+}
+```
+
+[This](https://hpc-carpentry.github.io/hpc-python/17-cluster/) is a good place to go for a good working example if you get stuck.
+
+*These variables will need to be passed to snakemake in the snakemake run script (see example in step 6).*
+
+### 6. Modify the run scripts
 
 Specify your config file to be used with the `--configfile` flag and modify the number of cores to be used with the `-j` flag. For example:
 
@@ -205,14 +230,48 @@ snakemake \
 
 See the [snakemake documentation](https://snakemake.readthedocs.io/en/v4.5.1/executable.html) for additional run parameters.
 
-### 6. Create and activate a conda environment with python and snakemake and installed
+#### HPC
+
+If you want to run the pipeline on a HPC, pass the cluster variables set in 'cluster.json' to the dry run and full run scripts. For example:
+
+Dry run (dryrun.sh):
+
+```bash
+snakemake \
+-n -j 24 \
+--use-conda \
+--configfile config_37_single_WES.yaml \
+--cluster-config cluster.json \
+--cluster "sbatch -A {cluster.account} \
+-p {cluster.partition} \
+--nodes {cluster.nodes} \
+--ntasks {cluster.ntasks} \
+--nodelist {cluster.nodelist}"
+```
+
+Full run (run.sh):
+
+```bash
+snakemake \
+-j 24 \
+--use-conda \
+--configfile config_37_single_WES.yaml \
+--cluster-config cluster.json \
+--cluster "sbatch -A {cluster.account} \
+-p {cluster.partition} \
+--nodes {cluster.nodes} \
+--ntasks {cluster.ntasks} \
+--nodelist {cluster.nodelist}"
+```
+
+### 7. Create and activate a conda environment with python and snakemake installed
 
 ```bash
 conda env create -f pipeline_run_env.yml
 conda activate pipeline_run_env
 ```
 
-### 7. Run the pipeline
+### 8. Run the pipeline
 
 First carry out a dry run
 
@@ -226,7 +285,7 @@ If there are no issues, start a full run
 bash run.sh
 ```
 
-### 8. Evaluate the pipeline run
+### 9. Evaluate the pipeline run
 
 Generate an interactive html report
 
@@ -234,7 +293,7 @@ Generate an interactive html report
 bash report.sh
 ```
 
-### 9. Commit and push to your forked version of the repo
+### 10. Commit and push to your forked version of the repo
 
 To maintain reproducibility, commit and push:
 
@@ -242,9 +301,9 @@ To maintain reproducibility, commit and push:
 - All run scripts
 - The final report
 
-### 10. Repeat step 9 each time you re-run the analysis with different parameters
+### 11. Repeat step 10 each time you re-run the analysis with different parameters
 
-### 11. Create a pull request with the [upstream repo](https://github.com/ESR-NZ/human_genomics_pipeline) to merge any useful changes (optional)
+### 12. Create a pull request with the [upstream repo](https://github.com/ESR-NZ/human_genomics_pipeline) to merge any useful changes (optional)
 
 Contributions and feedback are more than welcome! :blush:
 

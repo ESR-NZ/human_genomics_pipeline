@@ -1,0 +1,62 @@
+{
+    "__default__" :
+    {
+        "account" : "lkemp",
+        "nodes" : 1,
+        "ntasks" : 4,
+        "partition" : "prod",
+        "nodelist" : "kscprod-bio4"
+    },
+    "__fastqc__" :
+    {
+        "nodes" : 2
+    },
+    "__multiqc_pre_trim__" :
+    {
+        "nodes" : 1
+    },
+    "__trim_galore_pe__" :
+    {
+        "nodes" : 16
+    },
+    "__multiqc_post_trim__" :
+    {
+        "nodes" : 8
+    },
+    "__bwa_map__" :
+    {
+        "nodes" : 8
+    },
+    "__sambamba_sort__" :
+    {
+        "nodes" : 4
+    },
+    "__sambamba_mkdups__" :
+    {
+        "nodes" : 4
+    },
+    "__sambamba_index__" :
+    {
+        "nodes" : 8
+    },
+    "__gatk_add_replace_read_groups__" :
+    {
+        "nodes" : 2
+    },
+    "__sambamba_index_rgadd__" :
+    {
+        "nodes" : 4
+    },
+    "__gatk_base_recalibrator__" :
+    {
+        "nodes" : 1
+    },
+    "__gatk_apply_bqsr__" :
+    {
+        "nodes" : 1
+    },
+    "__gatk_haplotype_caller_single__" :
+    {
+        "nodes" : 1
+    }
+}
