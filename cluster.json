@@ -1,11 +1,11 @@
 {
     "__default__" :
     {
-        "account" : "lkemp",
+        "account" : "",
         "nodes" : 1,
         "ntasks" : 4,
-        "partition" : "prod",
-        "nodelist" : "kscprod-bio4"
+        "partition" : "",
+        "nodelist" : ""
     },
     "__fastqc__" :
     {
