@@ -174,7 +174,7 @@ Save your modified config file with a descriptive name
 
 ### 5. Modify the run scripts
 
-Set the singularity bind location to a directory that contains the CADD database with the `--singularity-args` flag (eg. `'-B /home/lkemp/publicData/'`). Also specify your config file to be used with the `--configfile` flag and modify the number of cores to be used with the `-j` flag. For example:
+Specify your config file to be used with the `--configfile` flag and modify the number of cores to be used with the `-j` flag. For example:
 
 Dry run (dryrun.sh):
 
