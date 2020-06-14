@@ -11,7 +11,7 @@ rule bwa_map:
         "benchmarks/bwamem/{sample}.bwamem"
     conda:
         "../envs/bwa.yaml"
-    threads: 12
+    threads: 32
     message:
         "Mapping sequences against a reference human genome with BWA-MEM"
     shell: 

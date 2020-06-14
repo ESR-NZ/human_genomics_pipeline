@@ -13,7 +13,7 @@ rule sambamba_sort:
         "benchmarks/sambamba_sort/{sample}.sambamba"
     conda:
         "../envs/sambamba.yaml"
-    threads: 4
+    threads: 16
     message:
         "Sorting BAM files"
     shell:

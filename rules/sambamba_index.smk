@@ -9,7 +9,7 @@ rule sambamba_index:
         "benchmarks/sambamba_index/{sample}.sambamba"
     conda:
         "../envs/sambamba.yaml"
-    threads: 4
+    threads: 8
     message:
         "Building index files for BAM files"
     shell:

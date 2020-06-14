@@ -11,7 +11,7 @@ rule fastqc:
         "benchmarks/fastqc/{sample}.fastqc"
     conda:
         "../envs/fastqc.yaml"
-    threads: 4
+    threads: 2
     message:
         "Undertaking quality control checks on raw sequence data"
     shell:

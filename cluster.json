@@ -11,25 +11,17 @@
     {
         "nodes" : 2
     },
-    "__multiqc_pre_trim__" :
-    {
-        "nodes" : 1
-    },
     "__trim_galore_pe__" :
     {
         "nodes" : 16
     },
-    "__multiqc_post_trim__" :
-    {
-        "nodes" : 8
-    },
     "__bwa_map__" :
     {
-        "nodes" : 8
+        "nodes" : 32
     },
     "__sambamba_sort__" :
     {
-        "nodes" : 4
+        "nodes" : 16
     },
     "__sambamba_mkdups__" :
     {
@@ -41,11 +33,11 @@
     },
     "__gatk_add_replace_read_groups__" :
     {
-        "nodes" : 2
+        "nodes" : 1
     },
     "__sambamba_index_rgadd__" :
     {
-        "nodes" : 4
+        "nodes" : 8
     },
     "__gatk_base_recalibrator__" :
     {
