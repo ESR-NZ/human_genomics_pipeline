@@ -205,7 +205,7 @@ Dry run (dryrun.sh):
 
 ```bash
 snakemake \
--n -j 24 \
+-n -j 32 \
 --use-conda \
 --configfile config_37_single_WES.yaml
 ```
@@ -214,7 +214,7 @@ Full run (run.sh):
 
 ```bash
 snakemake \
--j 24 \
+-j 32 \
 --use-conda \
 --configfile config_37_single_WES.yaml
 ```
@@ -238,7 +238,7 @@ Dry run (dryrun.sh):
 
 ```bash
 snakemake \
--n -j 24 \
+-n -j 32 \
 --use-conda \
 --configfile config_37_single_WES.yaml \
 --cluster-config cluster.json \
@@ -253,7 +253,7 @@ Full run (run.sh):
 
 ```bash
 snakemake \
--j 24 \
+-j 32 \
 --use-conda \
 --configfile config_37_single_WES.yaml \
 --cluster-config cluster.json \

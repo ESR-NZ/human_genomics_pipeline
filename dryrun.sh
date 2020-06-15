@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
 snakemake \
--n -j 24 \
+-n -j 32 \
 --use-conda \
 --configfile config.yaml
