@@ -17,4 +17,4 @@ rule mosdepth:
     message:
         "Undertaking fast BAM/CRAM depth calculation"
     shell: 
-        "mosdepth {input.bams} -f {input.refgenome} -t {threads}"
+        "mosdepth -f {input.refgenome} -t {threads} coverage/{wildcards.sample} {input.bams}"
