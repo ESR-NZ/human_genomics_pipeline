@@ -5,12 +5,12 @@ rule mosdepth:
     output:
         "coverage/{sample}.per-base.bed.gz",
         "coverage/{sample}.per-base.bed.gz.csi",
-        report("coverage/{sample}.mosdepth.summary.txt", caption = "../coverage/coverage.rst", category = "Coverage"),
-        report("coverage/{sample}.mosdepth.global.dist.txt", caption = "../coverage/coverage.rst", category = "Coverage")
+        report("coverage/{sample}.mosdepth.summary.txt", caption = "../report/coverage.rst", category = "Coverage"),
+        report("coverage/{sample}.mosdepth.global.dist.txt", caption = "../report/coverage.rst", category = "Coverage")
     log:
         "logs/mosdepth/{sample}.log"
     benchmark:
-        "benchmarks/mosdepth/{sample}.bwamem"
+        "benchmarks/mosdepth/{sample}.mosdepth"
     conda:
         "../envs/mosdepth.yaml"
     threads: 16
