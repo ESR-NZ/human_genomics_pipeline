@@ -32,7 +32,7 @@ A simple Snakemake workflow to process paired-end sequencing data (WGS or WES) u
 
 ## Run human_genomics_pipeline
 
-- **Prerequisite software:** [Git](https://git-scm.com/), [Mamba 0.4.4](https://github.com/TheSnakePit/mamba) with [Conda 4.8.2](https://docs.conda.io/projects/conda/en/latest/index.html), [gsutil 4.52](https://pypi.org/project/gsutil/), [gunzip](https://linux.die.net/man/1/gunzip), [bwa](http://bio-bwa.sourceforge.net/)
+- **Prerequisite software:** [Git 2.7.4](https://git-scm.com/), [Mamba 0.4.4](https://github.com/TheSnakePit/mamba) with [Conda 4.8.2](https://docs.conda.io/projects/conda/en/latest/index.html), [gsutil 4.52](https://pypi.org/project/gsutil/), [gunzip 1.6](https://linux.die.net/man/1/gunzip)
 - **OS:** Validated on Ubuntu 16.04
 
 ### 1. Fork the pipeline repo to a personal or lab account
