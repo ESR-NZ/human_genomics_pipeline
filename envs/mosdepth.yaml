@@ -1,6 +1,0 @@
-channels:
-  - bioconda
-  - conda-forge
-  - defaults
-dependencies:
-  - bioconda::mosdepth =0.2.9

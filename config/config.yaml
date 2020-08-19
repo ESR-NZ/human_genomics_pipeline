@@ -1,0 +1,31 @@
+############################
+##### Overall workflow #####
+############################
+
+# Type of input data (either 'Single' or 'Cohort')
+DATA: ""
+
+# File paths to the reference genome (.fasta) and it's associated dictionary file (.dict)
+REFGENOME: ""
+DICT: ""
+
+# File path to dbSNP database
+dbSNP: ""
+
+# Temporary file directory
+TEMPDIR: ""
+
+# Whole exome sequence settings (leave blank if analysing other data such as whole genome sequence data)
+WES:
+  # File path to the exome capture regions over which to operate (prefix with the '-L' flag)
+  INTERVALS: ""
+  # Padding (in bp) to add to each region (prefix with the '-ip' flag)
+  PADDING: ""
+
+##############################
+##### Base recalibration #####
+##############################
+
+# Resources to used for base recalibration (prefix each resource with the '--known-sites' flag)
+RECALIBRATION:
+  RESOURCES: ""
