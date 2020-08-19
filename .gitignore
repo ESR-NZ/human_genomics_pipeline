@@ -1,8 +1,0 @@
-!.snakemake/
-!benchmarks/
-!logs/
-!mapped/
-!qc/
-!trim_galore/
-!vcf/
-!report.html
