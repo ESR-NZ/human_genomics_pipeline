@@ -12,9 +12,9 @@ rule gatk_HaplotypeCaller_cohort:
         intervals = expand("{intervals}", intervals = config['WES']['INTERVALS']),
         other = "-ERC GVCF"
     log:
-        "logs/gatk_HaplotypeCaller_single/{sample}.log"
+        "logs/gatk_HaplotypeCaller_cohort/{sample}.log"
     benchmark:
-        "benchmarks/gatk_HaplotypeCaller_single/{sample}.tsv"
+        "benchmarks/gatk_HaplotypeCaller_cohort/{sample}.tsv"
     conda:
         "../envs/gatk4.yaml"
     threads: 16
