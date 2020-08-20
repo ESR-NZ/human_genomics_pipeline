@@ -24,11 +24,11 @@ A simple Snakemake workflow to process paired-end sequencing data (WGS or WES) u
 
 ## Workflow diagram - single samples
 
-<img src="rulegraph_single.png" class="center">
+<img src="./images/rulegraph_single.png" class="center">
 
 ## Workflow diagram - cohorts
 
-<img src="rulegraph_cohort.png" class="center">
+<img src="./images/rulegraph_cohort.png" class="center">
 
 ## Run human_genomics_pipeline
 
