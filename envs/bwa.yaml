@@ -1,7 +1,0 @@
-channels:
-  - bioconda
-  - conda-forge
-  - defaults
-dependencies:
-  -  bioconda::samtools =1.10
-  -  bioconda::bwa =0.7.17

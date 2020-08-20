@@ -1,0 +1,50 @@
+{
+    "__default__" :
+    {
+        "account" : "",
+        "nodes" : 1,
+        "ntasks" : 4,
+        "partition" : "",
+        "nodelist" : ""
+    },
+    "__fastqc__" :
+    {
+        "nodes" : 2
+    },
+    "__trim_galore_pe__" :
+    {
+        "nodes" : 16
+    },
+    "__bwa_mem__" :
+    {
+        "nodes" : 32
+    },
+    "__gatk_MarkDuplicates__" :
+    {
+        "nodes" : 4
+    },
+    "__gatk_BaseRecalibrator__" :
+    {
+        "nodes" : 4
+    },
+    "__gatk_ApplyBQSR__" :
+    {
+        "nodes" : 4
+    },
+    "__gatk_haplotype_caller_single__" :
+    {
+        "nodes" : 16
+    },
+    "__gatk_HaplotypeCaller_cohort__" :
+    {
+        "nodes" : 16
+    },
+    "__gatk_CombineGVCFs__" :
+    {
+        "nodes" : 1
+    },
+    "__gatk_GenotypeGVCFs__" :
+    {
+        "nodes" : 16
+    }
+}

@@ -1,1 +1,0 @@
-Coverage calculated with `mosdepth <https://github.com/brentp/mosdepth>`_

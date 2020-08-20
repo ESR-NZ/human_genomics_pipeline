@@ -1,0 +1,54 @@
+"""
+Author: Miles Benton and Leah Kemp
+Affiliation: ESR
+Aim: A simple Snakemake workflow to process paired-end sequencing data (WGS) using bwa/GATK4. Designed to be used before vcf_annotation_pipeline.
+Date created: 2019-08-21
+Modified: 2020-08-19
+"""
+
+##### Set up #####
+
+# Define samples from fastq dir and families/cohorts from pedigree dir using wildcards
+SAMPLES, = glob_wildcards("../../fastq/{sample}_1.fastq.gz")
+FAMILIES, = glob_wildcards("../../pedigrees/{family}_pedigree.ped")
+
+#### Set up report #####
+
+report: "report/workflow.rst"
+
+##### Target rules #####
+
+if config['DATA'] == "Single" or config['DATA'] == 'single':
+    rule all:
+        input:
+            "../results/qc/multiqc.html",
+            expand("../results/mapped/{sample}_recalibrated.bam", sample = SAMPLES),
+            expand("../results/called/{sample}_raw_snps_indels.vcf", sample = SAMPLES),
+            
+
+if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
+    rule all:
+        input:
+            "../results/qc/multiqc.html",
+            expand("../results/mapped/{sample}_recalibrated.bam", sample = SAMPLES),
+            expand("../results/called/{family}_raw_snps_indels_g.vcf", family = FAMILIES)
+
+##### load rules #####
+
+localrules: multiqc
+
+include: "rules/trim_galore_pe.smk"
+include: "rules/fastqc.smk"
+include: "rules/multiqc.smk"
+include: "rules/bwa_mem.smk"
+include: "rules/gatk_MarkDuplicates.smk"
+include: "rules/gatk_BaseRecalibrator.smk"
+include: "rules/gatk_ApplyBQSR.smk"
+
+if config['DATA'] == "Single" or config['DATA'] == 'single':
+    include: "rules/gatk_HaplotypeCaller_single.smk"
+
+if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
+    include: "rules/gatk_HaplotypeCaller_cohort.smk"
+    include: "rules/gatk_CombineGVCFs.smk"
+    include: "rules/gatk_GenotypeGVCFs.smk"

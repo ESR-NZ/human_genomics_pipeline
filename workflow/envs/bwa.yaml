@@ -1,0 +1,8 @@
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - bioconda::samtools =1.10
+  - bioconda::bwa =0.7.17
+  - bioconda::gatk4 =4.1.6.0  
