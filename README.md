@@ -233,7 +233,7 @@ snakemake \
 -n \
 -j 32 \
 --use-conda \
---configfile ../config/config.yaml
+--configfile ../config/config.yaml \
 --cluster-config ../config/cluster.json \
 --cluster "sbatch -A {cluster.account} \
 -p {cluster.partition} \
@@ -248,7 +248,7 @@ Full run (run.sh):
 snakemake \
 -j 32 \
 --use-conda \
---configfile ../config/config.yaml
+--configfile ../config/config.yaml \
 --cluster-config ../config/cluster.json \
 --cluster "sbatch -A {cluster.account} \
 -p {cluster.partition} \
@@ -260,17 +260,12 @@ snakemake \
 ### 7. Create and activate a conda environment with python and snakemake installed
 
 ```bash
+cd ./human_genomics_pipeline/workflow/
 mamba env create -f pipeline_run_env.yml
 conda activate pipeline_run_env
 ```
 
 ### 8. Run the pipeline
-
-Move to the workflow directory
-
-```bash
-cd /human_genomics_pipeline/workflow/
-```
 
 First carry out a dry run
 
