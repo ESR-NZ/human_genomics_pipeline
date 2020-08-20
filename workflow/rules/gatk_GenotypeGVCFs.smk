@@ -19,4 +19,4 @@ rule gatk_GenotypeGVCFs:
     message:
         "Performing joint genotyping on one or more samples pre-called with HaplotypeCaller for {input}"
     shell:
-        "gatk GenotypeGVCFs -R {input.refgenome} -V {input.gvcf} -O {output} --TMP_DIR {params.tdir} {params.padding} {params.intervals} {params.other} &> {log}"
+        "gatk GenotypeGVCFs -R {input.refgenome} -V {input.gvcf} -O {output} {params.padding} {params.intervals} {params.other} &> {log}"
