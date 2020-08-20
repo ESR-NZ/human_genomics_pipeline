@@ -78,6 +78,11 @@ If you are analysing cohort's of samples, you will need an additional directory 
 
 ```
 
+Requirements:
+  - Input paired end fastq files need to identified with `_1` and `_2` (not `_R1` and `_R2`)
+  - The filenames of the pedigree files need to be labelled with the family name
+  - Singletons and cohorts need to be run in seperate pipeline runs
+
 See [here](https://help.github.com/en/github/getting-started-with-github/fork-a-repo#keep-your-fork-synced) for help
 
 ### 3. Create a local copy of the [GATK resource bundle](https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle) (either b37 or hg38)
