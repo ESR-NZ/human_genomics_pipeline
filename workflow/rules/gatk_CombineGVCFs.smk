@@ -22,7 +22,7 @@ rule gatk_CombineGVCFs:
         vcf_dummy = expand("../results/called/{sample}_raw_snps_indels_tmp_g.vcf", sample = SAMPLES), # a dummy vcf to connect this rule to gatk_HaplotypeCaller
         refgenome = expand("{refgenome}", refgenome = config['REFGENOME'])
     output: 
-        "../results/called/{family}_raw_snps_indels_tmp_combined_g.vcf"
+        temp("../results/called/{family}_raw_snps_indels_tmp_combined_g.vcf")
     params:
         command = get_command,
         tdir = expand("{tdir}", tdir = config['TEMPDIR']),
