@@ -4,7 +4,8 @@ rule gatk_HaplotypeCaller_cohort:
         refgenome = expand("{refgenome}", refgenome = config['REFGENOME']),
         dbsnp = expand("{dbsnp}", dbsnp = config['dbSNP'])
     output:
-        temp("../results/called/{sample}_raw_snps_indels_tmp_g.vcf")
+        vcf = temp("../results/called/{sample}_raw_snps_indels_tmp_g.vcf"),
+        index = temp("../results/called/{sample}_raw_snps_indels_tmp_g.vcf.idx")
     params:
         java = "-Xmx30g",
         tdir = expand("{tdir}", tdir = config['TEMPDIR']),
@@ -21,4 +22,4 @@ rule gatk_HaplotypeCaller_cohort:
     message:
         "Calling germline SNPs and indels via local re-assembly of haplotypes for {input.bams}"
     shell:
-        "gatk HaplotypeCaller --java-options {params.java} -I {input.bams} -R {input.refgenome} -D {input.dbsnp} -O {output} --tmp-dir {params.tdir} {params.padding} {params.intervals} {params.other} --native-pair-hmm-threads {threads} &> {log}"
+        "gatk HaplotypeCaller --java-options {params.java} -I {input.bams} -R {input.refgenome} -D {input.dbsnp} -O {output.vcf} --tmp-dir {params.tdir} {params.padding} {params.intervals} {params.other} --native-pair-hmm-threads {threads} &> {log}"

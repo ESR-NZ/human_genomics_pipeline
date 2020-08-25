@@ -17,6 +17,6 @@ rule gatk_GenotypeGVCFs:
         "../envs/gatk4.yaml"
     threads: 16
     message:
-        "Performing joint genotyping on one or more samples pre-called with HaplotypeCaller for {input}"
+        "Performing joint genotyping on one or more samples pre-called with HaplotypeCaller for {input.gvcf}"
     shell:
         "gatk GenotypeGVCFs -R {input.refgenome} -V {input.gvcf} -O {output} {params.padding} {params.intervals} {params.other} &> {log}"
