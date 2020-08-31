@@ -95,24 +95,12 @@ Download from [Google Cloud Bucket](https://console.cloud.google.com/storage/bro
 gsutil cp -r gs://gatk-legacy-bundles/b37 /where/to/download/
 ```
 
-Unzip all zipped files
-
-```bash
-gunzip -f /location/you/downloaded/bundle/*.gz
-```
-
 #### hg38
 
 Download from [Google Cloud Bucket](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0)
 
 ```bash
-gsutil cp -r gs://genomics-public-data/resources/broad/hg38/v0/ /where/to/download/
-```
-
-Unzip all zipped files
-
-```bash
-gunzip -f /location/you/downloaded/bundle/*.gz
+gsutil cp -r gs://genomics-public-data/resources/broad/hg38/ /where/to/download/
 ```
 
 ### 4. Modify the configuration file
