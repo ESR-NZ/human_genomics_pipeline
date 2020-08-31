@@ -81,7 +81,10 @@ If you are analysing cohort's of samples, you will need an additional directory 
 Requirements:
   - Input paired end fastq files need to identified with `_1` and `_2` (not `_R1` and `_R2`)
   - The filenames of the pedigree files need to be labelled with the family name
-  - Singletons and cohorts need to be run in seperate pipeline runs
+  - Singletons and cohorts need to be run in separate pipeline runs
+
+Assumptions:
+  - There is one proband/individual affected with the disease phenotype of interest in a given cohort (one individual with a value of 2 in the 6th column of the pedigree file)
 
 See [here](https://help.github.com/en/github/getting-started-with-github/fork-a-repo#keep-your-fork-synced) for help
 
