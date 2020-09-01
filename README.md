@@ -70,8 +70,8 @@ If you are analysing cohort's of samples, you will need an additional directory 
 |     |___ ...
 |
 |_____pedigrees/
-|     |___family1_pedigree.ped
-|     |___family2_pedigree.ped
+|     |___proband1_pedigree.ped
+|     |___proband2_pedigree.ped
 |     |___ ...
 |
 |___human_genomics_pipeline/
@@ -80,7 +80,7 @@ If you are analysing cohort's of samples, you will need an additional directory 
 
 Requirements:
   - Input paired end fastq files need to identified with `_1` and `_2` (not `_R1` and `_R2`)
-  - The filenames of the pedigree files need to be labelled with the family name
+  - Currently, the filenames of the pedigree files need to be labelled with the name of the proband/individual affected with the disease phenotype in the cohort (we will be working towards removing this requirement)
   - Singletons and cohorts need to be run in separate pipeline runs
 
 Assumptions:
