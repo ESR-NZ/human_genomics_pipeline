@@ -95,7 +95,7 @@ See [here](https://help.github.com/en/github/getting-started-with-github/fork-a-
 Download from [Google Cloud Bucket](https://console.cloud.google.com/storage/browser/gatk-legacy-bundles/b37?prefix=)
 
 ```bash
-gsutil cp -r gs://gatk-legacy-bundles/b37 /where/to/download/
+gsutil cp -r gs://gatk-legacy-bundles/b37/ /where/to/download/
 ```
 
 #### hg38
