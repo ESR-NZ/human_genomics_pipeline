@@ -19,4 +19,4 @@ rule trim_galore_pe:
     message:
         "Applying quality and adapter trimming to input fastq files: {input}"
     shell:
-        "trim_galore {input} -o ../results/trimmed/ {params.adapters} {params.other} &> {log}"
+        "trim_galore {input} -o ../results/trimmed/ {params.adapters} {params.other} -j {threads} &> {log}"
