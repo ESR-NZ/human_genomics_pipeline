@@ -7,12 +7,16 @@ rule trim_galore_pe:
         temp("../results/trimmed/{sample}_2_val_2.fq.gz"),
         report("../results/trimmed/{sample}_2.fastq.gz_trimming_report.txt", caption = "../report/trimming_R1.rst", category = "Trimming")
     params:
-        extra = "--illumina -q 20"
+        adapters = expand("{adapters}", adapters = config['TRIMMING']['ADAPTERS']),
+        other = "-q 20 --paired"
     log:
         "logs/trim_galore/{sample}.log"
     benchmark:
         "benchmarks/trim_galore_pe/{sample}.tsv"
+    conda:
+        "../envs/trim_galore.yaml"
+    threads: 16
     message:
-        "Applying quality and adapter trimming of input fastq files: {input}"
-    wrapper:
-        "0.64.0/bio/trim_galore/pe"
+        "Applying quality and adapter trimming to input fastq files: {input}"
+    shell:
+        "trim_galore {input} -o ../results/trimmed/ {params.adapters} {params.other} &> {log}"

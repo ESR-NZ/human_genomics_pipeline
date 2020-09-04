@@ -22,6 +22,14 @@ WES:
   # Padding (in bp) to add to each region (prefix with the '-ip' flag)
   PADDING: ""
 
+############################
+######### Trimming #########
+############################
+
+# Adapter sequence to be trimmed (eg. `--illumina`, `--nextera` or `--small_rna`)
+TRIMMING:
+  ADAPTERS: ""
+
 ##############################
 ##### Base recalibration #####
 ##############################
