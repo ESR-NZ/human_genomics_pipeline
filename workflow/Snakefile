@@ -3,7 +3,7 @@ Author: Miles Benton and Leah Kemp
 Affiliation: ESR
 Aim: A simple Snakemake workflow to process paired-end sequencing data (WGS) using bwa/GATK4. Designed to be used before vcf_annotation_pipeline.
 Date created: 2019-08-21
-Modified: 2020-08-19
+Modified: 2020-09-04
 """
 
 ##### Set up #####
