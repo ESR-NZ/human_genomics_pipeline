@@ -21,7 +21,7 @@ report: "report/workflow.rst"
 if config['DATA'] == "Single" or config['DATA'] == 'single':
     rule all:
         input:
-            "../results/qc/multiqc.html",
+            "../results/qc/multiqc_report.html",
             expand("../results/mapped/{sample}_recalibrated.bam", sample = SAMPLES),
             expand("../results/called/{sample}_raw_snps_indels.vcf", sample = SAMPLES),
             
@@ -29,7 +29,7 @@ if config['DATA'] == "Single" or config['DATA'] == 'single':
 if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
     rule all:
         input:
-            "../results/qc/multiqc.html",
+            "../results/qc/multiqc_report.html",
             expand("../results/mapped/{sample}_recalibrated.bam", sample = SAMPLES),
             expand("../results/called/{family}_raw_snps_indels_g.vcf", family = FAMILIES)
 
