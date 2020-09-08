@@ -5,6 +5,9 @@
 # Type of input data (either 'Single' or 'Cohort')
 DATA: ""
 
+# Should the pipeline be GPU accelerated where possible? (either 'Yes' or 'No')
+GPU_ACCELERATED: ""
+
 # File paths to the reference genome (.fasta) and it's associated dictionary file (.dict)
 REFGENOME: ""
 DICT: ""
@@ -34,6 +37,6 @@ TRIMMING:
 ##### Base recalibration #####
 ##############################
 
-# Resources to used for base recalibration (prefix each resource with the '--known-sites' flag)
+# Resources to used for base recalibration (prefix each resource with the '--known-sites' flag if not gpu accelerated and the '--knownSites' if gpu accelerated)
 RECALIBRATION:
   RESOURCES: ""

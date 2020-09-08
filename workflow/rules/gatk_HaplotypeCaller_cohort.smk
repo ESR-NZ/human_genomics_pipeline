@@ -4,8 +4,8 @@ rule gatk_HaplotypeCaller_cohort:
         refgenome = expand("{refgenome}", refgenome = config['REFGENOME']),
         dbsnp = expand("{dbsnp}", dbsnp = config['dbSNP'])
     output:
-        vcf = temp("../results/called/{sample}_raw_snps_indels_tmp_g.vcf"),
-        index = temp("../results/called/{sample}_raw_snps_indels_tmp_g.vcf.idx")
+        vcf = temp("../results/called/{sample}_raw_snps_indels_tmp.g.vcf"),
+        index = temp("../results/called/{sample}_raw_snps_indels_tmp.g.vcf.idx")
     params:
         java = "-Xmx30g",
         tdir = expand("{tdir}", tdir = config['TEMPDIR']),

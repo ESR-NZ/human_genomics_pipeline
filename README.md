@@ -4,7 +4,9 @@ A Snakemake workflow to process single samples or cohorts of paired-end sequenci
 
 - [human_genomics_pipeline](#human_genomics_pipeline)
   - [Workflow diagram - single samples](#workflow-diagram---single-samples)
-  - [Workflow diagram - cohorts](#workflow-diagram---cohorts)
+  - [Workflow diagram - single samples - GPU accelerated](#workflow-diagram---single-samples---gpu-accelerated)
+  - [Workflow diagram - cohort samples](#workflow-diagram---cohort-samples)
+  - [Workflow diagram - cohort samples - GPU accelerated](#workflow-diagram---cohort-samples---gpu-accelerated)
   - [Run human_genomics_pipeline](#run-human_genomics_pipeline)
     - [1. Fork the pipeline repo to a personal or lab account](#1-fork-the-pipeline-repo-to-a-personal-or-lab-account)
     - [2. Take the pipeline to the data on your local machine](#2-take-the-pipeline-to-the-data-on-your-local-machine)
@@ -26,13 +28,22 @@ A Snakemake workflow to process single samples or cohorts of paired-end sequenci
 
 <img src="./images/rulegraph_single.png" class="center">
 
-## Workflow diagram - cohorts
+## Workflow diagram - single samples - GPU accelerated
+
+<img src="./images/rulegraph_single_gpu.png" class="center">
+
+## Workflow diagram - cohort samples
 
 <img src="./images/rulegraph_cohort.png" class="center">
 
+## Workflow diagram - cohort samples - GPU accelerated
+
+<img src="./images/rulegraph_cohort_gpu.png" class="center">
+
 ## Run human_genomics_pipeline
 
-- **Prerequisite software:** [Git 2.7.4](https://git-scm.com/), [Mamba 0.4.4](https://github.com/TheSnakePit/mamba) with [Conda 4.8.2](https://docs.conda.io/projects/conda/en/latest/index.html), [gsutil 4.52](https://pypi.org/project/gsutil/), [gunzip 1.6](https://linux.die.net/man/1/gunzip)
+- **Prerequisite hardware:** [NVIDIA GPUs](https://www.nvidia.com/en-gb/graphics-cards/) (for GPU accelerated runs)
+- **Prerequisite software:** [NVIDIA CLARA PARABRICKS and dependencies](https://www.nvidia.com/en-us/docs/parabricks/local-installation/) (for GPU accelerated runs), [Git 2.7.4](https://git-scm.com/), [Mamba 0.4.4](https://github.com/TheSnakePit/mamba) with [Conda 4.8.2](https://docs.conda.io/projects/conda/en/latest/index.html), [gsutil 4.52](https://pypi.org/project/gsutil/), [gunzip 1.6](https://linux.die.net/man/1/gunzip)
 - **OS:** Validated on Ubuntu 16.04
 
 ### 1. Fork the pipeline repo to a personal or lab account
@@ -116,6 +127,12 @@ Specify whether the data is to be analysed on it's own ('Single') or as a part o
 DATA: "Single"
 ```
 
+Specify whether the pipeline should be GPU accelerated where possible (either 'Yes' or 'No', this requires [NVIDIA GPUs](https://www.nvidia.com/en-gb/graphics-cards/) and [NVIDIA CLARA PARABRICKS](https://www.nvidia.com/en-us/docs/parabricks/local-installation/))
+
+```yaml
+GPU_ACCELERATED: "No"
+```
+
 Set the the working directories to the reference human genome file (b37 or hg38) and it's associated dictionary file (.dict). For example:
 
 ```yaml
@@ -154,7 +171,7 @@ TRIMMING:
   ADAPTERS: "--illumina"
 ```
 
-Pass the resources to be used to recalibrate bases with [gatk BaseRecalibrator](https://gatk.broadinstitute.org/hc/en-us/articles/360047217531-BaseRecalibrator) to the `--known-sites` flag. For example:
+Pass the resources to be used to recalibrate bases with [gatk BaseRecalibrator](https://gatk.broadinstitute.org/hc/en-us/articles/360047217531-BaseRecalibrator) to the `--known-sites` flag if not gpu accelerated and to the `--knownSites` if gpu accelerated. For example:
 
 ```yaml
 RECALIBRATION:
@@ -188,7 +205,7 @@ Configure `account:`, `partition:` and `nodelist:` in default section of 'cluste
 
 ### 6. Modify the run scripts
 
-Set the number of cores to be used with the `-j` flag. For example:
+Set the number of cores to be used with the `-j` flag. If running GPU accelerated, also set the number of gpus with the `--resources` flag. For example:
 
 Dry run (dryrun.sh):
 
@@ -196,6 +213,7 @@ Dry run (dryrun.sh):
 snakemake \
 -n \
 -j 32 \
+--resources gpu=2 \
 --use-conda \
 --configfile ../config/config.yaml
 ```
@@ -205,6 +223,7 @@ Full run (run.sh):
 ```bash
 snakemake \
 -j 32 \
+--resources gpu=2 \
 --use-conda \
 --configfile ../config/config.yaml
 ```
@@ -230,6 +249,7 @@ Dry run (dryrun.sh):
 snakemake \
 -n \
 -j 32 \
+--resources gpu=2 \
 --use-conda \
 --configfile ../config/config.yaml \
 --cluster-config ../config/cluster.json \
@@ -245,6 +265,7 @@ Full run (run.sh):
 ```bash
 snakemake \
 -j 32 \
+--resources gpu=2 \
 --use-conda \
 --configfile ../config/config.yaml \
 --cluster-config ../config/cluster.json \
