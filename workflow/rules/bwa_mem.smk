@@ -1,7 +1,15 @@
+if config['TRIM'] == "No" or config['TRIM'] == "no":
+    R1 = "../../fastq/{sample}_1.fastq.gz"
+    R2 = "../../fastq/{sample}_2.fastq.gz"
+    
+if config['TRIM'] == "Yes" or config['TRIM'] == "yes":
+    R1 = "../results/trimmed/{sample}_1_val_1.fq.gz"
+    R2 = "../results/trimmed/{sample}_2_val_2.fq.gz"
+
 rule bwa_mem:
     input:
-        R1 = "../results/trimmed/{sample}_1_val_1.fq.gz",
-        R2 = "../results/trimmed/{sample}_2_val_2.fq.gz",
+        R1 = R1,
+        R2 = R2,
         refgenome = expand("{refgenome}", refgenome = config['REFGENOME'])
     output: 
         temp("../results/mapped/{sample}_sorted.bam")

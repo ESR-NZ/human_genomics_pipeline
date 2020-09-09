@@ -37,7 +37,9 @@ if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
 
 localrules: multiqc, pbrun_fq2bam, pbrun_haplotypecaller_single, pbrun_haplotypecaller_cohort
 
-include: "rules/trim_galore_pe.smk"
+if config['TRIM'] == "Yes" or config['TRIM'] == "yes":
+    include: "rules/trim_galore_pe.smk"
+
 include: "rules/fastqc.smk"
 include: "rules/multiqc.smk"
 
