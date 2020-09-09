@@ -35,7 +35,7 @@ if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
 
 ##### load rules #####
 
-localrules: multiqc, pbrun_fq2bam, pbrun_haplotypecaller_single, pbrun_haplotypecaller_cohort
+localrules: multiqc, pbrun_fq2bam, pbrun_haplotypecaller_single, pbrun_haplotypecaller_cohort, pbrun_genotypegvcf
 
 if config['TRIM'] == "Yes" or config['TRIM'] == "yes":
     include: "rules/trim_galore_pe.smk"
@@ -60,10 +60,10 @@ if (config['DATA'] == "Single" or config['DATA'] == 'single') and (config['GPU_A
 
 if (config['DATA'] == "Cohort" or config['DATA'] == 'cohort') and (config['GPU_ACCELERATED'] == "No" or config['GPU_ACCELERATED'] == "no"):
     include: "rules/gatk_HaplotypeCaller_cohort.smk"
+    include: "rules/gatk_CombineGVCFs.smk"
+    include: "rules/gatk_GenotypeGVCFs.smk"
 
 if (config['DATA'] == "Cohort" or config['DATA'] == 'cohort') and (config['GPU_ACCELERATED'] == "Yes" or config['GPU_ACCELERATED'] == "yes"):
     include: "rules/pbrun_haplotypecaller_cohort.smk"
-
-if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
     include: "rules/gatk_CombineGVCFs.smk"
-    include: "rules/gatk_GenotypeGVCFs.smk"
+    include: "rules/pbrun_genotypegvcf.smk"
