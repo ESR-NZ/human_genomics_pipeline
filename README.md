@@ -19,6 +19,7 @@ A Snakemake workflow to process single samples or cohorts of paired-end sequenci
       - [HPC](#hpc)
     - [7. Create and activate a conda environment with python and snakemake installed](#7-create-and-activate-a-conda-environment-with-python-and-snakemake-installed)
     - [8. Run the pipeline](#8-run-the-pipeline)
+      - [HPC](#hpc-1)
     - [9. Evaluate the pipeline run](#9-evaluate-the-pipeline-run)
     - [10. Commit and push to your forked version of the github repo](#10-commit-and-push-to-your-forked-version-of-the-github-repo)
     - [11. Repeat step 10 each time you re-run the analysis with different parameters](#11-repeat-step-10-each-time-you-re-run-the-analysis-with-different-parameters)
@@ -184,7 +185,7 @@ RECALIBRATION:
 
 In theory, this cluster configuration should be adaptable to other job scheduler systems, but here I will demonstrate how to deploy this pipeline to [slurm](https://slurm.schedmd.com/).
 
-Configure `account:`, `partition:` and `nodelist:` in default section of 'cluster.json' in order to set the parameters for slurm sbatch (see documentation [here](https://snakemake.readthedocs.io/en/stable/snakefiles/configuration.html#cluster-configuration-deprecated) and [here](https://slurm.schedmd.com/)). For example:
+Configure `account:` and `partition:` in the default section of 'cluster.json' in order to set the parameters for slurm sbatch (see documentation [here](https://snakemake.readthedocs.io/en/stable/snakefiles/configuration.html#cluster-configuration-deprecated) and [here](https://slurm.schedmd.com/)). For example:
 
 ```json
 {
@@ -193,19 +194,15 @@ Configure `account:`, `partition:` and `nodelist:` in default section of 'cluste
         "account" : "lkemp",
         "nodes" : 1,
         "ntasks" : 4,
-        "partition" : "prod",
-        "nodelist" : "kscprod-bio4"
-    }
-}
+        "partition" : "prod"
+    },
 ```
 
 [This](https://hpc-carpentry.github.io/hpc-python/17-cluster/) is a good place to go for a good working example.
 
-*These variables will need to be passed to snakemake in the snakemake run script (see example in the HPC section of step 6).*
-
 ### 6. Modify the run scripts
 
-Set the number of cores to be used with the `-j` flag. If running GPU accelerated, also set the number of gpus with the `--resources` flag. For example:
+Set the number maximum number of cores to be used with the `-j` flag. If running GPU accelerated, also set the maximum number of GPU's to be used with the `--resources` flag. For example:
 
 Dry run (dryrun.sh):
 
@@ -215,6 +212,7 @@ snakemake \
 -j 32 \
 --resources gpu=2 \
 --use-conda \
+--conda-frontend mamba \
 --configfile ../config/config.yaml
 ```
 
@@ -226,24 +224,15 @@ snakemake \
 --resources gpu=2 \
 --use-conda \
 --configfile ../config/config.yaml
-```
-
-Report (report.sh)
-
-```bash
-snakemake \
---report ../results/report.html \
---configfile ../config/config.yaml \
---report-stylesheet ../config/ESR_stylesheet.css
 ```
 
 See the [snakemake documentation](https://snakemake.readthedocs.io/en/v4.5.1/executable.html#all-options) for additional run parameters.
 
 #### HPC
 
-If you want to run the pipeline on a HPC, pass the cluster variables set in 'cluster.json' to the dry run and full run scripts. For example:
+If you want to run the pipeline on a HPC, set the `-j` and `--resources` flags in dryrun_hpc.sh and run_hpc.sh run scripts instead. For example:
 
-Dry run (dryrun.sh):
+Dry run (dryrun_hpc.sh):
 
 ```bash
 snakemake \
@@ -251,29 +240,29 @@ snakemake \
 -j 32 \
 --resources gpu=2 \
 --use-conda \
+--conda-frontend mamba \
 --configfile ../config/config.yaml \
 --cluster-config ../config/cluster.json \
 --cluster "sbatch -A {cluster.account} \
 -p {cluster.partition} \
 --nodes {cluster.nodes} \
---ntasks {cluster.ntasks} \
---nodelist {cluster.nodelist}"
+--ntasks {cluster.ntasks}"
 ```
 
-Full run (run.sh):
+Full run (run_hpc.sh):
 
 ```bash
 snakemake \
 -j 32 \
 --resources gpu=2 \
 --use-conda \
+--conda-frontend mamba \
 --configfile ../config/config.yaml \
 --cluster-config ../config/cluster.json \
 --cluster "sbatch -A {cluster.account} \
 -p {cluster.partition} \
 --nodes {cluster.nodes} \
---ntasks {cluster.ntasks} \
---nodelist {cluster.nodelist}"
+--ntasks {cluster.ntasks}"
 ```
 
 ### 7. Create and activate a conda environment with python and snakemake installed
@@ -296,6 +285,15 @@ If there are no issues, start a full run
 
 ```bash
 bash run.sh
+```
+
+#### HPC
+
+If running on a HPC, run the HPC run scripts instead
+
+```bash
+bash dryrun_hpc.sh
+bash run_hpc.sh
 ```
 
 ### 9. Evaluate the pipeline run

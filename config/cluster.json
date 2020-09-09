@@ -4,8 +4,7 @@
         "account" : "",
         "nodes" : 1,
         "ntasks" : 4,
-        "partition" : "",
-        "nodelist" : ""
+        "partition" : ""
     },
     "__fastqc__" :
     {
