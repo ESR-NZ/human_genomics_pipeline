@@ -29,7 +29,10 @@ WES:
 ######### Trimming #########
 ############################
 
-# Adapter sequence to be trimmed (eg. `--illumina`, `--nextera` or `--small_rna`)
+# Whether or not to trim the raw fastq reads (either 'Yes' or 'No')
+TRIM: ""
+
+# If trimming, choose the adapter sequence to be trimmed (eg. `--illumina`, `--nextera` or `--small_rna`)
 TRIMMING:
   ADAPTERS: ""
 
