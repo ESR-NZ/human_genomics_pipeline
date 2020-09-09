@@ -3,7 +3,7 @@ Author: Miles Benton and Leah Kemp
 Affiliation: ESR
 Aim: A simple Snakemake workflow to process paired-end sequencing data (WGS) using bwa/GATK4. Designed to be used before vcf_annotation_pipeline.
 Date created: 2019-08-21
-Modified: 2020-09-04
+Modified: 2020-09-09
 """
 
 ##### Set up #####
@@ -31,24 +31,37 @@ if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
         input:
             "../results/qc/multiqc_report.html",
             expand("../results/mapped/{sample}_recalibrated.bam", sample = SAMPLES),
-            expand("../results/called/{family}_raw_snps_indels_g.vcf", family = FAMILIES)
+            expand("../results/called/{family}_raw_snps_indels.g.vcf", family = FAMILIES)
 
 ##### load rules #####
 
-localrules: multiqc
+localrules: multiqc, pbrun_fq2bam, pbrun_haplotypecaller_single, pbrun_haplotypecaller_cohort
 
 include: "rules/trim_galore_pe.smk"
 include: "rules/fastqc.smk"
 include: "rules/multiqc.smk"
-include: "rules/bwa_mem.smk"
-include: "rules/gatk_MarkDuplicates.smk"
-include: "rules/gatk_BaseRecalibrator.smk"
-include: "rules/gatk_ApplyBQSR.smk"
 
-if config['DATA'] == "Single" or config['DATA'] == 'single':
+if config['GPU_ACCELERATED'] == "No" or config['GPU_ACCELERATED'] == "no":
+    include: "rules/bwa_mem.smk"
+    include: "rules/gatk_MarkDuplicates.smk"
+    include: "rules/gatk_BaseRecalibrator.smk"
+    include: "rules/gatk_ApplyBQSR.smk"
+
+if config['GPU_ACCELERATED'] == "Yes" or config['GPU_ACCELERATED'] == "yes":
+    include: "rules/pbrun_fq2bam.smk"
+
+if (config['DATA'] == "Single" or config['DATA'] == 'single') and (config['GPU_ACCELERATED'] == "No" or config['GPU_ACCELERATED'] == "no"):
     include: "rules/gatk_HaplotypeCaller_single.smk"
 
-if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
+if (config['DATA'] == "Single" or config['DATA'] == 'single') and (config['GPU_ACCELERATED'] == "Yes" or config['GPU_ACCELERATED'] == "yes"):
+    include: "rules/pbrun_haplotypecaller_single.smk"
+
+if (config['DATA'] == "Cohort" or config['DATA'] == 'cohort') and (config['GPU_ACCELERATED'] == "No" or config['GPU_ACCELERATED'] == "no"):
     include: "rules/gatk_HaplotypeCaller_cohort.smk"
+
+if (config['DATA'] == "Cohort" or config['DATA'] == 'cohort') and (config['GPU_ACCELERATED'] == "Yes" or config['GPU_ACCELERATED'] == "yes"):
+    include: "rules/pbrun_haplotypecaller_cohort.smk"
+
+if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
     include: "rules/gatk_CombineGVCFs.smk"
     include: "rules/gatk_GenotypeGVCFs.smk"

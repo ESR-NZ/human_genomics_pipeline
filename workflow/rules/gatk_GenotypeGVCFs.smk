@@ -1,9 +1,9 @@
 rule gatk_GenotypeGVCFs:
     input:
-        gvcf = "../results/called/{family}_raw_snps_indels_tmp_combined_g.vcf",
+        gvcf = "../results/called/{family}_raw_snps_indels_tmp_combined.g.vcf",
         refgenome = expand("{refgenome}", refgenome = config['REFGENOME'])
     output:
-        protected("../results/called/{family}_raw_snps_indels_g.vcf")
+        protected("../results/called/{family}_raw_snps_indels.g.vcf")
     params:
         tdir = expand("{tdir}", tdir = config['TEMPDIR']),
         padding = expand("{padding}", padding = config['WES']['PADDING']),

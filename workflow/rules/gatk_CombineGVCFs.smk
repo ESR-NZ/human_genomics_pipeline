@@ -13,17 +13,17 @@ def get_command(family):
 
         pedigree_reader = csv.DictReader(pedigree, fieldnames = ('family', 'individual_id', 'paternal_id', 'maternal_id', 'sex', 'phenotype'), delimiter='\t')
         for individual in pedigree_reader:
-            command += "-V ../results/called/" + individual['individual_id'] + "_raw_snps_indels_tmp_g.vcf "
+            command += "-V ../results/called/" + individual['individual_id'] + "_raw_snps_indels_tmp.g.vcf "
 
     return command
 
 rule gatk_CombineGVCFs:
     input:
-        vcf_dummy = expand("../results/called/{sample}_raw_snps_indels_tmp_g.vcf", sample = SAMPLES), # a dummy vcf to connect this rule to gatk_HaplotypeCaller
+        vcf_dummy = expand("../results/called/{sample}_raw_snps_indels_tmp.g.vcf", sample = SAMPLES), # a dummy vcf to connect this rule to gatk_HaplotypeCaller
         refgenome = expand("{refgenome}", refgenome = config['REFGENOME'])
     output: 
-        vcf = temp("../results/called/{family}_raw_snps_indels_tmp_combined_g.vcf"),
-        index = temp("../results/called/{family}_raw_snps_indels_tmp_combined_g.vcf.idx")
+        vcf = temp("../results/called/{family}_raw_snps_indels_tmp_combined.g.vcf"),
+        index = temp("../results/called/{family}_raw_snps_indels_tmp_combined.g.vcf.idx")
     params:
         command = get_command,
         tdir = expand("{tdir}", tdir = config['TEMPDIR']),
