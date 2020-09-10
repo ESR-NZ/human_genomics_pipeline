@@ -1,1 +1,1 @@
-`FastQC <https://www.bioinformatics.babraham.ac.uk/projects/fastqc/>`_ report (compiled into a `MultiQC report <https://multiqc.info/>`_) providing general statistics on the sequence data (after trimming)
+`FastQC <https://www.bioinformatics.babraham.ac.uk/projects/fastqc/>`_ report (compiled into a `MultiQC report <https://multiqc.info/>`_) providing general quality statistics on the sequence data and fastq trimming (if undertaken)

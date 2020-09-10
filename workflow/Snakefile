@@ -37,11 +37,14 @@ if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
 
 localrules: multiqc, pbrun_fq2bam, pbrun_haplotypecaller_single, pbrun_haplotypecaller_cohort, pbrun_genotypegvcf
 
+include: "rules/fastqc.smk"
+
+if config['TRIM'] == "No" or config['TRIM'] == "no":
+    include: "rules/multiqc.smk"
+
 if config['TRIM'] == "Yes" or config['TRIM'] == "yes":
     include: "rules/trim_galore_pe.smk"
-
-include: "rules/fastqc.smk"
-include: "rules/multiqc.smk"
+    include: "rules/multiqc_trim.smk"
 
 if config['GPU_ACCELERATED'] == "No" or config['GPU_ACCELERATED'] == "no":
     include: "rules/bwa_mem.smk"

@@ -1,1 +1,0 @@
-Run logs for trimming with `trim_galore <https://www.bioinformatics.babraham.ac.uk/projects/trim_galore/>`_ (R1)
