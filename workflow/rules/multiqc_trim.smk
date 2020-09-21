@@ -2,7 +2,7 @@ rule multiqc:
     input:
         fastqc = expand("../results/qc/fastqc/{sample}_fastqc.zip", sample = SAMPLES),
         trimming1 = expand("../results/trimmed/{sample}_1.fastq.gz_trimming_report.txt", sample = SAMPLES),
-        trimming2 = expand("../results/trimmed/{sample}_1.fastq.gz_trimming_report.txt", sample = SAMPLES)
+        trimming2 = expand("../results/trimmed/{sample}_2.fastq.gz_trimming_report.txt", sample = SAMPLES)
     output:
         report("../results/qc/multiqc_report.html", caption = "../report/quality_checks.rst", category = "Quality checks")
     conda:
