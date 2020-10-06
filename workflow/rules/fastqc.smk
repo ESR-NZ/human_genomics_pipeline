@@ -11,6 +11,5 @@ rule fastqc:
         "benchmarks/fastqc/{sample}.tsv"
     message:
         "Undertaking quality control checks on raw sequence data for {input}"
-    threads: 1
     wrapper:
         "0.64.0/bio/fastqc"

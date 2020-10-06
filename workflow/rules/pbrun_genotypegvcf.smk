@@ -4,12 +4,13 @@ rule pbrun_genotypegvcf:
         refgenome = expand("{refgenome}", refgenome = config['REFGENOME'])
     output:
         protected("../results/called/{family}_raw_snps_indels.g.vcf")
+    resources:
+        gpu = config['GPU']
     log:
         "logs/pbrun_genotypegvcf/{family}.log"
     benchmark:
         "benchmarks/pbrun_genotypegvcf/{family}.tsv"
-    threads: 16
     message:
         "Performing joint genotyping on one or more samples pre-called with HaplotypeCaller for {input.gvcf}"
     shell:
-        "pbrun genotypegvcf --in-gvcf {input.gvcf} --ref {input.refgenome} --out-vcf {output} --num-threads {threads} &> {log}"
+        "pbrun genotypegvcf --in-gvcf {input.gvcf} --ref {input.refgenome} --out-vcf {output} --num-gpus {resources.gpu} &> {log}"

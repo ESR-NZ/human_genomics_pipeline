@@ -7,7 +7,7 @@ rule gatk_ApplyBQSR:
     output:
         bam = protected("../results/mapped/{sample}_recalibrated.bam")
     params:
-        java_opts = "-Xmx30g"
+        java_opts = expand('"-Xmx{java_opts}"', java_opts = config['MAXMEMORY']),
     log:
         "logs/gatk_ApplyBQSR/{sample}.log"
     benchmark:

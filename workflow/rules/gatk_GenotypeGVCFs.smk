@@ -5,6 +5,7 @@ rule gatk_GenotypeGVCFs:
     output:
         protected("../results/called/{family}_raw_snps_indels.g.vcf")
     params:
+        maxmemory = expand('"-Xmx{maxmemory}"', maxmemory = config['MAXMEMORY']),
         tdir = expand("{tdir}", tdir = config['TEMPDIR']),
         padding = expand("{padding}", padding = config['WES']['PADDING']),
         intervals = expand("{intervals}", intervals = config['WES']['INTERVALS']),
@@ -15,8 +16,7 @@ rule gatk_GenotypeGVCFs:
         "benchmarks/gatk_GenotypeGVCFs/{family}.tsv"
     conda:
         "../envs/gatk4.yaml"
-    threads: 16
     message:
         "Performing joint genotyping on one or more samples pre-called with HaplotypeCaller for {input.gvcf}"
     shell:
-        "gatk GenotypeGVCFs -R {input.refgenome} -V {input.gvcf} -O {output} {params.padding} {params.intervals} {params.other} &> {log}"
+        "gatk GenotypeGVCFs --java-options {params.maxmemory} -R {input.refgenome} -V {input.gvcf} -O {output} {params.padding} {params.intervals} {params.other} &> {log}"

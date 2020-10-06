@@ -5,8 +5,8 @@ rule gatk_MarkDuplicates:
         bam = temp("../results/mapped/{sample}_sorted_mkdups.bam"),
         metrics = "../results/mapped/{sample}_sorted_mkdups_metrics.txt"
     params:
-        tdir = expand("{tdir}", tdir = config['TEMPDIR']),
-        other = "--java-options -Xmx30g"
+        maxmemory = expand('"-Xmx{maxmemory}"', maxmemory = config['MAXMEMORY']),
+        tdir = expand("{tdir}", tdir = config['TEMPDIR'])
     log:
         "logs/gatk_MarkDuplicates/{sample}.log"
     benchmark:
@@ -16,4 +16,4 @@ rule gatk_MarkDuplicates:
     message:
         "Locating and tagging duplicate reads in {input}"
     shell:
-        "gatk MarkDuplicates {params.other} -I {input} -O {output.bam} -M {output.metrics} --TMP_DIR {params.tdir} &> {log}"
+        "gatk MarkDuplicates --java-options {params.maxmemory} -I {input} -O {output.bam} -M {output.metrics} --TMP_DIR {params.tdir} &> {log}"

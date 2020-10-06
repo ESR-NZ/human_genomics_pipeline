@@ -7,7 +7,7 @@ rule pbrun_haplotypecaller_single:
     output:
         protected("../results/called/{sample}_raw_snps_indels.vcf")
     resources:
-        gpu = 1
+        gpu = config['GPU']
     params:
         tdir = expand("{tdir}", tdir = config['TEMPDIR']),
         padding = expand("{padding}", padding = config['WES']['PADDING']),
@@ -19,4 +19,4 @@ rule pbrun_haplotypecaller_single:
     message:
         "Calling germline SNPs and indels via local re-assembly of haplotypes for {input.bam}"
     shell:
-        "pbrun haplotypecaller --ref {input.refgenome} --in-bam {input.bam} --in-recal-file {input.recal} --out-variants {output} --tmp-dir {params.tdir} {params.padding} {params.intervals} &> {log}"
+        "pbrun haplotypecaller --ref {input.refgenome} --in-bam {input.bam} --in-recal-file {input.recal} --out-variants {output} --num-gpus {resources.gpu} --tmp-dir {params.tdir} {params.padding} {params.intervals} &> {log}"

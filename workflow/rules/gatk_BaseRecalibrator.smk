@@ -5,11 +5,11 @@ rule gatk_BaseRecalibrator:
     output:
         report("../results/mapped/{sample}_recalibration_report.grp", caption = "../report/recalibration.rst", category = "Base recalibration")
     params:
+        maxmemory = expand('"-Xmx{maxmemory}"', maxmemory = config['MAXMEMORY']),
         tdir = expand("{tdir}", tdir = config['TEMPDIR']),
         padding = expand("{padding}", padding = config['WES']['PADDING']),
         intervals = expand("{intervals}", intervals = config['WES']['INTERVALS']),
-        recalibration_resources = expand("{recalibration_resources}", recalibration_resources = config['RECALIBRATION']['RESOURCES']),
-        other = "--java-options -Xmx30g"
+        recalibration_resources = expand("{recalibration_resources}", recalibration_resources = config['RECALIBRATION']['RESOURCES'])
     log:
         "logs/gatk_BaseRecalibrator/{sample}.log"
     benchmark:
@@ -19,4 +19,4 @@ rule gatk_BaseRecalibrator:
     message:
         "Generating a recalibration table for {input.bams}"
     shell:
-        "gatk BaseRecalibrator {params.other} -I {input.bams} -R {input.refgenome} -O {output} --tmp-dir {params.tdir} {params.padding} {params.intervals} {params.recalibration_resources} &> {log}"
+        "gatk BaseRecalibrator --java-options {params.maxmemory} -I {input.bams} -R {input.refgenome} -O {output} --tmp-dir {params.tdir} {params.padding} {params.intervals} {params.recalibration_resources} &> {log}"

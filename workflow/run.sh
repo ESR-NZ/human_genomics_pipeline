@@ -1,7 +1,8 @@
 #!/bin/bash -x
 
 snakemake \
--j 32 \
+--cores 32 \
+--resources mem_mb=150000 \
 --resources gpu=2 \
 --use-conda \
 --conda-frontend mamba \
