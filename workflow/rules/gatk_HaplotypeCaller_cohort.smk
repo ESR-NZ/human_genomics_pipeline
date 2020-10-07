@@ -7,7 +7,7 @@ rule gatk_HaplotypeCaller_cohort:
         vcf = temp("../results/called/{sample}_raw_snps_indels_tmp.g.vcf"),
         index = temp("../results/called/{sample}_raw_snps_indels_tmp.g.vcf.idx")
     params:
-        java = "-Xmx30g",
+        maxmemory = expand('"-Xmx{maxmemory}"', maxmemory = config['MAXMEMORY']),
         tdir = expand("{tdir}", tdir = config['TEMPDIR']),
         padding = expand("{padding}", padding = config['WES']['PADDING']),
         intervals = expand("{intervals}", intervals = config['WES']['INTERVALS']),
@@ -18,8 +18,7 @@ rule gatk_HaplotypeCaller_cohort:
         "benchmarks/gatk_HaplotypeCaller_cohort/{sample}.tsv"
     conda:
         "../envs/gatk4.yaml"
-    threads: 16
     message:
         "Calling germline SNPs and indels via local re-assembly of haplotypes for {input.bams}"
     shell:
-        "gatk HaplotypeCaller --java-options {params.java} -I {input.bams} -R {input.refgenome} -D {input.dbsnp} -O {output.vcf} --tmp-dir {params.tdir} {params.padding} {params.intervals} {params.other} --native-pair-hmm-threads {threads} &> {log}"
+        "gatk HaplotypeCaller --java-options {params.maxmemory} -I {input.bams} -R {input.refgenome} -D {input.dbsnp} -O {output.vcf} --tmp-dir {params.tdir} {params.padding} {params.intervals} {params.other} &> {log}"

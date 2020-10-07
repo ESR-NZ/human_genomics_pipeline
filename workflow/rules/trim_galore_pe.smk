@@ -8,6 +8,7 @@ rule trim_galore_pe:
         "../results/trimmed/{sample}_2.fastq.gz_trimming_report.txt"
     params:
         adapters = expand("{adapters}", adapters = config['TRIMMING']['ADAPTERS']),
+        threads = expand("{threads}", threads = config['THREADS']),
         other = "-q 20 --paired"
     log:
         "logs/trim_galore/{sample}.log"
@@ -15,7 +16,7 @@ rule trim_galore_pe:
         "benchmarks/trim_galore_pe/{sample}.tsv"
     conda:
         "../envs/trim_galore.yaml"
-    threads: 16
+    threads: config['THREADS']
     message:
         "Applying quality and adapter trimming to input fastq files: {input}"
     shell:

@@ -1,6 +1,6 @@
-############################
-##### Overall workflow #####
-############################
+##############################
+###### Overall workflow ######
+##############################
 
 # Type of input data (either 'Single' or 'Cohort')
 DATA: ""
@@ -25,9 +25,22 @@ WES:
   # Padding (in bp) to add to each region (prefix with the '-ip' flag)
   PADDING: ""
 
-############################
-######### Trimming #########
-############################
+##############################
+##### Pipeline resources #####
+##############################
+
+# Number of threads to use per rule/sample for multithreaded rules, multithreading will significantly speed up these rules (diminishing speed gains beyond 8 threads)
+THREADS:
+
+# Maximum memory usage per rule/sample (eg. '40g' for 40 gigabytes, this should suffice for exomes)
+MAXMEMORY: ""
+
+# Maximum number of GPU's to be used per rule/sample for gpu-accelerated runs (eg `1` for 1 GPU)
+GPU:
+
+##############################
+########## Trimming ##########
+##############################
 
 # Whether or not to trim the raw fastq reads (either 'Yes' or 'No')
 TRIM: ""
