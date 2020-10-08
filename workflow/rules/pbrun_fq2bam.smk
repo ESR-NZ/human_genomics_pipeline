@@ -30,4 +30,4 @@ rule pbrun_fq2bam:
     message:
         "Generating a BAM output for {input.R1} and {input.R2} using BWA-Mem, gatk MarkDuplicates and gatk BaseRecalibrator"
     shell:
-        "pbrun fq2bam --ref {input.refgenome} --in-fq {input.R1} {input.R2} {params.recalibration_resources} --out-bam {output.bam} --out-recal {output.recal} --num-gpus {resources.gpu} {params.readgroup} --tmp-dir {params.tdir} {params.padding} {params.intervals} > {log}"
+        "pbrun fq2bam --ref {input.refgenome} --in-fq {input.R1} {input.R2} {params.recalibration_resources} --out-bam {output.bam} --out-recal {output.recal} --num-gpus {resources.gpu} {params.readgroup} --tmp-dir {params.tdir} {params.padding} {params.intervals} &> {log}"
