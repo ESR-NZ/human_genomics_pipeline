@@ -3,7 +3,7 @@ Author: Miles Benton and Leah Kemp
 Affiliation: ESR
 Aim: A simple Snakemake workflow to process paired-end sequencing data (WGS) using bwa/GATK4. Designed to be used before vcf_annotation_pipeline.
 Date created: 2019-08-21
-Modified: 2020-09-09
+Modified: 2020-10-09
 """
 
 ##### Set up #####
@@ -35,7 +35,7 @@ if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
 
 ##### load rules #####
 
-localrules: multiqc, pbrun_fq2bam, pbrun_haplotypecaller_single, pbrun_haplotypecaller_cohort, pbrun_genotypegvcf
+localrules: multiqc, pbrun_fq2bam, pbrun_haplotypecaller_single, pbrun_haplotypecaller_cohort
 
 include: "rules/fastqc.smk"
 
@@ -63,10 +63,10 @@ if (config['DATA'] == "Single" or config['DATA'] == 'single') and (config['GPU_A
 
 if (config['DATA'] == "Cohort" or config['DATA'] == 'cohort') and (config['GPU_ACCELERATED'] == "No" or config['GPU_ACCELERATED'] == "no"):
     include: "rules/gatk_HaplotypeCaller_cohort.smk"
-    include: "rules/gatk_CombineGVCFs.smk"
-    include: "rules/gatk_GenotypeGVCFs.smk"
 
 if (config['DATA'] == "Cohort" or config['DATA'] == 'cohort') and (config['GPU_ACCELERATED'] == "Yes" or config['GPU_ACCELERATED'] == "yes"):
     include: "rules/pbrun_haplotypecaller_cohort.smk"
+
+if (config['DATA'] == "Cohort" or config['DATA'] == 'cohort'):
     include: "rules/gatk_CombineGVCFs.smk"
-    include: "rules/pbrun_genotypegvcf.smk"
+    include: "rules/gatk_GenotypeGVCFs.smk"
