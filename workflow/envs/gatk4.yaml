@@ -3,4 +3,4 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - bioconda::gatk4 =4.1.8.1  
+  - bioconda::gatk4 =4.1.0.0  
