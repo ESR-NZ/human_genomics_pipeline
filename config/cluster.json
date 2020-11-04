@@ -2,6 +2,7 @@
     "__default__" :
     {
         "account" : "",
-        "partition" : ""
+        "partition" : "",
+        "output" : "logs/slurm-%j_{rule}_{wildcards.sample}.out"
     }
 }
