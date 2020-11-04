@@ -11,7 +11,7 @@ rule trim_galore_pe:
         threads = expand("{threads}", threads = config['THREADS']),
         other = "-q 20 --paired"
     log:
-        "logs/trim_galore/{sample}.log"
+        "logs/trim_galore_pe/{sample}.log"
     benchmark:
         "benchmarks/trim_galore_pe/{sample}.tsv"
     conda:
