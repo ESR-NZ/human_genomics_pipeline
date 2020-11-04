@@ -234,7 +234,8 @@ Configure `account:` and `partition:` in the default section of 'cluster.json' i
     "__default__" :
     {
         "account" : "lkemp",
-        "partition" : "prod"
+        "partition" : "prod",
+        "output" : "logs/slurm-%j_{rule}_{wildcards.sample}.out"
     }
 }
 ```
@@ -287,7 +288,8 @@ snakemake \
 --configfile ../config/config.yaml \
 --cluster-config ../config/cluster.json \
 --cluster "sbatch -A {cluster.account} \
--p {cluster.partition}"
+-p {cluster.partition} \
+-o {cluster.output}"
 ```
 
 Full run (run_hpc.sh):
@@ -302,7 +304,8 @@ snakemake \
 --configfile ../config/config.yaml \
 --cluster-config ../config/cluster.json \
 --cluster "sbatch -A {cluster.account} \
--p {cluster.partition}"
+-p {cluster.partition} \
+-o {cluster.output}"
 ```
 
 ### 7. Create and activate a conda environment with python and snakemake installed
