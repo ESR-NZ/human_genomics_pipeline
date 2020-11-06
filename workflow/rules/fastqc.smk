@@ -9,7 +9,10 @@ rule fastqc:
         "logs/fastqc/{sample}.log"
     benchmark:
         "benchmarks/fastqc/{sample}.tsv"
+    threads: config['THREADS']
+    conda:
+        "../envs/fastqc.yaml"
     message:
         "Undertaking quality control checks on raw sequence data for {input}"
     wrapper:
-        "0.64.0/bio/fastqc"
+        "fastqc {input} -o ../results/qc/fastqc/ -t {threads} &> {log}"
