@@ -52,12 +52,16 @@ if config['GPU_ACCELERATED'] == "No" or config['GPU_ACCELERATED'] == "no":
     include: "rules/gatk_BaseRecalibrator.smk"
     include: "rules/gatk_ApplyBQSR.smk"
 
-if config['GPU_ACCELERATED'] == "Yes" or config['GPU_ACCELERATED'] == "yes":
-    include: "rules/pbrun_germline.smk"
+if (config['GPU_ACCELERATED'] == "No" or config['GPU_ACCELERATED'] == "no") and (config['DATA'] == "Single" or config['DATA'] == 'single'):
+    include: "rules/gatk_HaplotypeCaller_single.smk"
 
 if (config['GPU_ACCELERATED'] == "No" or config['GPU_ACCELERATED'] == "no") and (config['DATA'] == "Cohort" or config['DATA'] == 'cohort'):
+    include: "rules/gatk_HaplotypeCaller_cohort.smk"
     include: "rules/gatk_CombineGVCFs.smk"
     include: "rules/gatk_GenotypeGVCFs.smk"
+
+if config['GPU_ACCELERATED'] == "Yes" or config['GPU_ACCELERATED'] == "yes":
+    include: "rules/pbrun_germline.smk"
 
 if (config['GPU_ACCELERATED'] == "Yes" or config['GPU_ACCELERATED'] == "yes") and (config['DATA'] == "Cohort" or config['DATA'] == 'cohort'):
     include: "rules/pbrun_triocombinegvcf.smk"

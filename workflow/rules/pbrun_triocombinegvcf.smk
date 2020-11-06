@@ -2,6 +2,7 @@ import csv
 
 def get_command(family):
     """Return a string, a portion of the gatk command which defines individuals which should be combined.
+    
     For a particular family, we construct the gatk command by adding -V <individual vcf file> for each individual 
     (defined by individual id column in the pedigree file)
     """
@@ -26,7 +27,7 @@ rule pbrun_triocombinegvcf:
     resources:
         gpu = config['GPU']
     params:
-        command = get_command,
+        command = get_command
     log:
         "logs/pbrun_triocombinegvcf/{family}.log"
     benchmark:
