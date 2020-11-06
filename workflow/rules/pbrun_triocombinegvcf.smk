@@ -32,7 +32,8 @@ rule pbrun_triocombinegvcf:
         "logs/pbrun_triocombinegvcf/{family}.log"
     benchmark:
         "benchmarks/pbrun_triocombinegvcf/{family}.tsv"
+    threads: config['THREADS']
     message:
         "Merging one or more HaplotypeCaller GVCF files into a single GVCF"
     shell:
-        "pbrun triocombinegvcf --ref {input.refgenome} {params.command} --out-variants {output} &> {log}"
+        "pbrun triocombinegvcf --ref {input.refgenome} {params.command} --out-variants {output} --num-cpu-threads {threads} &> {log}"

@@ -39,7 +39,8 @@ rule pbrun_germline:
         "logs/pbrun_germline/{sample}.log"
     benchmark:
         "benchmarks/pbrun_germline/{sample}.tsv"
+    threads: config['THREADS']
     message:
         "Running GPU accelerated germline variant pipeline workflow to generate BAM, vcf and recal output for {input.R1} and {input.R2}"
     shell:
-        "pbrun fq2bam --ref {input.refgenome} --in-fq {input.R1} {input.R2} {params.recalibration_resources} --out-bam {output.bam} --out-variants {output.vcf} --out-recal {output.recal} --num-gpus {resources.gpu} {params.readgroup} --tmp-dir {params.tdir} {params.padding} {params.intervals} &> {log}"
+        "pbrun fq2bam --ref {input.refgenome} --in-fq {input.R1} {input.R2} {params.recalibration_resources} --out-bam {output.bam} --out-variants {output.vcf} --out-recal {output.recal} --num-gpus {resources.gpu} {params.readgroup} --tmp-dir {params.tdir} {params.padding} {params.intervals} --num-cpu-threads {threads} &> {log}"
