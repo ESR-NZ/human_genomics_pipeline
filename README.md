@@ -28,6 +28,7 @@ A Snakemake workflow to process single samples or cohorts of paired-end sequenci
     - [10. Commit and push to your forked version of the github repo](#10-commit-and-push-to-your-forked-version-of-the-github-repo)
     - [11. Repeat step 10 each time you re-run the analysis with different parameters](#11-repeat-step-10-each-time-you-re-run-the-analysis-with-different-parameters)
     - [12. Create a pull request with the upstream repo to merge any useful changes (optional)](#12-create-a-pull-request-with-the-upstream-repo-to-merge-any-useful-changes-optional)
+  - [Test human_genomics_pipeline](#test-human_genomics_pipeline)
 
 ## Workflow diagram - single samples
 
@@ -361,3 +362,14 @@ To maintain reproducibility, commit and push:
 Contributions and feedback are more than welcome! :blush:
 
 See [here](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) for help
+
+## Test human_genomics_pipeline
+
+The provided [test dataset](./test) can be used to test running this pipeline on a new machine, or test pipeline developments
+
+Setup the test dataset before running the pipeline on the test data - choose to setup to run either a single sample analysis or a cohort analysis with the `-a` flag. For example:
+
+```bash
+cd ./human_genomics_pipeline
+bash ./test/setup_test.sh -a cohort
+```
