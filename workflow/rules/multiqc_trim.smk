@@ -1,6 +1,6 @@
 rule multiqc:
     input:
-        fastqc = expand("../results/qc/fastqc/{sample}_fastqc.zip", sample = SAMPLES),
+        fastqc = expand(["../results/qc/fastqc/{sample}_1_fastqc.zip", "../results/qc/fastqc/{sample}_2_fastqc.zip"], sample = SAMPLES),
         trimming1 = expand("../results/trimmed/{sample}_1.fastq.gz_trimming_report.txt", sample = SAMPLES),
         trimming2 = expand("../results/trimmed/{sample}_2.fastq.gz_trimming_report.txt", sample = SAMPLES)
     output:
