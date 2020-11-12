@@ -286,8 +286,7 @@ snakemake \
 --configfile ../config/config.yaml \
 --cluster-config ../config/cluster.json \
 --cluster "sbatch -A {cluster.account} \
--p {cluster.partition} \
--o {cluster.output}"
+-p {cluster.partition}"
 ```
 
 Full run (run_hpc.sh):
@@ -302,8 +301,7 @@ snakemake \
 --configfile ../config/config.yaml \
 --cluster-config ../config/cluster.json \
 --cluster "sbatch -A {cluster.account} \
--p {cluster.partition} \
--o {cluster.output}"
+-p {cluster.partition}"
 ```
 
 ### 7. Create and activate a conda environment with python and snakemake installed
