@@ -1,13 +1,14 @@
 rule gatk_ApplyBQSR:
     input:
         bam = "../results/mapped/{sample}_sorted_mkdups.bam",
-        recal_table = "../results/mapped/{sample}_recalibration_report.grp",
-        ref = expand("{ref}", ref = config['REFGENOME']),
-        dict = expand("{dict}", dict = config['DICT'])
+        recal = "../results/mapped/{sample}_recalibration_report.grp",
+        refgenome = expand("{refgenome}", refgenome = config['REFGENOME'])
     output:
         bam = protected("../results/mapped/{sample}_recalibrated.bam")
     params:
-        java_opts = expand('"-Xmx{java_opts}"', java_opts = config['MAXMEMORY']),
+        maxmemory = expand('"-Xmx{maxmemory}"', maxmemory = config['MAXMEMORY']),
+        padding = expand("{padding}", padding = config['WES']['PADDING']),
+        intervals = expand("{intervals}", intervals = config['WES']['INTERVALS'])
     log:
         "logs/gatk_ApplyBQSR/{sample}.log"
     benchmark:
@@ -16,5 +17,5 @@ rule gatk_ApplyBQSR:
         "../envs/gatk4.yaml"
     message:
         "Applying base quality score recalibration and producing a recalibrated BAM file for {input.bam}"
-    wrapper:
-        "0.64.0/bio/gatk/applybqsr"
+    shell:
+        "gatk ApplyBQSR --java-options {params.maxmemory} -I {input.bam} -bqsr {input.recal} -R {input.refgenome} -O {output} {params.padding} {params.intervals}"
