@@ -8,9 +8,8 @@ DATA: ""
 # Should the pipeline be GPU accelerated where possible? (either 'Yes' or 'No')
 GPU_ACCELERATED: ""
 
-# File paths to the reference genome (.fasta) and it's associated dictionary file (.dict)
+# File path to the reference genome (.fasta)
 REFGENOME: ""
-DICT: ""
 
 # File path to dbSNP database
 dbSNP: ""
