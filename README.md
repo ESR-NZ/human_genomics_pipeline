@@ -233,8 +233,7 @@ Configure `account:` and `partition:` in the default section of 'cluster.json' i
     "__default__" :
     {
         "account" : "lkemp",
-        "partition" : "prod",
-        "output" : "logs/slurm-%j_{rule}_{wildcards.sample}.out"
+        "partition" : "prod"
     }
 }
 ```
