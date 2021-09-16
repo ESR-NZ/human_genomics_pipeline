@@ -2,14 +2,16 @@ rule fastqc:
     input:
         ["../../fastq/{sample}_1.fastq.gz", "../../fastq/{sample}_2.fastq.gz"]
     output:
-        html = "../results/qc/fastqc/{sample}.html",
-        zip = "../results/qc/fastqc/{sample}_fastqc.zip"
-    params: ""
+        html = ["../results/qc/fastqc/{sample}_1_fastqc.html", "../results/qc/fastqc/{sample}_2_fastqc.html"],
+        zip = ["../results/qc/fastqc/{sample}_1_fastqc.zip", "../results/qc/fastqc/{sample}_2_fastqc.zip"]
     log:
         "logs/fastqc/{sample}.log"
     benchmark:
         "benchmarks/fastqc/{sample}.tsv"
+    threads: config['THREADS']
+    conda:
+        "../envs/fastqc.yaml"
     message:
         "Undertaking quality control checks on raw sequence data for {input}"
-    wrapper:
-        "0.64.0/bio/fastqc"
+    shell:
+        "fastqc {input} -o ../results/qc/fastqc/ -t {threads} &> {log}"
