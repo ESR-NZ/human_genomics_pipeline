@@ -35,7 +35,7 @@ if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
 
 ##### load rules #####
 
-localrules: multiqc, pbrun_germline
+localrules: multiqc, pbrun_germline, pbrun_triocombinegvcf
 
 include: "rules/fastqc.smk"
 
