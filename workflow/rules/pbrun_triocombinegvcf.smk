@@ -20,7 +20,6 @@ def get_command(family):
 rule pbrun_triocombinegvcf:
     input:
         vcf_dummy = expand("../results/called/{sample}_raw_snps_indels_tmp.g.vcf", sample = SAMPLES), # a dummy vcf to connect this rule to gatk_HaplotypeCaller
-        index = expand("../results/called/{sample}_raw_snps_indels_tmp.g.vcf.idx", sample = SAMPLES),
         refgenome = expand("{refgenome}", refgenome = config['REFGENOME'])
     output:
         temp("../results/called/{family}_raw_snps_indels_tmp_combined.g.vcf")

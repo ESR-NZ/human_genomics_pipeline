@@ -8,12 +8,10 @@ if config['TRIM'] == "Yes" or config['TRIM'] == "yes":
 
 if config['DATA'] == "Single" or config['DATA'] == 'single':
     vcf = "../results/called/{sample}_raw_snps_indels.vcf"
-    vcf_index = "../results/called/{sample}_raw_snps_indels.vcf.idx"
     other_params = ""
 
 if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
     vcf = "../results/called/{sample}_raw_snps_indels_tmp.g.vcf"
-    vcf_index = "../results/called/{sample}_raw_snps_indels_tmp.g.vcf.idx"
     other_params = "--gvcf"
 
 rule pbrun_germline:
@@ -25,7 +23,6 @@ rule pbrun_germline:
         bam = protected("../results/mapped/{sample}_recalibrated.bam"),
         bam_index = protected("../results/mapped/{sample}_recalibrated.bam.bai"),
         vcf = vcf,
-        vcf_index = vcf_index,
         recal = temp("../results/mapped/{sample}_recal.txt")
     resources:
         gpu = config['GPU']
