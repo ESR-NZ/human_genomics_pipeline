@@ -7,9 +7,9 @@ rule gatk_BaseRecalibrator:
     params:
         maxmemory = expand('"-Xmx{maxmemory}"', maxmemory = config['MAXMEMORY']),
         tdir = expand("{tdir}", tdir = config['TEMPDIR']),
-        padding = expand("{padding}", padding = config['WES']['PADDING']),
-        intervals = expand("{intervals}", intervals = config['WES']['INTERVALS']),
-        recalibration_resources = expand("{recalibration_resources}", recalibration_resources = config['RECALIBRATION']['RESOURCES'])
+        padding = get_wes_padding_command,
+        intervals = get_wes_intervals_command,
+        recalibration_resources = get_recal_resources_command
     log:
         "logs/gatk_BaseRecalibrator/{sample}.log"
     benchmark:

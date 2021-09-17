@@ -7,8 +7,8 @@ rule gatk_GenotypeGVCFs:
     params:
         maxmemory = expand('"-Xmx{maxmemory}"', maxmemory = config['MAXMEMORY']),
         tdir = expand("{tdir}", tdir = config['TEMPDIR']),
-        padding = expand("{padding}", padding = config['WES']['PADDING']),
-        intervals = expand("{intervals}", intervals = config['WES']['INTERVALS']),
+        padding = get_wes_padding_command,
+        intervals = get_wes_intervals_command,
         other = "-G StandardAnnotation -G AS_StandardAnnotation"
     log:
         "logs/gatk_GenotypeGVCFs/{family}.log"

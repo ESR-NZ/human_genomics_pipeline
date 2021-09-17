@@ -1,22 +1,3 @@
-import csv
-
-def get_command(family):
-    """Return a string, a portion of the gatk command which defines individuals which should be combined.
-
-    For a particular family, we construct the gatk command by adding -V <individual vcf file> for each individual 
-    (defined by individual id column in the pedigree file)
-    """
-    filename = "../../pedigrees/" + str(family) + "_pedigree.ped"
-    
-    command = ""
-    with open(filename, newline = '') as pedigree:
-
-        pedigree_reader = csv.DictReader(pedigree, fieldnames = ('family', 'individual_id', 'paternal_id', 'maternal_id', 'sex', 'phenotype'), delimiter='\t')
-        for individual in pedigree_reader:
-            command += "-V ../results/called/" + individual['individual_id'] + "_raw_snps_indels_tmp.g.vcf "
-
-    return command
-
 rule gatk_CombineGVCFs:
     input:
         vcf_dummy = expand("../results/called/{sample}_raw_snps_indels_tmp.g.vcf", sample = SAMPLES), # a dummy vcf to connect this rule to gatk_HaplotypeCaller
@@ -25,10 +6,10 @@ rule gatk_CombineGVCFs:
         vcf = temp("../results/called/{family}_raw_snps_indels_tmp_combined.g.vcf"),
         index = temp("../results/called/{family}_raw_snps_indels_tmp_combined.g.vcf.idx")
     params:
-        command = get_command,
+        command = get_gatk_combinegvcf_command,
         tdir = expand("{tdir}", tdir = config['TEMPDIR']),
-        padding = expand("{padding}", padding = config['WES']['PADDING']),
-        intervals = expand("{intervals}", intervals = config['WES']['INTERVALS']),
+        padding = get_wes_padding_command,
+        intervals = get_wes_intervals_command,
         other = "-G StandardAnnotation -G AS_StandardAnnotation"
     log: 
         "logs/gatk_CombineGVCFs/{family}.log"

@@ -29,9 +29,9 @@ rule pbrun_germline:
     params:
         readgroup = "--read-group-sm {sample}",
         tdir = expand("{tdir}", tdir = config['TEMPDIR']),
-        padding = expand("{padding}", padding = config['WES']['PADDING']),
-        intervals = expand("{intervals}", intervals = config['WES']['INTERVALS']),
-        recalibration_resources = expand("{recalibration_resources}", recalibration_resources = config['RECALIBRATION']['RESOURCES']),
+        padding = get_wes_padding_command,
+        intervals = get_wes_intervals_command,
+        recalibration_resources = get_recal_resources_command,
         other_params = other_params
     log:
         "logs/pbrun_germline/{sample}.log"

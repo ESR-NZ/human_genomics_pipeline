@@ -6,11 +6,100 @@ Date created: 2019-08-21
 Modified: 2020-10-09
 """
 
-##### Set up #####
+##### Set up wildcards #####
 
 # Define samples from fastq dir and families/cohorts from pedigree dir using wildcards
 SAMPLES, = glob_wildcards("../../fastq/{sample}_1.fastq.gz")
 FAMILIES, = glob_wildcards("../../pedigrees/{family}_pedigree.ped")
+
+##### Setup helper functions #####
+import csv
+
+def get_gatk_combinegvcf_command(family):
+    """Return a string, a portion of the gatk CombineGVCF command which defines individuals which should be combined. This
+    command is used by the gatk_CombineGVCFs rule. For a particular family, we construct the gatk command by adding
+    -V <individual vcf file> for each individual (defined by individual id column in the pedigree file)
+    """
+    filename = "../../pedigrees/" + str(family) + "_pedigree.ped"
+    
+    command = ""
+    with open(filename, newline = '') as pedigree:
+
+        pedigree_reader = csv.DictReader(pedigree, fieldnames = ('family', 'individual_id', 'paternal_id', 'maternal_id', 'sex', 'phenotype'), delimiter='\t')
+        for individual in pedigree_reader:
+            command += "-V ../results/called/" + individual['individual_id'] + "_raw_snps_indels_tmp.g.vcf "
+
+    return command
+
+def get_parabricks_combinegvcf_command(family):
+    """Return a string, a portion of the gatk CombineGVCF command which defines individuals which should be combined. This
+    command is used by the gatk_triocombinegvcf rule. For a particular family, we construct the gatk command by adding
+    -V <individual vcf file> for each individual (defined by individual id column in the pedigree file)
+    """
+    filename = "../../pedigrees/" + str(family) + "_pedigree.ped"
+    
+    command = ""
+    with open(filename, newline = '') as pedigree:
+
+        pedigree_reader = csv.DictReader(pedigree, fieldnames = ('family', 'individual_id', 'paternal_id', 'maternal_id', 'sex', 'phenotype'), delimiter='\t')
+        for individual in pedigree_reader:
+            command += "--in-gvcf ../results/called/" + individual['individual_id'] + "_raw_snps_indels_tmp.g.vcf "
+
+    return command
+
+def get_recal_resources_command(resource):
+    """Return a string, a portion of the gatk BaseRecalibrator command (used in the gatk_BaseRecalibrator and the
+    parabricks_germline rules) which dynamically includes each of the recalibration resources defined by the user
+    in the configuration file. For each recalibration resource (element in the list), we construct the command by
+    adding either --knownSites (for parabricks) or --known-sites (for gatk4) <recalibration resource file>
+    """
+    
+    command = ""
+    
+    for resource in config['RECALIBRATION']['RESOURCES']:
+        if config['GPU_ACCELERATED'] == "Yes" or config['GPU_ACCELERATED'] == "yes":
+            command += "--knownSites " + resource + " "
+
+        if config['GPU_ACCELERATED'] == "No" or config['GPU_ACCELERATED'] == "no":
+            command += "--known-sites " + resource + " "
+
+    return command
+
+def get_wes_intervals_command(resource):
+    """Return a string, a portion of the gatk command's (used in several gatk rules) which builds a flag
+    formatted for gatk based on the configuration file. We construct the command by adding either --interval-file
+    (for parabricks) or --L (for gatk4) <exome capture file>. If the user provides nothing for these configurable
+    options, an empty string is returned
+    """
+    
+    command = ""
+    
+    if config['GPU_ACCELERATED'] == "Yes" or config['GPU_ACCELERATED'] == "yes":
+        command = "--interval-file " + config['WES']['PADDING'] + " "
+    if config['GPU_ACCELERATED'] == "No" or config['GPU_ACCELERATED'] == "no":
+        command = "--L " + config['WES']['PADDING'] + " "
+    if config['WES']['INTERVALS'] == "":
+        command = ""
+
+    return command
+
+def get_wes_padding_command(resource):
+    """Return a string, a portion of the gatk command's (used in several gatk rules) which builds a flag
+    formatted for gatk based on the configuration file. We construct the command by adding either --interval
+    (for parabricks) or --ip (for gatk4) <exome capture file>. If the user provides nothing for these configurable
+    options, an empty string is returned
+    """
+    
+    command = ""
+
+    if config['GPU_ACCELERATED'] == "Yes" or config['GPU_ACCELERATED'] == "yes":
+        command = "--interval " + config['WES']['PADDING'] + " "
+    if config['GPU_ACCELERATED'] == "No" or config['GPU_ACCELERATED'] == "no":
+        command = "--ip " + config['WES']['PADDING'] + " "
+    if config['WES']['PADDING'] == "":
+        command = ""
+
+    return command
 
 #### Set up report #####
 
@@ -33,7 +122,7 @@ if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
             expand("../results/mapped/{sample}_recalibrated.bam", sample = SAMPLES),
             expand("../results/called/{family}_raw_snps_indels.g.vcf", family = FAMILIES)
 
-##### load rules #####
+##### Load rules #####
 
 localrules: multiqc, pbrun_germline, pbrun_triocombinegvcf
 
