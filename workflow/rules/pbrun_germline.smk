@@ -24,4 +24,4 @@ rule pbrun_germline:
     message:
         "Running GPU accelerated germline variant pipeline workflow to generate BAM, vcf and recal output for {input.fastq}"
     shell:
-        "/opt/parabricks/3.6/parabricks/pbrun germline --ref {input.refgenome} --in-fq {input.fastq} {params.recalibration_resources} --out-bam {output.bam} --out-variants {output.vcf} --out-recal-file {output.recal} --num-gpus {resources.gpu} {params.readgroup} --tmp-dir {params.tdir} {params.padding} {params.intervals} {params.other_params} --num-cpu-threads {threads} &> {log}"
+        "pbrun germline --ref {input.refgenome} --in-fq {input.fastq} {params.recalibration_resources} --out-bam {output.bam} --out-variants {output.vcf} --out-recal-file {output.recal} --num-gpus {resources.gpu} {params.readgroup} --tmp-dir {params.tdir} {params.padding} {params.intervals} {params.other_params} --num-cpu-threads {threads} &> {log}"
