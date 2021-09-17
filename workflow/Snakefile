@@ -14,6 +14,7 @@ FAMILIES, = glob_wildcards("../../pedigrees/{family}_pedigree.ped")
 
 ##### Setup helper functions #####
 import csv
+import glob
 
 def get_input_fastq(command):
     """Return a string which defines the input fastq files for the bwa_mem and pbrun_germline rules.

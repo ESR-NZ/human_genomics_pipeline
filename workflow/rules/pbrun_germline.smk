@@ -5,8 +5,7 @@ rule pbrun_germline:
     output:
         bam = protected("../results/mapped/{sample}_recalibrated.bam"),
         bam_index = protected("../results/mapped/{sample}_recalibrated.bam.bai"),
-        vcf_dummy_1 = "../results/called/{sample}_raw_snps_indels.vcf", # a dummy vcf to connect this rule to the rest of the workflow
-        vcf_dummy_2 = "../results/called/{sample}_raw_snps_indels_tmp.g.vcf", # a dummy vcf to connect this rule to the rest of the workflow
+        vcf_dummy = glob.glob("../results/called/{sample}_raw_snps_indels*.vcf"), # a dummy vcf to connect this rule to the rest of the workflow
         recal = temp("../results/mapped/{sample}_recal.txt")
     resources:
         gpu = config['GPU']
