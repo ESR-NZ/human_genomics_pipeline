@@ -67,21 +67,37 @@ def get_recal_resources_command(resource):
 
 def get_wes_intervals_command(resource):
     """Return a string, a portion of the gatk command's (used in several gatk rules) which builds a flag
-    formatted for gatk based on the configuration file. We construct the command by adding --L <exome capture file>
+    formatted for gatk based on the configuration file. We construct the command by adding either --interval-file
+    (for parabricks) or --L (for gatk4) <exome capture file>. If the user provides nothing for these configurable
+    options, an empty string is returned
     """
     
     command = ""
-    command = "--L " + config['WES']['INTERVALS'] + " "
+    
+    if config['GPU_ACCELERATED'] == "Yes" or config['GPU_ACCELERATED'] == "yes":
+        command = "--interval-file " + config['WES']['PADDING'] + " "
+    if config['GPU_ACCELERATED'] == "No" or config['GPU_ACCELERATED'] == "no":
+        command = "--L " + config['WES']['PADDING'] + " "
+    if config['WES']['INTERVALS'] == "":
+        command = ""
 
     return command
 
 def get_wes_padding_command(resource):
     """Return a string, a portion of the gatk command's (used in several gatk rules) which builds a flag
-    formatted for gatk based on the configuration file. We construct the command by adding --ip <padding>
+    formatted for gatk based on the configuration file. We construct the command by adding either --interval
+    (for parabricks) or --ip (for gatk4) <exome capture file>. If the user provides nothing for these configurable
+    options, an empty string is returned
     """
     
     command = ""
-    command = "--ip " + config['WES']['PADDING'] + " "
+
+    if config['GPU_ACCELERATED'] == "Yes" or config['GPU_ACCELERATED'] == "yes":
+        command = "--interval " + config['WES']['PADDING'] + " "
+    if config['GPU_ACCELERATED'] == "No" or config['GPU_ACCELERATED'] == "no":
+        command = "--ip " + config['WES']['PADDING'] + " "
+    if config['WES']['PADDING'] == "":
+        command = ""
 
     return command
 
