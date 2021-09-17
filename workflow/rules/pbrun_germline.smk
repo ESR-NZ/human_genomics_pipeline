@@ -14,6 +14,24 @@ if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
     vcf = "../results/called/{sample}_raw_snps_indels_tmp.g.vcf"
     other_params = "--gvcf"
 
+def get_recal_resources_command(resource):
+    """Return a string, a portion of the gatk BaseRecalibrator command (used in the gatk_BaseRecalibrator and the
+    parabricks_germline rules) which dynamically includes each of the recalibration resources defined by the user
+    in the configuration file. For each recalibration resource (element in the list), we construct the command by
+    adding either --knownSites (for parabricks) or --known-sites (for gatk4) <recalibration resource file>
+    """
+    
+    recal_command = ""
+    
+    for resource in config['RECALIBRATION']['RESOURCES']:
+        if config['GPU_ACCELERATED'] == "Yes" or config['GPU_ACCELERATED'] == "yes":
+            recal_command += "--knownSites " + resource + " "
+
+        if config['GPU_ACCELERATED'] == "No" or config['GPU_ACCELERATED'] == "no":
+            recal_command += "--known-sites " + resource + " "
+
+    return recal_command
+
 rule pbrun_germline:
     input:
         R1 = R1,
@@ -31,7 +49,7 @@ rule pbrun_germline:
         tdir = expand("{tdir}", tdir = config['TEMPDIR']),
         padding = expand("{padding}", padding = config['WES']['PADDING']),
         intervals = expand("{intervals}", intervals = config['WES']['INTERVALS']),
-        recalibration_resources = expand("{recalibration_resources}", recalibration_resources = config['RECALIBRATION']['RESOURCES']),
+        recalibration_resources = get_recal_resources_command,
         other_params = other_params
     log:
         "logs/pbrun_germline/{sample}.log"
@@ -41,4 +59,4 @@ rule pbrun_germline:
     message:
         "Running GPU accelerated germline variant pipeline workflow to generate BAM, vcf and recal output for {input.R1} and {input.R2}"
     shell:
-        "pbrun germline --ref {input.refgenome} --in-fq {input.R1} {input.R2} {params.recalibration_resources} --out-bam {output.bam} --out-variants {output.vcf} --out-recal-file {output.recal} --num-gpus {resources.gpu} {params.readgroup} --tmp-dir {params.tdir} {params.padding} {params.intervals} {params.other_params} --num-cpu-threads {threads} &> {log}"
+        "/opt/parabricks/3.6/parabricks/pbrun germline --ref {input.refgenome} --in-fq {input.R1} {input.R2} {params.recalibration_resources} --out-bam {output.bam} --out-variants {output.vcf} --out-recal-file {output.recal} --num-gpus {resources.gpu} {params.readgroup} --tmp-dir {params.tdir} {params.padding} {params.intervals} {params.other_params} --num-cpu-threads {threads} &> {log}"

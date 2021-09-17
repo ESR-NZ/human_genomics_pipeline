@@ -1,3 +1,21 @@
+def get_recal_resources_command(resource):
+    """Return a string, a portion of the gatk BaseRecalibrator command (used in the gatk_BaseRecalibrator and the
+    parabricks_germline rules) which dynamically includes each of the recalibration resources defined by the user
+    in the configuration file. For each recalibration resource (element in the list), we construct the command by
+    adding either --knownSites (for parabricks) or --known-sites (for gatk4) <recalibration resource file>
+    """
+    
+    recal_command = ""
+    
+    for resource in config['RECALIBRATION']['RESOURCES']:
+        if config['GPU_ACCELERATED'] == "Yes" or config['GPU_ACCELERATED'] == "yes":
+            recal_command += "--knownSites " + resource + " "
+
+        if config['GPU_ACCELERATED'] == "No" or config['GPU_ACCELERATED'] == "no":
+            recal_command += "--known-sites " + resource + " "
+
+    return recal_command
+
 rule gatk_BaseRecalibrator:
     input:
         bams = "../results/mapped/{sample}_sorted_mkdups.bam",
@@ -9,7 +27,7 @@ rule gatk_BaseRecalibrator:
         tdir = expand("{tdir}", tdir = config['TEMPDIR']),
         padding = expand("{padding}", padding = config['WES']['PADDING']),
         intervals = expand("{intervals}", intervals = config['WES']['INTERVALS']),
-        recalibration_resources = expand("{recalibration_resources}", recalibration_resources = config['RECALIBRATION']['RESOURCES'])
+        recalibration_resources = get_recal_resources_command
     log:
         "logs/gatk_BaseRecalibrator/{sample}.log"
     benchmark:

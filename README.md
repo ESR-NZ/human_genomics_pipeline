@@ -212,13 +212,14 @@ TRIMMING:
 
 #### Base recalibration
 
-Pass the resources to be used to recalibrate bases with [gatk BaseRecalibrator](https://gatk.broadinstitute.org/hc/en-us/articles/360047217531-BaseRecalibrator) to the `--known-sites` flag if not gpu accelerated and to the `--knownSites` if gpu accelerated. For example:
+Pass the resources to be used to recalibrate bases with [gatk BaseRecalibrator](https://gatk.broadinstitute.org/hc/en-us/articles/360036726891-BaseRecalibrator), these known polymorphic sites will be used to exclude regions around known polymorphisms from analysis. Note. you can include as many or a little resources, but you'll need at least one recalibration resource file. For example:
 
 ```yaml
 RECALIBRATION:
-  RESOURCES: "--known-sites /home/lkemp/publicData/b37/dbsnp_138.b37.vcf
-            --known-sites /home/lkemp/publicData/b37/Mills_and_1000G_gold_standard.indels.b37.vcf
-            --known-sites /home/lkemp/publicData/b37/1000G_phase1.indels.b37.vcf"
+  RESOURCES:
+    - /home/lkemp/publicData/b37/dbsnp_138.b37.vcf
+    - /home/lkemp/publicData/b37/Mills_and_1000G_gold_standard.indels.b37.vcf
+    - /home/lkemp/publicData/b37/1000G_phase1.indels.b37.vcf
 ```
 
 ### 5. Configure to run on a HPC (optional)
@@ -239,6 +240,7 @@ Configure `account:` and `partition:` in the default section of 'cluster.json' i
     }
 }
 ```
+
 There are a plethora of additional slurm parameters that can be configured (and can be configured per rule). If you set additional slurm parameters, remember to pass them to the `--cluster` flag in the runscripts. See [here](https://snakemake-on-nesi.sschmeier.com/snake.html#slurm-and-nesi-specific-setup) and [here](https://hpc-carpentry.github.io/hpc-python/17-cluster/) for good working examples.
 
 ### 6. Modify the run scripts

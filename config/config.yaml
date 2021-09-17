@@ -52,6 +52,9 @@ TRIMMING:
 ##### Base recalibration #####
 ##############################
 
-# Resources to used for base recalibration (prefix each resource with the '--known-sites' flag if not gpu accelerated and the '--knownSites' if gpu accelerated)
+# List of resources to used for base recalibration
 RECALIBRATION:
-  RESOURCES: ""
+  RESOURCES:
+    - 
+    -
+    -
