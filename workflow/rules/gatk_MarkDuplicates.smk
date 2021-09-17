@@ -6,7 +6,7 @@ rule gatk_MarkDuplicates:
         metrics = "../results/mapped/{sample}_sorted_mkdups_metrics.txt"
     params:
         maxmemory = expand('"-Xmx{maxmemory}"', maxmemory = config['MAXMEMORY']),
-        tdir = expand("{tdir}", tdir = config['TEMPDIR'])
+        tdir = config['TEMPDIR']
     log:
         "logs/gatk_MarkDuplicates/{sample}.log"
     benchmark:

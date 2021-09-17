@@ -7,7 +7,7 @@ rule gatk_CombineGVCFs:
         index = temp("../results/called/{family}_raw_snps_indels_tmp_combined.g.vcf.idx")
     params:
         command = get_gatk_combinegvcf_command,
-        tdir = expand("{tdir}", tdir = config['TEMPDIR']),
+        tdir = config['TEMPDIR'],
         padding = get_wes_padding_command,
         intervals = get_wes_intervals_command,
         other = "-G StandardAnnotation -G AS_StandardAnnotation"

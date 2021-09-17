@@ -6,7 +6,7 @@ rule gatk_GenotypeGVCFs:
         protected("../results/called/{family}_raw_snps_indels.g.vcf")
     params:
         maxmemory = expand('"-Xmx{maxmemory}"', maxmemory = config['MAXMEMORY']),
-        tdir = expand("{tdir}", tdir = config['TEMPDIR']),
+        tdir = config['TEMPDIR'],
         padding = get_wes_padding_command,
         intervals = get_wes_intervals_command,
         other = "-G StandardAnnotation -G AS_StandardAnnotation"
