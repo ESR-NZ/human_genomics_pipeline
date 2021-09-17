@@ -5,12 +5,11 @@ rule pbrun_germline:
     output:
         bam = protected("../results/mapped/{sample}_recalibrated.bam"),
         bam_index = protected("../results/mapped/{sample}_recalibrated.bam.bai"),
-        vcf_dummy = glob.glob("../results/called/{sample}_raw_snps_indels*.vcf"), # a dummy vcf to connect this rule to the rest of the workflow
+        vcf = get_output_vcf(config),
         recal = temp("../results/mapped/{sample}_recal.txt")
     resources:
         gpu = config['GPU']
     params:
-        vcf = get_output_vcf, # this is in params directive rather than the output directive to avoid error while passing a function to something in an output directive
         readgroup = "--read-group-sm {sample}",
         tdir = expand("{tdir}", tdir = config['TEMPDIR']),
         padding = get_wes_padding_command,
@@ -25,4 +24,4 @@ rule pbrun_germline:
     message:
         "Running GPU accelerated germline variant pipeline workflow to generate BAM, vcf and recal output for {input.fastq}"
     shell:
-        "pbrun germline --ref {input.refgenome} --in-fq {input.fastq} {params.recalibration_resources} --out-bam {output.bam} --out-variants {params.vcf} --out-recal-file {output.recal} --num-gpus {resources.gpu} {params.readgroup} --tmp-dir {params.tdir} {params.padding} {params.intervals} {params.other_params} --num-cpu-threads {threads} &> {log}"
+        "/opt/parabricks/3.6/parabricks/pbrun germline --ref {input.refgenome} --in-fq {input.fastq} {params.recalibration_resources} --out-bam {output.bam} --out-variants {output.vcf} --out-recal-file {output.recal} --num-gpus {resources.gpu} {params.readgroup} --tmp-dir {params.tdir} {params.padding} {params.intervals} {params.other_params} --num-cpu-threads {threads} &> {log}"

@@ -30,7 +30,7 @@ def get_input_fastq(command):
 
     return input_files
 
-def get_output_vcf(command):
+def get_output_vcf(config):
     """Return a string which defines the output vcf files for the pbrun_germline rule. This changes based on the
     user configurable options for running single samples or cohorts of samples
     """
