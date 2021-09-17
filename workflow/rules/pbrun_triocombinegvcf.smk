@@ -7,7 +7,7 @@ rule pbrun_triocombinegvcf:
     resources:
         gpu = config['GPU']
     params:
-        command = get_combinegvcf_command
+        command = get_parabricks_combinegvcf_command
     log:
         "logs/pbrun_triocombinegvcf/{family}.log"
     benchmark:

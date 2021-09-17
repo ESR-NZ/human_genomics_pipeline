@@ -6,10 +6,10 @@ rule gatk_CombineGVCFs:
         vcf = temp("../results/called/{family}_raw_snps_indels_tmp_combined.g.vcf"),
         index = temp("../results/called/{family}_raw_snps_indels_tmp_combined.g.vcf.idx")
     params:
-        command = get_combinegvcf_command,
+        command = get_gatk_combinegvcf_command,
         tdir = expand("{tdir}", tdir = config['TEMPDIR']),
-        padding = expand("{padding}", padding = config['WES']['PADDING']),
-        intervals = expand("{intervals}", intervals = config['WES']['INTERVALS']),
+        padding = get_wes_padding_command,
+        intervals = get_wes_intervals_command,
         other = "-G StandardAnnotation -G AS_StandardAnnotation"
     log: 
         "logs/gatk_CombineGVCFs/{family}.log"

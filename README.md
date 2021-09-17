@@ -159,16 +159,16 @@ Set the the working directory to a temporary file directory. For example:
 TEMPDIR: "/home/lkemp/tmp/"
 ```
 
-If analysing WES data, pass a design file (.bed) indicating the genomic regions that were sequenced to the `-L` flag (see [here](https://leahkemp.github.io/documentation/human_genomic_pipelines/design_files.html) for more information on accessing design files). Also set the level of padding by passing the amount of padding in base pairs to the `-ip` flag. For example:
+If analysing WES data, pass a design file (.bed) indicating the genomic regions that were sequenced (see [here](https://leahkemp.github.io/documentation/human_genomic_pipelines/design_files.html) for more information on accessing design files). Also set the level of padding by passing the amount of padding in base pairs. For example:
 
 *If NOT analysing WES data, leave these fields blank*
 
 ```yaml
 WES:
-  # File path to the exome capture regions over which to operate (prefix with the '-L' flag)
-  INTERVALS: "-L /home/lkemp/publicData/sure_select_human_all_exon_V7/S31285117_Padded.bed"
-  # Padding (in bp) to add to each region (prefix with the '-ip' flag)
-  PADDING: "-ip 100"
+  # File path to the exome capture regions over which to operate
+  INTERVALS: "/home/lkemp/publicData/sure_select_human_all_exon_V7/S31285117_Padded.bed"
+  # Padding (in bp) to add to each region
+  PADDING: "100"
 ```
 
 #### Pipeline resources

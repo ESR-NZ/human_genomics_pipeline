@@ -19,9 +19,9 @@ TEMPDIR: ""
 
 # Whole exome sequence settings (leave blank if analysing other data such as whole genome sequence data)
 WES:
-  # File path to the exome capture regions over which to operate (prefix with the '-L' flag)
+  # File path to the exome capture regions over which to operate
   INTERVALS: ""
-  # Padding (in bp) to add to each region (prefix with the '-ip' flag)
+  # Padding (in bp) to add to each region
   PADDING: ""
 
 ##############################
@@ -55,6 +55,6 @@ TRIMMING:
 # List of resources to used for base recalibration
 RECALIBRATION:
   RESOURCES:
-    - 
+    -
     -
     -
