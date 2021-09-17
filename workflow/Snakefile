@@ -14,6 +14,49 @@ FAMILIES, = glob_wildcards("../../pedigrees/{family}_pedigree.ped")
 
 ##### Setup helper functions #####
 import csv
+import glob
+
+def get_input_fastq(command):
+    """Return a string which defines the input fastq files for the bwa_mem and pbrun_germline rules.
+    This changes based on the user configurable options for trimming
+    """
+    
+    input_files = ""
+
+    if config['TRIM'] == "No" or config['TRIM'] == "no":
+        input_files = ["../../fastq/{sample}_1.fastq.gz", "../../fastq/{sample}_2.fastq.gz"]
+    if config['TRIM'] == "Yes" or config['TRIM'] == "yes":
+        input_files = ["../results/trimmed/{sample}_1_val_1.fq.gz", "../results/trimmed/{sample}_2_val_2.fq.gz"]
+
+    return input_files
+
+def get_output_vcf(config):
+    """Return a string which defines the output vcf files for the pbrun_germline rule. This changes based on the
+    user configurable options for running single samples or cohorts of samples
+    """
+    
+    vcf = ""
+
+    if config['DATA'] == "Single" or config['DATA'] == 'single':
+        vcf = "../results/called/{sample}_raw_snps_indels.vcf"
+    if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
+        vcf = "../results/called/{sample}_raw_snps_indels_tmp.g.vcf"
+
+    return vcf
+
+def get_params(command):
+    """Return a string which defines some parameters for the pbrun_germline rule. This changes based on the
+    user configurable options for running single samples or cohorts of samples
+    """
+    
+    params = ""
+
+    if config['DATA'] == "Single" or config['DATA'] == 'single':
+        params = ""
+    if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
+        params = "--gvcf"
+
+    return params
 
 def get_gatk_combinegvcf_command(family):
     """Return a string, a portion of the gatk CombineGVCF command which defines individuals which should be combined. This
