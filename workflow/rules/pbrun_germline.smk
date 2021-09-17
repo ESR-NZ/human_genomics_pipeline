@@ -28,7 +28,7 @@ rule pbrun_germline:
         gpu = config['GPU']
     params:
         readgroup = "--read-group-sm {sample}",
-        tdir = expand("{tdir}", tdir = config['TEMPDIR']),
+        tdir = config['TEMPDIR'],
         padding = get_wes_padding_command,
         intervals = get_wes_intervals_command,
         recalibration_resources = get_recal_resources_command,
