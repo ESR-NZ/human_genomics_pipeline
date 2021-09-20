@@ -1,34 +1,35 @@
 # human_genomics_pipeline
 
-A Snakemake workflow to process single samples or cohorts of paired-end sequencing data (WGS or WES) using [bwa](http://bio-bwa.sourceforge.net/) and [GATK4](https://gatk.broadinstitute.org/hc/en-us), taking the data from fastq to vcf. Quality control checks are also undertaken. The fastq files can be optionally trimmed and the pipeline can run on [NVIDIA GPU's](https://www.nvidia.com/en-gb/graphics-cards/) where [nvidia clara parabricks software is available](https://www.nvidia.com/en-us/docs/parabricks/quickstart-guide/software-overview/). This workflow is designed to follow the [GATK best practice workflow for germline short variant discovery (SNPs + Indels)](https://gatk.broadinstitute.org/hc/en-us/articles/360035535932-Germline-short-variant-discovery-SNPs-Indels-) and is designed to be followed by [vcf_annotation_pipeline](https://github.com/ESR-NZ/vcf_annotation_pipeline). This pipeline has been developed with human genetic data in mind, however we designed it to be species agnostic. Genetic data from other species can in theory can be analysed by setting a species-specific reference genome and variant databases in the configuration file.
+A Snakemake workflow to process single samples or cohorts of paired-end sequencing data (WGS or WES) using [bwa](http://bio-bwa.sourceforge.net/) and [GATK4](https://gatk.broadinstitute.org/hc/en-us), taking the data from fastq to vcf. Quality control checks are also undertaken. The fastq files can be optionally trimmed and the pipeline can run on [NVIDIA GPU's](https://www.nvidia.com/en-gb/graphics-cards/) where [nvidia clara parabricks software is available](https://www.nvidia.com/en-us/docs/parabricks/quickstart-guide/software-overview/). This workflow is designed to follow the [GATK best practice workflow for germline short variant discovery (SNPs + Indels)](https://gatk.broadinstitute.org/hc/en-us/articles/360035535932-Germline-short-variant-discovery-SNPs-Indels-) and is designed to be followed by [vcf_annotation_pipeline](https://github.com/ESR-NZ/vcf_annotation_pipeline) but this pipeline stands on it's own. This pipeline has been developed with human genetic data in mind, however we designed it to be species agnostic. Genetic data from other species can be analysed by setting a species-specific reference genome and variant databases in the configuration file (but not all situations have been tested).
 
 - [human_genomics_pipeline](#human_genomics_pipeline)
   - [Workflow diagram - single samples](#workflow-diagram---single-samples)
   - [Workflow diagram - single samples - GPU accelerated](#workflow-diagram---single-samples---gpu-accelerated)
   - [Workflow diagram - cohort samples](#workflow-diagram---cohort-samples)
   - [Workflow diagram - cohort samples - GPU accelerated](#workflow-diagram---cohort-samples---gpu-accelerated)
+  - [Test human_genomics_pipeline](#test-human_genomics_pipeline)
   - [Run human_genomics_pipeline](#run-human_genomics_pipeline)
     - [1. Fork the pipeline repo to a personal or lab account](#1-fork-the-pipeline-repo-to-a-personal-or-lab-account)
     - [2. Take the pipeline to the data on your local machine](#2-take-the-pipeline-to-the-data-on-your-local-machine)
-    - [3. Create a local copy of the GATK resource bundle (either b37 or hg38)](#3-create-a-local-copy-of-the-gatk-resource-bundle-either-b37-or-hg38)
+    - [3. Setup files and directories](#3-setup-files-and-directories)
+    - [4. Create a local copy of the GATK resource bundle (either b37 or hg38)](#4-create-a-local-copy-of-the-gatk-resource-bundle-either-b37-or-hg38)
       - [b37](#b37)
       - [hg38](#hg38)
-    - [4. Modify the configuration file](#4-modify-the-configuration-file)
+    - [5. Modify the configuration file](#5-modify-the-configuration-file)
       - [Overall workflow](#overall-workflow)
       - [Pipeline resources](#pipeline-resources)
       - [Trimming](#trimming)
       - [Base recalibration](#base-recalibration)
-    - [5. Configure to run on a HPC (optional)](#5-configure-to-run-on-a-hpc-optional)
-    - [6. Modify the run scripts](#6-modify-the-run-scripts)
+    - [6. Configure to run on a HPC (optional)](#6-configure-to-run-on-a-hpc-optional)
+    - [7. Modify the run scripts](#7-modify-the-run-scripts)
       - [HPC](#hpc)
-    - [7. Create and activate a conda environment with python and snakemake installed](#7-create-and-activate-a-conda-environment-with-python-and-snakemake-installed)
-    - [8. Run the pipeline](#8-run-the-pipeline)
+    - [8. Create and activate a conda environment with python and snakemake installed](#8-create-and-activate-a-conda-environment-with-python-and-snakemake-installed)
+    - [9. Run the pipeline](#9-run-the-pipeline)
       - [HPC](#hpc-1)
-    - [9. Evaluate the pipeline run](#9-evaluate-the-pipeline-run)
-    - [10. Commit and push to your forked version of the github repo](#10-commit-and-push-to-your-forked-version-of-the-github-repo)
-    - [11. Repeat step 10 each time you re-run the analysis with different parameters](#11-repeat-step-10-each-time-you-re-run-the-analysis-with-different-parameters)
-    - [12. Create a pull request with the upstream repo to merge any useful changes (optional)](#12-create-a-pull-request-with-the-upstream-repo-to-merge-any-useful-changes-optional)
-  - [Test human_genomics_pipeline](#test-human_genomics_pipeline)
+    - [10. Evaluate the pipeline run](#10-evaluate-the-pipeline-run)
+    - [11. Commit and push to your forked version of the github repo](#11-commit-and-push-to-your-forked-version-of-the-github-repo)
+    - [12. Repeat step 11 each time you re-run the analysis with different parameters](#12-repeat-step-11-each-time-you-re-run-the-analysis-with-different-parameters)
+    - [13. Create a pull request with the upstream repo to merge any useful changes (optional)](#13-create-a-pull-request-with-the-upstream-repo-to-merge-any-useful-changes-optional)
 
 ## Workflow diagram - single samples
 
@@ -46,19 +47,35 @@ A Snakemake workflow to process single samples or cohorts of paired-end sequenci
 
 <img src="./images/rulegraph_cohort_gpu.png" class="center">
 
+## Test human_genomics_pipeline
+
+The provided [test dataset](./test) can be used to test running this pipeline on a new machine, or test pipeline developments
+
+Setup the test dataset before running the pipeline on the test data - choose to setup to run either a single sample analysis or a cohort analysis with the `-a` flag. For example:
+
+```bash
+cd ./human_genomics_pipeline
+bash ./test/setup_test.sh -a cohort
+```
+
 ## Run human_genomics_pipeline
 
 - **Prerequisite hardware:** [NVIDIA GPUs](https://www.nvidia.com/en-gb/graphics-cards/) (for GPU accelerated runs)
-- **Prerequisite software:** [NVIDIA CLARA PARABRICKS and dependencies](https://www.nvidia.com/en-us/docs/parabricks/local-installation/) (for GPU accelerated runs), [Git 2.7.4](https://git-scm.com/), [Mamba 0.4.4](https://github.com/TheSnakePit/mamba) with [Conda 4.8.2](https://docs.conda.io/projects/conda/en/latest/index.html), [gsutil 4.52](https://pypi.org/project/gsutil/), [gunzip 1.6](https://linux.die.net/man/1/gunzip)
-- **OS:** Validated on Ubuntu 16.04
+- **Prerequisite software:** [NVIDIA CLARA PARABRICKS and dependencies](https://www.nvidia.com/en-us/docs/parabricks/local-installation/) (for GPU accelerated runs), [Git](https://git-scm.com/) (tested with version 2.7.4), [Mamba](https://github.com/TheSnakePit/mamba) (tested with version 0.4.4) with [Conda](https://docs.conda.io/projects/conda/en/latest/index.html) (tested with version 4.8.2), [gsutil](https://pypi.org/project/gsutil/) (tested with version 4.52), [gunzip](https://linux.die.net/man/1/gunzip) (tested with version 1.6)
 
 ### 1. Fork the pipeline repo to a personal or lab account
 
-See [here](https://help.github.com/en/github/getting-started-with-github/fork-a-repo#fork-an-example-repository) for help
+See [here](https://help.github.com/en/github/getting-started-with-github/fork-a-repo#fork-an-example-repository) for help forking a repository
 
 ### 2. Take the pipeline to the data on your local machine
 
-Clone the forked [human_genomics_pipeline](https://github.com/ESR-NZ/human_genomics_pipeline) repo into the same directory as your paired end fastq data to be processed. Required folder structure and file naming convention:
+Clone the forked [human_genomics_pipeline](https://github.com/ESR-NZ/human_genomics_pipeline) repo into the same directory as your paired end fastq data to be processed.
+
+See [here](https://help.github.com/en/github/getting-started-with-github/fork-a-repo#keep-your-fork-synced) for help cloning a repository
+
+### 3. Setup files and directories
+
+Required folder structure and file naming convention:
 
 ```bash
 
@@ -74,7 +91,7 @@ Clone the forked [human_genomics_pipeline](https://github.com/ESR-NZ/human_genom
 
 ```
 
-If you are analysing cohort's of samples, you will need an additional directory with a [pedigree file](https://gatk.broadinstitute.org/hc/en-us/articles/360035531972-PED-Pedigree-format) for each cohort/family:
+If you're analysing cohort's of samples, you will need an additional directory with a [pedigree file](https://gatk.broadinstitute.org/hc/en-us/articles/360035531972-PED-Pedigree-format) for each cohort/family using the following folder structure and file naming convention:
 
 ```bash
 
@@ -96,16 +113,16 @@ If you are analysing cohort's of samples, you will need an additional directory 
 ```
 
 Requirements:
-  - Input paired end fastq files need to identified with `_1` and `_2` (not `_R1` and `_R2`)
-  - Currently, the filenames of the pedigree files need to be labelled with the name of the proband/individual affected with the disease phenotype in the cohort (we will be working towards removing this requirement)
-  - Singletons and cohorts need to be run in separate pipeline runs
+
+- Input paired end fastq files need to identified with `_1` and `_2` (not `_R1` and `_R2`)
+- Currently, the filenames of the pedigree files need to be labelled with the name of the proband/individual affected with the disease phenotype in the cohort (we will be working towards removing this requirement)
+- Singletons and cohorts need to be run in separate pipeline runs
 
 Assumptions:
-  - There is one proband/individual affected with the disease phenotype of interest in a given cohort (one individual with a value of 2 in the 6th column of the pedigree file)
 
-See [here](https://help.github.com/en/github/getting-started-with-github/fork-a-repo#keep-your-fork-synced) for help
+- There is one proband/individual affected with the disease phenotype of interest in a given cohort (one individual with a value of 2 in the 6th column of the pedigree file)
 
-### 3. Create a local copy of the [GATK resource bundle](https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle) (either b37 or hg38)
+### 4. Create a local copy of the [GATK resource bundle](https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle) (either b37 or hg38)
 
 #### b37
 
@@ -123,7 +140,7 @@ Download from [Google Cloud Bucket](https://console.cloud.google.com/storage/bro
 gsutil cp -r gs://genomics-public-data/resources/broad/hg38/ /where/to/download/
 ```
 
-### 4. Modify the configuration file
+### 5. Modify the configuration file
 
 Edit 'config.yaml' found within the config directory
 
@@ -222,7 +239,7 @@ RECALIBRATION:
     - /home/lkemp/publicData/b37/1000G_phase1.indels.b37.vcf
 ```
 
-### 5. Configure to run on a HPC (optional)
+### 6. Configure to run on a HPC (optional)
 
 *This will deploy the non-GPU accelerated rules to slurm and deploy the GPU accelerated rules locally (pbrun_fq2bam, pbrun_haplotypecaller_single, pbrun_haplotypecaller_cohort). Therefore, if running the pipeline gpu accelerated, the pipeline should be deployed from the machine with the GPU's.*
 
@@ -243,7 +260,7 @@ Configure `account:` and `partition:` in the default section of 'cluster.json' i
 
 There are a plethora of additional slurm parameters that can be configured (and can be configured per rule). If you set additional slurm parameters, remember to pass them to the `--cluster` flag in the runscripts. See [here](https://snakemake-on-nesi.sschmeier.com/snake.html#slurm-and-nesi-specific-setup) and [here](https://hpc-carpentry.github.io/hpc-python/17-cluster/) for good working examples.
 
-### 6. Modify the run scripts
+### 7. Modify the run scripts
 
 Set the number maximum number of cores to be used with the `--cores` flag and the maximum amount of memory to be used (in megabytes) with the `resources mem_mb=` flag. If running GPU accelerated, also set the maximum number of GPU's to be used with the `--resources gpu=` flag. For example:
 
@@ -310,7 +327,7 @@ snakemake \
 -o {cluster.output}"
 ```
 
-### 7. Create and activate a conda environment with python and snakemake installed
+### 8. Create and activate a conda environment with python and snakemake installed
 
 ```bash
 cd ./human_genomics_pipeline/workflow/
@@ -318,7 +335,7 @@ mamba env create -f pipeline_run_env.yml
 conda activate pipeline_run_env
 ```
 
-### 8. Run the pipeline
+### 9. Run the pipeline
 
 First carry out a dry run
 
@@ -341,7 +358,7 @@ bash dryrun_hpc.sh
 bash run_hpc.sh
 ```
 
-### 9. Evaluate the pipeline run
+### 10. Evaluate the pipeline run
 
 Generate an interactive html report
 
@@ -349,7 +366,7 @@ Generate an interactive html report
 bash report.sh
 ```
 
-### 10. Commit and push to your forked version of the github repo
+### 11. Commit and push to your forked version of the github repo
 
 To maintain reproducibility, commit and push:
 
@@ -357,21 +374,10 @@ To maintain reproducibility, commit and push:
 - All run scripts
 - The final report
 
-### 11. Repeat step 10 each time you re-run the analysis with different parameters
+### 12. Repeat step 11 each time you re-run the analysis with different parameters
 
-### 12. Create a pull request with the [upstream repo](https://github.com/ESR-NZ/human_genomics_pipeline) to merge any useful changes (optional)
+### 13. Create a pull request with the [upstream repo](https://github.com/ESR-NZ/human_genomics_pipeline) to merge any useful changes (optional)
+
+See [here](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) for help making a pull request
 
 Contributions and feedback are more than welcome! :blush:
-
-See [here](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) for help
-
-## Test human_genomics_pipeline
-
-The provided [test dataset](./test) can be used to test running this pipeline on a new machine, or test pipeline developments
-
-Setup the test dataset before running the pipeline on the test data - choose to setup to run either a single sample analysis or a cohort analysis with the `-a` flag. For example:
-
-```bash
-cd ./human_genomics_pipeline
-bash ./test/setup_test.sh -a cohort
-```
