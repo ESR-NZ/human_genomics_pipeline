@@ -7,6 +7,7 @@ A Snakemake workflow to process single samples or cohorts of paired-end sequenci
   - [Workflow diagram - single samples - GPU accelerated](#workflow-diagram---single-samples---gpu-accelerated)
   - [Workflow diagram - cohort samples](#workflow-diagram---cohort-samples)
   - [Workflow diagram - cohort samples - GPU accelerated](#workflow-diagram---cohort-samples---gpu-accelerated)
+  - [Prerequisites](#prerequisites)
   - [Test human_genomics_pipeline](#test-human_genomics_pipeline)
   - [Run human_genomics_pipeline](#run-human_genomics_pipeline)
 
@@ -26,6 +27,11 @@ A Snakemake workflow to process single samples or cohorts of paired-end sequenci
 
 <img src="./images/rulegraph_cohort_gpu.png" class="center">
 
+## Prerequisites
+
+- **Prerequisite hardware:** [NVIDIA GPUs](https://www.nvidia.com/en-gb/graphics-cards/) (for GPU accelerated runs)
+- **Prerequisite software:** [NVIDIA CLARA PARABRICKS and dependencies](https://www.nvidia.com/en-us/docs/parabricks/local-installation/) (for GPU accelerated runs), [Git](https://git-scm.com/) (tested with version 2.7.4), [Mamba](https://github.com/TheSnakePit/mamba) (tested with version 0.4.4) with [Conda](https://docs.conda.io/projects/conda/en/latest/index.html) (tested with version 4.8.2), [gsutil](https://pypi.org/project/gsutil/) (tested with version 4.52), [gunzip](https://linux.die.net/man/1/gunzip) (tested with version 1.6)
+
 ## Test human_genomics_pipeline
 
 The provided [test dataset](./test) can be used to test running this pipeline on a new machine, or test pipeline developments
@@ -38,9 +44,6 @@ bash ./test/setup_test.sh -a cohort
 ```
 
 ## Run human_genomics_pipeline
-
-- **Prerequisite hardware:** [NVIDIA GPUs](https://www.nvidia.com/en-gb/graphics-cards/) (for GPU accelerated runs)
-- **Prerequisite software:** [NVIDIA CLARA PARABRICKS and dependencies](https://www.nvidia.com/en-us/docs/parabricks/local-installation/) (for GPU accelerated runs), [Git](https://git-scm.com/) (tested with version 2.7.4), [Mamba](https://github.com/TheSnakePit/mamba) (tested with version 0.4.4) with [Conda](https://docs.conda.io/projects/conda/en/latest/index.html) (tested with version 4.8.2), [gsutil](https://pypi.org/project/gsutil/) (tested with version 4.52), [gunzip](https://linux.die.net/man/1/gunzip) (tested with version 1.6)
 
 See the docs for a walkthrough guide for running [human_genomics_pipeline](https://github.com/ESR-NZ/human_genomics_pipeline) on:
 
