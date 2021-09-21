@@ -56,6 +56,6 @@ See the docs for a walkthrough guide for running [human_genomics_pipeline](https
 
 - Raise issues in [the issues page](https://github.com/ESR-NZ/human_genomics_pipeline/issues)
 - Create feature requests in [the issues page](https://github.com/ESR-NZ/human_genomics_pipeline/issues)
-- Contribute your code! Please create your own branch from the [development branch](https://github.com/ESR-NZ/human_genomics_pipeline/tree/dev) and create a pull request to the [development branch](https://github.com/ESR-NZ/human_genomics_pipeline/tree/dev) once the code is on point!
+- Contribute your code! Create your own branch from the [development branch](https://github.com/ESR-NZ/human_genomics_pipeline/tree/dev) and create a pull request to the [development branch](https://github.com/ESR-NZ/human_genomics_pipeline/tree/dev) once the code is on point!
 
 Contributions and feedback are always welcome! :blush:
