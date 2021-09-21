@@ -25,7 +25,7 @@
   - [11. Evaluate the pipeline run](#11-evaluate-the-pipeline-run)
   - [12. Commit and push to your forked version of the github repo](#12-commit-and-push-to-your-forked-version-of-the-github-repo)
   - [13. Repeat step 12 each time you re-run the analysis with different parameters](#13-repeat-step-12-each-time-you-re-run-the-analysis-with-different-parameters)
-  - [14. Create a pull request with the upstream repo to merge any useful changes (optional)](#14-create-a-pull-request-with-the-upstream-repo-to-merge-any-useful-changes-optional)
+  - [14. Raise issues, create feature requests or create a pull request with the upstream repo to merge any useful changes to the pipeline (optional)](#14-raise-issues-create-feature-requests-or-create-a-pull-request-with-the-upstream-repo-to-merge-any-useful-changes-to-the-pipeline-optional)
 
 ## 1. Fork the pipeline repo to a personal or lab account
 
@@ -317,8 +317,6 @@ To maintain reproducibility, commit and push:
 
 ## 13. Repeat step 12 each time you re-run the analysis with different parameters
 
-## 14. Create a pull request with the [upstream repo](https://github.com/ESR-NZ/human_genomics_pipeline) to merge any useful changes (optional)
+## 14. Raise issues, create feature requests or create a pull request with the [upstream repo](https://github.com/ESR-NZ/human_genomics_pipeline) to merge any useful changes to the pipeline (optional)
 
-See [here](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) for help making a pull request
-
-Contributions and feedback are more than welcome! :blush:
+See [the README](https://github.com/ESR-NZ/human_genomics_pipeline#contribute_back!) for info on how to contribute back to the pipeline!
