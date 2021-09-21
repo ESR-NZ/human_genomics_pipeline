@@ -50,7 +50,7 @@ See the docs for a walkthrough guide for running [human_genomics_pipeline](https
 
 - [A single machine like a laptop or single server/computer](./docs/running_on_a_single_machine.md)
 - [A high performance cluster](./docs/running_on_a_hpc.md)
-- [NeSi - New Zealand's eScience Infrastructure](./docs/running_on_a_nesi.md)
+- [NeSi - New Zealand's eScience Infrastructure](./docs/running_on_nesi.md)
 
 ## Contribute back!
 
