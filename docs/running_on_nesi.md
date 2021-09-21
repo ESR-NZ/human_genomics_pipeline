@@ -9,25 +9,26 @@
   - [1. Apply for access to NeSi](#1-apply-for-access-to-nesi)
   - [2. Fork the pipeline repo to a personal or lab account](#2-fork-the-pipeline-repo-to-a-personal-or-lab-account)
   - [3. Connect to Jupyter on NeSI](#3-connect-to-jupyter-on-nesi)
-  - [4. Get prerequisite software](#4-get-prerequisite-software)
-  - [5. Take the pipeline to the data on NeSi](#5-take-the-pipeline-to-the-data-on-nesi)
-  - [6. Setup files and directories](#6-setup-files-and-directories)
-  - [7. Create a local copy of the GATK resource bundle (either b37 or hg38)](#7-create-a-local-copy-of-the-gatk-resource-bundle-either-b37-or-hg38)
+  - [4. Move data onto NeSi](#4-move-data-onto-nesi)
+  - [5. Get prerequisite software](#5-get-prerequisite-software)
+  - [6. Take the pipeline to the data on NeSi](#6-take-the-pipeline-to-the-data-on-nesi)
+  - [7. Setup files and directories](#7-setup-files-and-directories)
+  - [8. Create a local copy of the GATK resource bundle (either b37 or hg38)](#8-create-a-local-copy-of-the-gatk-resource-bundle-either-b37-or-hg38)
     - [b37](#b37)
     - [hg38](#hg38)
-  - [8. Modify the configuration file](#8-modify-the-configuration-file)
+  - [9. Modify the configuration file](#9-modify-the-configuration-file)
     - [Overall workflow](#overall-workflow)
     - [Pipeline resources](#pipeline-resources)
       - [Trimming](#trimming)
     - [Base recalibration](#base-recalibration)
-  - [9. Configure to run on a HPC](#9-configure-to-run-on-a-hpc)
-  - [10. Modify the run scripts](#10-modify-the-run-scripts)
-  - [11. Create and activate a conda environment with python and snakemake installed](#11-create-and-activate-a-conda-environment-with-python-and-snakemake-installed)
-  - [12. Run the pipeline](#12-run-the-pipeline)
-  - [13. Evaluate the pipeline run](#13-evaluate-the-pipeline-run)
-  - [14. Commit and push to your forked version of the github repo](#14-commit-and-push-to-your-forked-version-of-the-github-repo)
-  - [15. Repeat step 12 each time you re-run the analysis with different parameters](#15-repeat-step-12-each-time-you-re-run-the-analysis-with-different-parameters)
-  - [16. Raise issues, create feature requests or create a pull request with the upstream repo to merge any useful changes to the pipeline (optional)](#16-raise-issues-create-feature-requests-or-create-a-pull-request-with-the-upstream-repo-to-merge-any-useful-changes-to-the-pipeline-optional)
+  - [10. Configure to run on a HPC](#10-configure-to-run-on-a-hpc)
+  - [11. Modify the run scripts](#11-modify-the-run-scripts)
+  - [12. Create and activate a conda environment with python and snakemake installed](#12-create-and-activate-a-conda-environment-with-python-and-snakemake-installed)
+  - [13. Run the pipeline](#13-run-the-pipeline)
+  - [14. Evaluate the pipeline run](#14-evaluate-the-pipeline-run)
+  - [15. Commit and push to your forked version of the github repo](#15-commit-and-push-to-your-forked-version-of-the-github-repo)
+  - [16. Repeat step 12 each time you re-run the analysis with different parameters](#16-repeat-step-12-each-time-you-re-run-the-analysis-with-different-parameters)
+  - [17. Raise issues, create feature requests or create a pull request with the upstream repo to merge any useful changes to the pipeline (optional)](#17-raise-issues-create-feature-requests-or-create-a-pull-request-with-the-upstream-repo-to-merge-any-useful-changes-to-the-pipeline-optional)
 
 ## 1. Apply for access to NeSi
 
@@ -53,7 +54,11 @@ cd /nesi/project/nesi99991/snakemake20210914/$USER
 
 You can also navigate to the above directory in the JupyterLab file browser, which can be useful for editing files and viewing images and html documents.
 
-## 4. Get prerequisite software
+## 4. Move data onto NeSi
+
+TODO: this section
+
+## 5. Get prerequisite software
 
 TODO: See is/where [NVIDIA GPUs](https://www.nvidia.com/en-gb/graphics-cards/) and [NVIDIA CLARA PARABRICKS and dependencies](https://www.nvidia.com/en-us/docs/parabricks/local-installation/) are installed
 
@@ -105,13 +110,13 @@ Install mamba
 
 [gunzip](https://linux.die.net/man/1/gunzip) is already installed system wide
 
-## 5. Take the pipeline to the data on NeSi
+## 6. Take the pipeline to the data on NeSi
 
 Clone the forked [human_genomics_pipeline](https://github.com/ESR-NZ/human_genomics_pipeline) repo into the same directory as your paired end fastq data to be processed.
 
 See [here](https://help.github.com/en/github/getting-started-with-github/fork-a-repo#keep-your-fork-synced) for help cloning a repository
 
-## 6. Setup files and directories
+## 7. Setup files and directories
 
 Required folder structure and file naming convention:
 
@@ -160,7 +165,7 @@ Assumptions:
 
 - There is one proband/individual affected with the disease phenotype of interest in a given cohort (one individual with a value of 2 in the 6th column of the pedigree file)
 
-## 7. Create a local copy of the [GATK resource bundle](https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle) (either b37 or hg38)
+## 8. Create a local copy of the [GATK resource bundle](https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle) (either b37 or hg38)
 
 ### b37
 
@@ -178,7 +183,7 @@ Download from [Google Cloud Bucket](https://console.cloud.google.com/storage/bro
 gsutil cp -r gs://genomics-public-data/resources/broad/hg38/ /where/to/download/
 ```
 
-## 8. Modify the configuration file
+## 9. Modify the configuration file
 
 Edit 'config.yaml' found within the config directory
 
@@ -277,7 +282,7 @@ RECALIBRATION:
     - /home/lkemp/publicData/b37/1000G_phase1.indels.b37.vcf
 ```
 
-## 9. Configure to run on a HPC
+## 10. Configure to run on a HPC
 
 TODO: adapt this to NeSi's setup
 
@@ -300,7 +305,7 @@ Configure `account:` and `partition:` in the default section of 'cluster.json' i
 
 There are a plethora of additional slurm parameters that can be configured (and can be configured per rule). If you set additional slurm parameters, remember to pass them to the `--cluster` flag in the runscripts. See [here](https://snakemake-on-nesi.sschmeier.com/snake.html#slurm-and-nesi-specific-setup) and [here](https://hpc-carpentry.github.io/hpc-python/17-cluster/) for good working examples.
 
-## 10. Modify the run scripts
+## 11. Modify the run scripts
 
 TODO: adapt this to NeSi's setup
 
@@ -341,7 +346,7 @@ snakemake \
 
 See the [snakemake documentation](https://snakemake.readthedocs.io/en/v4.5.1/executable.html#all-options) for additional run parameters.
 
-## 11. Create and activate a conda environment with python and snakemake installed
+## 12. Create and activate a conda environment with python and snakemake installed
 
 ```bash
 cd ./human_genomics_pipeline/workflow/
@@ -349,7 +354,7 @@ mamba env create -f pipeline_run_env.yml
 conda activate pipeline_run_env
 ```
 
-## 12. Run the pipeline
+## 13. Run the pipeline
 
 First carry out a dry run
 
@@ -363,7 +368,7 @@ If there are no issues, start a full run
 bash run_hpc.sh
 ```
 
-## 13. Evaluate the pipeline run
+## 14. Evaluate the pipeline run
 
 Generate an interactive html report
 
@@ -371,7 +376,7 @@ Generate an interactive html report
 bash report.sh
 ```
 
-## 14. Commit and push to your forked version of the github repo
+## 15. Commit and push to your forked version of the github repo
 
 To maintain reproducibility, commit and push:
 
@@ -379,8 +384,8 @@ To maintain reproducibility, commit and push:
 - All run scripts
 - The final report
 
-## 15. Repeat step 12 each time you re-run the analysis with different parameters
+## 16. Repeat step 12 each time you re-run the analysis with different parameters
 
-## 16. Raise issues, create feature requests or create a pull request with the [upstream repo](https://github.com/ESR-NZ/human_genomics_pipeline) to merge any useful changes to the pipeline (optional)
+## 17. Raise issues, create feature requests or create a pull request with the [upstream repo](https://github.com/ESR-NZ/human_genomics_pipeline) to merge any useful changes to the pipeline (optional)
 
 See [the README](https://github.com/ESR-NZ/human_genomics_pipeline#contribute-back) for info on how to contribute back to the pipeline!
