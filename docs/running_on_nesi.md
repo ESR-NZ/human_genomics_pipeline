@@ -41,7 +41,7 @@ See [here](https://help.github.com/en/github/getting-started-with-github/fork-a-
 
 1. Follow [https://jupyter.nesi.org.nz/hub/login](https://jupyter.nesi.org.nz/hub/login)
 2. <p>Enter NeSI username, HPC password and 6 digit second factor token (as set on <a href="https://my.nesi.org.nz/account/hpc-account">MyNeSI</a>)<br><img src="../images/jupyter_login_labels_updated.png" alt="drawing" width="720"/></p>
-3. <p>Choose server options as below<br><img src="../images/nesi99991_screenshot.png" alt="drawing" width="700"/></p>
+3. <p>Choose the appropriate server options, for example<br><img src="../images/nesi99991_screenshot.png" alt="drawing" width="700"/></p>
 4. <p>Start a terminal session from the JupyterLab launcher<br><img src="../images/jupyterLauncher.png" alt="terminal" width="500"/></p>
 
 When you connect to NeSI JupyterLab you always start in a new hidden directory. To make sure you can find your work next time, you should change to another location. Here we will switch to our project directory, since home directories can run out of space quickly. If you are using your own project use that instead of "nesi99991".
