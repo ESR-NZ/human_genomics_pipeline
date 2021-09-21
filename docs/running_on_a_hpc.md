@@ -5,7 +5,7 @@
 - [Run human_genomics_pipeline on a high performance cluster](#run-human_genomics_pipeline-on-a-high-performance-cluster)
   - [Table of contents](#table-of-contents)
   - [1. Fork the pipeline repo to a personal or lab account](#1-fork-the-pipeline-repo-to-a-personal-or-lab-account)
-  - [2. Take the pipeline to the data on your local machine](#2-take-the-pipeline-to-the-data-on-your-local-machine)
+  - [2. Take the pipeline to the data on the HPC](#2-take-the-pipeline-to-the-data-on-the-hpc)
   - [3. Setup files and directories](#3-setup-files-and-directories)
   - [4. Get prerequisite software/hardware](#4-get-prerequisite-softwarehardware)
   - [5. Create a local copy of the GATK resource bundle (either b37 or hg38)](#5-create-a-local-copy-of-the-gatk-resource-bundle-either-b37-or-hg38)
@@ -29,7 +29,7 @@
 
 See [here](https://help.github.com/en/github/getting-started-with-github/fork-a-repo#fork-an-example-repository) for help forking a repository
 
-## 2. Take the pipeline to the data on your local machine
+## 2. Take the pipeline to the data on the HPC
 
 Clone the forked [human_genomics_pipeline](https://github.com/ESR-NZ/human_genomics_pipeline) repo into the same directory as your paired end fastq data to be processed.
 

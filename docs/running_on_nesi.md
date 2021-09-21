@@ -1,43 +1,117 @@
 # Run human_genomics_pipeline on NeSi - New Zealand's eScience Infrasructure
 
-**This document is a work in progress**
+**This document is a work in progress and this documentation currently won't get you setup and running the pipeline on Nesi**
 
 ## Table of contents
 
 - [Run human_genomics_pipeline on NeSi - New Zealand's eScience Infrasructure](#run-human_genomics_pipeline-on-nesi---new-zealands-escience-infrasructure)
   - [Table of contents](#table-of-contents)
-  - [1. Fork the pipeline repo to a personal or lab account](#1-fork-the-pipeline-repo-to-a-personal-or-lab-account)
-  - [2. Take the pipeline to the data on your local machine](#2-take-the-pipeline-to-the-data-on-your-local-machine)
-  - [3. Setup files and directories](#3-setup-files-and-directories)
-  - [4. Get prerequisite software/hardware](#4-get-prerequisite-softwarehardware)
-  - [5. Create a local copy of the GATK resource bundle (either b37 or hg38)](#5-create-a-local-copy-of-the-gatk-resource-bundle-either-b37-or-hg38)
+  - [1. Apply for access to NeSi](#1-apply-for-access-to-nesi)
+  - [2. Fork the pipeline repo to a personal or lab account](#2-fork-the-pipeline-repo-to-a-personal-or-lab-account)
+  - [3. Connect to Jupyter on NeSI](#3-connect-to-jupyter-on-nesi)
+  - [4. Get prerequisite software](#4-get-prerequisite-software)
+  - [5. Take the pipeline to the data on NeSi](#5-take-the-pipeline-to-the-data-on-nesi)
+  - [6. Setup files and directories](#6-setup-files-and-directories)
+  - [7. Create a local copy of the GATK resource bundle (either b37 or hg38)](#7-create-a-local-copy-of-the-gatk-resource-bundle-either-b37-or-hg38)
     - [b37](#b37)
     - [hg38](#hg38)
-  - [6. Modify the configuration file](#6-modify-the-configuration-file)
+  - [8. Modify the configuration file](#8-modify-the-configuration-file)
     - [Overall workflow](#overall-workflow)
     - [Pipeline resources](#pipeline-resources)
       - [Trimming](#trimming)
     - [Base recalibration](#base-recalibration)
-  - [7. Configure to run on a HPC](#7-configure-to-run-on-a-hpc)
-  - [8. Modify the run scripts](#8-modify-the-run-scripts)
-  - [9. Create and activate a conda environment with python and snakemake installed](#9-create-and-activate-a-conda-environment-with-python-and-snakemake-installed)
-  - [10. Run the pipeline](#10-run-the-pipeline)
-  - [11. Evaluate the pipeline run](#11-evaluate-the-pipeline-run)
-  - [12. Commit and push to your forked version of the github repo](#12-commit-and-push-to-your-forked-version-of-the-github-repo)
-  - [13. Repeat step 12 each time you re-run the analysis with different parameters](#13-repeat-step-12-each-time-you-re-run-the-analysis-with-different-parameters)
-  - [14. Raise issues, create feature requests or create a pull request with the upstream repo to merge any useful changes to the pipeline (optional)](#14-raise-issues-create-feature-requests-or-create-a-pull-request-with-the-upstream-repo-to-merge-any-useful-changes-to-the-pipeline-optional)
+  - [9. Configure to run on a HPC](#9-configure-to-run-on-a-hpc)
+  - [10. Modify the run scripts](#10-modify-the-run-scripts)
+  - [11. Create and activate a conda environment with python and snakemake installed](#11-create-and-activate-a-conda-environment-with-python-and-snakemake-installed)
+  - [12. Run the pipeline](#12-run-the-pipeline)
+  - [13. Evaluate the pipeline run](#13-evaluate-the-pipeline-run)
+  - [14. Commit and push to your forked version of the github repo](#14-commit-and-push-to-your-forked-version-of-the-github-repo)
+  - [15. Repeat step 12 each time you re-run the analysis with different parameters](#15-repeat-step-12-each-time-you-re-run-the-analysis-with-different-parameters)
+  - [16. Raise issues, create feature requests or create a pull request with the upstream repo to merge any useful changes to the pipeline (optional)](#16-raise-issues-create-feature-requests-or-create-a-pull-request-with-the-upstream-repo-to-merge-any-useful-changes-to-the-pipeline-optional)
 
-## 1. Fork the pipeline repo to a personal or lab account
+## 1. Apply for access to NeSi
+
+See their website [here](https://www.nesi.org.nz/services/applyforaccess)
+
+## 2. Fork the pipeline repo to a personal or lab account
 
 See [here](https://help.github.com/en/github/getting-started-with-github/fork-a-repo#fork-an-example-repository) for help forking a repository
 
-## 2. Take the pipeline to the data on your local machine
+## 3. Connect to Jupyter on NeSI
+
+1. Follow [https://jupyter.nesi.org.nz/hub/login](https://jupyter.nesi.org.nz/hub/login)
+2. <p>Enter NeSI username, HPC password and 6 digit second factor token (as set on <a href="https://my.nesi.org.nz/account/hpc-account">MyNeSI</a>)<br><img src="nesi_images/jupyter_login_labels_updated.png" alt="drawing" width="720"/></p>
+3. <p>Choose server options as below<br><img src="nesi_images/nesi99991_screenshot.png" alt="drawing" width="700"/></p>
+4. <p>Start a terminal session from the JupyterLab launcher<br><img src="nesi_images/jupyterLauncher.png" alt="terminal" width="500"/></p>
+
+When you connect to NeSI JupyterLab you always start in a new hidden directory. To make sure you can find your work next time, you should change to another location. Here we will switch to our project directory, since home directories can run out of space quickly. If you are using your own project use that instead of "nesi99991".
+
+```bash
+mkdir -p /nesi/project/nesi99991/snakemake20210914/$USER
+cd /nesi/project/nesi99991/snakemake20210914/$USER
+```
+
+You can also navigate to the above directory in the JupyterLab file browser, which can be useful for editing files and viewing images and html documents.
+
+## 4. Get prerequisite software
+
+TODO: See is/where [NVIDIA GPUs](https://www.nvidia.com/en-gb/graphics-cards/) and [NVIDIA CLARA PARABRICKS and dependencies](https://www.nvidia.com/en-us/docs/parabricks/local-installation/) are installed
+
+Other software required to get setup and run the pipeline:
+
+- [Git](https://git-scm.com/) (tested with version 2.7.4)
+- [Conda](https://docs.conda.io/projects/conda/en/latest/index.html) (tested with version 4.8.2)
+- [Mamba](https://github.com/TheSnakePit/mamba) (tested with version 0.4.4)
+- [gsutil](https://pypi.org/project/gsutil/) (tested with version 4.52)
+- [gunzip](https://linux.die.net/man/1/gunzip) (tested with version 1.6)
+
+We will now configure conda. Note that this will change your existing conda configuration if you already have one. In that case, we recommend you rename your current conda configuration file (`mv ~/.condarc ~/.condarc.bkp`) and then restore it after the workshop (`mv ~/.condarc.bkp ~/.condarc`).
+
+On NeSI we have lots of software preinstalled to simplify things for our users. To load Miniconda run the following in the terminal:
+
+```bash
+module purge
+module load Miniconda3
+source $(conda info --base)/etc/profile.d/conda.sh
+```
+
+Next, [set up your channels](https://bioconda.github.io/user/install.html#set-up-channels) (channels are locations where packages/software are can be installed from)
+
+```bash
+conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels conda-forge
+```
+
+Load git module
+
+```bash
+module load git
+```
+
+TODO: Figure out how to install gsutil and mamba
+
+Install gsutil
+
+```bash
+
+```
+
+Install mamba
+
+```bash
+
+```
+
+[gunzip](https://linux.die.net/man/1/gunzip) is already installed system wide
+
+## 5. Take the pipeline to the data on NeSi
 
 Clone the forked [human_genomics_pipeline](https://github.com/ESR-NZ/human_genomics_pipeline) repo into the same directory as your paired end fastq data to be processed.
 
 See [here](https://help.github.com/en/github/getting-started-with-github/fork-a-repo#keep-your-fork-synced) for help cloning a repository
 
-## 3. Setup files and directories
+## 6. Setup files and directories
 
 Required folder structure and file naming convention:
 
@@ -86,21 +160,7 @@ Assumptions:
 
 - There is one proband/individual affected with the disease phenotype of interest in a given cohort (one individual with a value of 2 in the 6th column of the pedigree file)
 
-## 4. Get prerequisite software/hardware
-
-For GPU accelerated runs, you'll need [NVIDIA GPUs](https://www.nvidia.com/en-gb/graphics-cards/) and [NVIDIA CLARA PARABRICKS and dependencies](https://www.nvidia.com/en-us/docs/parabricks/local-installation/). Talk to your system administrator to see if the HPC has this hardware and software available.
-
-Other software required to get setup and run the pipeline:
-
-- [Git](https://git-scm.com/) (tested with version 2.7.4)
-- [Conda](https://docs.conda.io/projects/conda/en/latest/index.html) (tested with version 4.8.2)
-- [Mamba](https://github.com/TheSnakePit/mamba) (tested with version 0.4.4) (note. [mamba can be installed via conda with a single command](https://mamba.readthedocs.io/en/latest/installation.html#existing-conda-install))
-- [gsutil](https://pypi.org/project/gsutil/) (tested with version 4.52)
-- [gunzip](https://linux.die.net/man/1/gunzip) (tested with version 1.6)
-
-Most of this software is commonly pre-installed on HPC's, likely available as modules that can be loaded. Talk to your system administrator if you need help with this.
-
-## 5. Create a local copy of the [GATK resource bundle](https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle) (either b37 or hg38)
+## 7. Create a local copy of the [GATK resource bundle](https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle) (either b37 or hg38)
 
 ### b37
 
@@ -118,7 +178,7 @@ Download from [Google Cloud Bucket](https://console.cloud.google.com/storage/bro
 gsutil cp -r gs://genomics-public-data/resources/broad/hg38/ /where/to/download/
 ```
 
-## 6. Modify the configuration file
+## 8. Modify the configuration file
 
 Edit 'config.yaml' found within the config directory
 
@@ -217,7 +277,9 @@ RECALIBRATION:
     - /home/lkemp/publicData/b37/1000G_phase1.indels.b37.vcf
 ```
 
-## 7. Configure to run on a HPC
+## 9. Configure to run on a HPC
+
+TODO: adapt this to NeSi's setup
 
 *This will deploy the non-GPU accelerated rules to slurm and deploy the GPU accelerated rules locally (pbrun_fq2bam, pbrun_haplotypecaller_single, pbrun_haplotypecaller_cohort). Therefore, if running the pipeline gpu accelerated, the pipeline should be deployed from the machine with the GPU's.*
 
@@ -238,7 +300,9 @@ Configure `account:` and `partition:` in the default section of 'cluster.json' i
 
 There are a plethora of additional slurm parameters that can be configured (and can be configured per rule). If you set additional slurm parameters, remember to pass them to the `--cluster` flag in the runscripts. See [here](https://snakemake-on-nesi.sschmeier.com/snake.html#slurm-and-nesi-specific-setup) and [here](https://hpc-carpentry.github.io/hpc-python/17-cluster/) for good working examples.
 
-## 8. Modify the run scripts
+## 10. Modify the run scripts
+
+TODO: adapt this to NeSi's setup
 
 Set the number maximum number of cores to be used with the `--cores` flag and the maximum amount of memory to be used (in megabytes) with the `resources mem_mb=` flag. If running GPU accelerated, also set the maximum number of GPU's to be used with the `--resources gpu=` flag. For example:
 
@@ -277,7 +341,7 @@ snakemake \
 
 See the [snakemake documentation](https://snakemake.readthedocs.io/en/v4.5.1/executable.html#all-options) for additional run parameters.
 
-## 9. Create and activate a conda environment with python and snakemake installed
+## 11. Create and activate a conda environment with python and snakemake installed
 
 ```bash
 cd ./human_genomics_pipeline/workflow/
@@ -285,7 +349,7 @@ mamba env create -f pipeline_run_env.yml
 conda activate pipeline_run_env
 ```
 
-## 10. Run the pipeline
+## 12. Run the pipeline
 
 First carry out a dry run
 
@@ -299,7 +363,7 @@ If there are no issues, start a full run
 bash run_hpc.sh
 ```
 
-## 11. Evaluate the pipeline run
+## 13. Evaluate the pipeline run
 
 Generate an interactive html report
 
@@ -307,7 +371,7 @@ Generate an interactive html report
 bash report.sh
 ```
 
-## 12. Commit and push to your forked version of the github repo
+## 14. Commit and push to your forked version of the github repo
 
 To maintain reproducibility, commit and push:
 
@@ -315,8 +379,8 @@ To maintain reproducibility, commit and push:
 - All run scripts
 - The final report
 
-## 13. Repeat step 12 each time you re-run the analysis with different parameters
+## 15. Repeat step 12 each time you re-run the analysis with different parameters
 
-## 14. Raise issues, create feature requests or create a pull request with the [upstream repo](https://github.com/ESR-NZ/human_genomics_pipeline) to merge any useful changes to the pipeline (optional)
+## 16. Raise issues, create feature requests or create a pull request with the [upstream repo](https://github.com/ESR-NZ/human_genomics_pipeline) to merge any useful changes to the pipeline (optional)
 
 See [the README](https://github.com/ESR-NZ/human_genomics_pipeline#contribute-back) for info on how to contribute back to the pipeline!
