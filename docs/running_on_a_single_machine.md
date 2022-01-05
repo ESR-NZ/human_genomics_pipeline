@@ -214,7 +214,7 @@ TRIMMING:
 
 ### Base recalibration
 
-Pass the resources to be used to recalibrate bases with [gatk BaseRecalibrator](https://gatk.broadinstitute.org/hc/en-us/articles/360036726891-BaseRecalibrator), these known polymorphic sites will be used to exclude regions around known polymorphisms from analysis. Note. you can include as many or a little resources, but you'll need at least one recalibration resource file. For example:
+Pass the resources to be used to recalibrate bases with [gatk BaseRecalibrator](https://gatk.broadinstitute.org/hc/en-us/articles/360036726891-BaseRecalibrator) (this passes the resource files to the [`--known-sites`](https://gatk.broadinstitute.org/hc/en-us/articles/360036726891-BaseRecalibrator#--known-sites) flag), these known polymorphic sites will be used to exclude regions around known polymorphisms from base recalibration. Note. you can include as many or as few resources as you like, but you'll need at least one recalibration resource file. For example:
 
 ```yaml
 RECALIBRATION:
@@ -238,6 +238,7 @@ snakemake \
 --resources gpu=2 \
 --use-conda \
 --conda-frontend mamba \
+--latency-wait 120 \
 --configfile ../config/config.yaml
 ```
 
@@ -249,6 +250,7 @@ snakemake \
 --resources mem_mb=150000 \
 --resources gpu=2 \
 --use-conda \
+--latency-wait 120 \
 --configfile ../config/config.yaml
 ```
 
@@ -257,7 +259,7 @@ See the [snakemake documentation](https://snakemake.readthedocs.io/en/v4.5.1/exe
 ## 8. Create and activate a conda environment with python and snakemake installed
 
 ```bash
-cd ./human_genomics_pipeline/workflow/
+cd ./workflow/
 mamba env create -f pipeline_run_env.yml
 conda activate pipeline_run_env
 ```

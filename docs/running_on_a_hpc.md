@@ -215,7 +215,7 @@ TRIMMING:
 
 ### Base recalibration
 
-Pass the resources to be used to recalibrate bases with [gatk BaseRecalibrator](https://gatk.broadinstitute.org/hc/en-us/articles/360036726891-BaseRecalibrator), these known polymorphic sites will be used to exclude regions around known polymorphisms from analysis. Note. you can include as many or a little resources, but you'll need at least one recalibration resource file. For example:
+Pass the resources to be used to recalibrate bases with [gatk BaseRecalibrator](https://gatk.broadinstitute.org/hc/en-us/articles/360036726891-BaseRecalibrator) (this passes the resource files to the [`--known-sites`](https://gatk.broadinstitute.org/hc/en-us/articles/360036726891-BaseRecalibrator#--known-sites) flag), these known polymorphic sites will be used to exclude regions around known polymorphisms from base recalibration. Note. you can include as many or as few resources as you like, but you'll need at least one recalibration resource file. For example:
 
 ```yaml
 RECALIBRATION:
@@ -229,7 +229,7 @@ RECALIBRATION:
 
 *This will deploy the non-GPU accelerated rules to slurm and deploy the GPU accelerated rules locally (pbrun_fq2bam, pbrun_haplotypecaller_single, pbrun_haplotypecaller_cohort). Therefore, if running the pipeline gpu accelerated, the pipeline should be deployed from the machine with the GPU's.*
 
-In theory, this cluster configuration should be adaptable to other job scheduler systems, but here I will provide a simple example for deploying this pipeline to [slurm](https://slurm.schedmd.com/).
+In theory, this cluster configuration should be adaptable to other job scheduler systems. In fact, snakemake is designed to allow pipelines/workflows such as this to be portable to different job schedulers by having any [any cluster specific configured outside of the workflow/pipeline](https://snakemake.readthedocs.io/en/stable/snakefiles/configuration.html#cluster-configuration-deprecated). but here I will provide a minimal example for deploying this pipeline to [slurm](https://slurm.schedmd.com/).
 
 Configure `account:` and `partition:` in the default section of 'cluster.json' in order to set the parameters for slurm sbatch (see documentation [here](https://snakemake.readthedocs.io/en/stable/snakefiles/configuration.html#cluster-configuration-deprecated) and [here](https://slurm.schedmd.com/)). For example:
 
@@ -244,7 +244,7 @@ Configure `account:` and `partition:` in the default section of 'cluster.json' i
 }
 ```
 
-There are a plethora of additional slurm parameters that can be configured (and can be configured per rule). If you set additional slurm parameters, remember to pass them to the `--cluster` flag in the runscripts. See [here](https://snakemake-on-nesi.sschmeier.com/snake.html#slurm-and-nesi-specific-setup) and [here](https://hpc-carpentry.github.io/hpc-python/17-cluster/) for good working examples.
+There are a plethora of additional slurm parameters that can be configured (and can be configured per rule). If you set additional slurm parameters, remember to pass them to the `--cluster` flag in the runscripts. See [here](https://snakemake-on-nesi.sschmeier.com/snake.html#slurm-and-nesi-specific-setup) for a good working example of deploying a snakemake workflow to [NeSi](https://www.nesi.org.nz/).
 
 ## 8. Modify the run scripts
 
@@ -260,6 +260,7 @@ snakemake \
 --resources gpu=2 \
 --use-conda \
 --conda-frontend mamba \
+--latency-wait 120 \
 --configfile ../config/config.yaml \
 --cluster-config ../config/cluster.json \
 --cluster "sbatch -A {cluster.account} \
@@ -276,6 +277,7 @@ snakemake \
 --resources gpu=2 \
 --use-conda \
 --conda-frontend mamba \
+--latency-wait 120 \
 --configfile ../config/config.yaml \
 --cluster-config ../config/cluster.json \
 --cluster "sbatch -A {cluster.account} \
@@ -288,7 +290,7 @@ See the [snakemake documentation](https://snakemake.readthedocs.io/en/v4.5.1/exe
 ## 9. Create and activate a conda environment with python and snakemake installed
 
 ```bash
-cd ./human_genomics_pipeline/workflow/
+cd ./workflow/
 mamba env create -f pipeline_run_env.yml
 conda activate pipeline_run_env
 ```
