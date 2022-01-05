@@ -156,7 +156,7 @@ Set the the working directory to your dbSNP database file (b37 or hg38). For exa
 dbSNP: "/home/lkemp/publicData/b37/dbsnp_138.b37.vcf"
 ```
 
-Set the the working directory to a temporary file directory. For example:
+Set the the working directory to a temporary file directory. Make sure this is a location with a fair amount of memory space for large intermediate analysis files. For example:
 
 ```yaml
 TEMPDIR: "/home/lkemp/tmp/"
