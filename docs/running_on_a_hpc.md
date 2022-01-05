@@ -147,19 +147,19 @@ GPU_ACCELERATED: "No"
 Set the the working directories to the reference human genome file (b37 or hg38). For example:
 
 ```yaml
-REFGENOME: "/home/lkemp/publicData/b37/human_g1k_v37_decoy.fasta"
+REFGENOME: "/scratch/publicData/b37/human_g1k_v37_decoy.fasta"
 ```
 
 Set the the working directory to your dbSNP database file (b37 or hg38). For example:
 
 ```yaml
-dbSNP: "/home/lkemp/publicData/b37/dbsnp_138.b37.vcf"
+dbSNP: "/scratch/publicData/b37/dbsnp_138.b37.vcf"
 ```
 
 Set the the working directory to a temporary file directory. Make sure this is a location with a fair amount of memory space for large intermediate analysis files. For example:
 
 ```yaml
-TEMPDIR: "/home/lkemp/tmp/"
+TEMPDIR: "/scratch/tmp/"
 ```
 
 If analysing WES data, pass a design file (.bed) indicating the genomic regions that were sequenced (see [here](https://leahkemp.github.io/documentation/human_genomic_pipelines/design_files.html) for more information on accessing design files). Also set the level of padding by passing the amount of padding in base pairs. For example:
@@ -169,7 +169,7 @@ If analysing WES data, pass a design file (.bed) indicating the genomic regions 
 ```yaml
 WES:
   # File path to the exome capture regions over which to operate
-  INTERVALS: "/home/lkemp/publicData/sure_select_human_all_exon_V7/S31285117_Padded.bed"
+  INTERVALS: "/scratch/publicData/sure_select_human_all_exon_V7/S31285117_Padded.bed"
   # Padding (in bp) to add to each region
   PADDING: "100"
 ```
@@ -220,9 +220,9 @@ Pass the resources to be used to recalibrate bases with [gatk BaseRecalibrator](
 ```yaml
 RECALIBRATION:
   RESOURCES:
-    - /home/lkemp/publicData/b37/dbsnp_138.b37.vcf
-    - /home/lkemp/publicData/b37/Mills_and_1000G_gold_standard.indels.b37.vcf
-    - /home/lkemp/publicData/b37/1000G_phase1.indels.b37.vcf
+    - /scratch/publicData/b37/dbsnp_138.b37.vcf
+    - /scratch/publicData/b37/Mills_and_1000G_gold_standard.indels.b37.vcf
+    - /scratch/publicData/b37/1000G_phase1.indels.b37.vcf
 ```
 
 ## 7. Configure to run on a HPC
