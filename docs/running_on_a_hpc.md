@@ -115,7 +115,7 @@ Most of this software is commonly pre-installed on HPC's, likely available as mo
 Download from [Google Cloud Bucket](https://console.cloud.google.com/storage/browser/gatk-legacy-bundles/b37?prefix=)
 
 ```bash
-gsutil cp -r gs://gatk-legacy-bundles/b37/ /where/to/download/
+gsutil cp -r gs://gatk-legacy-bundles/b37 /where/to/download/
 ```
 
 ### hg38
@@ -123,7 +123,7 @@ gsutil cp -r gs://gatk-legacy-bundles/b37/ /where/to/download/
 Download from [Google Cloud Bucket](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0)
 
 ```bash
-gsutil cp -r gs://genomics-public-data/resources/broad/hg38/ /where/to/download/
+gsutil cp -r gs://genomics-public-data/resources/broad/hg38 /where/to/download/
 ```
 
 ## 6. Modify the configuration file
