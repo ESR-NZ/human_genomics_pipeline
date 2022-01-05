@@ -206,6 +206,8 @@ Specify whether the raw fastq reads should be trimmed (either 'Yes' or 'No'). Fo
 TRIM: "Yes"
 ```
 
+*Note. if you'd like to use a different trimming tool that you feel is better for your use case/data, you can pre-trim your fastq files and pass the trimmed fastq's to this pipeline, turning off this pipelines internal trimming with as outlined above*
+
 If trimming the raw fastq reads, set the [trim galore](https://github.com/FelixKrueger/TrimGalore/blob/master/Docs/Trim_Galore_User_Guide.md) adapter trimming parameters. Choose one of the common adapters such as Illumina universal, Nextera transposase or Illumina small RNA with `--illumina`, `--nextera` or `--small_rna`. Alternatively, pass adapter sequences to the `-a` and `-a2` flags. If not set, trim galore will try to auto-detect the adapter based on the fastq reads.
 
 ```yaml
