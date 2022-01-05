@@ -35,14 +35,7 @@ A Snakemake workflow to process single samples or cohorts of paired-end sequenci
 
 ## Test human_genomics_pipeline
 
-The provided [test dataset](./test) can be used to test running this pipeline on a new machine, or test pipeline developments
-
-Setup the test dataset before running the pipeline on the test data - choose to setup to run either a single sample analysis or a cohort analysis with the `-a` flag. For example:
-
-```bash
-cd ./human_genomics_pipeline
-bash ./test/setup_test.sh -a cohort
-```
+The provided [test dataset](./test) can be used to test running this pipeline on a new machine, or test pipeline developments/releases. See instructions for using the test dataset on a [single machine like a laptop or single server/computer](./docs/running_on_a_single_machine.md#3-setup-files-and-directories) or a [high performance cluster](./docs/running_on_a_hpc.md#3-setup-files-and-directories).
 
 ## Run human_genomics_pipeline
 

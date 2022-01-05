@@ -7,6 +7,7 @@
   - [1. Fork the pipeline repo to a personal or lab account](#1-fork-the-pipeline-repo-to-a-personal-or-lab-account)
   - [2. Take the pipeline to the data on the HPC](#2-take-the-pipeline-to-the-data-on-the-hpc)
   - [3. Setup files and directories](#3-setup-files-and-directories)
+    - [Test data](#test-data)
   - [4. Get prerequisite software/hardware](#4-get-prerequisite-softwarehardware)
   - [5. Create a local copy of the GATK resource bundle (either b37 or hg38)](#5-create-a-local-copy-of-the-gatk-resource-bundle-either-b37-or-hg38)
     - [b37](#b37)
@@ -83,6 +84,15 @@ Requirements:
 Assumptions:
 
 - There is one proband/individual affected with the disease phenotype of interest in a given cohort (one individual with a value of 2 in the 6th column of the pedigree file)
+
+### Test data
+
+The provided [test dataset](./test) can be used. Setup the test dataset before running the pipeline on this data - choose to setup to run either a single sample analysis or a cohort analysis with the `-a` flag. For example:
+
+```bash
+cd ./human_genomics_pipeline
+bash ./test/setup_test.sh -a cohort
+```
 
 ## 4. Get prerequisite software/hardware
 
