@@ -79,7 +79,7 @@ Cohort samples:
 
 ## Test human_genomics_pipeline
 
-The provided [test dataset](./test) can be used to test running this pipeline on a new machine, or test pipeline developments/releases. See instructions for using the test dataset on a [single machine like a laptop or single server/computer](./docs/running_on_a_single_machine.md#test-data) or a [high performance cluster](./docs/running_on_a_hpc.md#test-data).
+The provided [test dataset](./test) can be used to test running this pipeline on a new machine, or test pipeline developments/releases.
 
 ## Run human_genomics_pipeline
 
