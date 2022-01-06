@@ -298,4 +298,4 @@ To maintain reproducibility, commit and push:
 
 ## 13. Raise issues, create feature requests or create a pull request with the [upstream repo](https://github.com/ESR-NZ/human_genomics_pipeline) to merge any useful changes to the pipeline (optional)
 
-See [the README](https://github.com/ESR-NZ/human_genomics_pipeline#contribute-back) for info on how to contribute back to the pipeline!
+See [the README](https://github.com/ESR-NZ/human_genomics_pipeline/blob/dev/README.md#contribute-back) for info on how to contribute back to the pipeline!
