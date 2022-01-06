@@ -63,14 +63,16 @@ A Snakemake workflow to process single samples (unrelated individuals) or cohort
 Single samples:
 
 - `results/qc/multiqc_report.html`
-- `results/mapped/sample_recalibrated.bam`
-- `results/called/sample_raw_snps_indels.vcf`
+- `results/mapped/sample1_recalibrated.bam`
+- `results/called/sample1_raw_snps_indels.vcf`
 
 Cohort samples:
 
 - `results/qc/multiqc_report.html`
-- `results/mapped/sample_recalibrated.bam`
-- `results/called/family_raw_snps_indels.g.vcf`
+- `results/mapped/sample1_recalibrated.bam`
+- `results/mapped/sample2_recalibrated.bam`
+- `results/mapped/sample3_recalibrated.bam`
+- `results/called/family1_raw_snps_indels.g.vcf`
 
 ## Prerequisites
 
