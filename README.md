@@ -72,7 +72,7 @@ Cohort samples:
 - `results/mapped/sample1_recalibrated.bam`
 - `results/mapped/sample2_recalibrated.bam`
 - `results/mapped/sample3_recalibrated.bam`
-- `results/called/family1_raw_snps_indels.g.vcf`
+- `results/called/proband1_raw_snps_indels.g.vcf`
 
 ## Prerequisites
 

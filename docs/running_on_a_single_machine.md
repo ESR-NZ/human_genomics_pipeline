@@ -47,6 +47,14 @@ Required folder structure and file naming convention:
 |     |___sample1_2.fastq.gz
 |     |___sample2_1.fastq.gz
 |     |___sample2_2.fastq.gz
+|     |___sample3_1.fastq.gz
+|     |___sample3_2.fastq.gz
+|     |___sample4_1.fastq.gz
+|     |___sample4_2.fastq.gz
+|     |___sample5_1.fastq.gz
+|     |___sample5_2.fastq.gz
+|     |___sample6_1.fastq.gz
+|     |___sample6_2.fastq.gz
 |     |___ ...
 |
 |___human_genomics_pipeline/
@@ -63,6 +71,14 @@ If you're analysing cohort's of samples, you will need an additional directory w
 |     |___sample1_2.fastq.gz
 |     |___sample2_1.fastq.gz
 |     |___sample2_2.fastq.gz
+|     |___sample3_1.fastq.gz
+|     |___sample3_2.fastq.gz
+|     |___sample4_1.fastq.gz
+|     |___sample4_2.fastq.gz
+|     |___sample5_1.fastq.gz
+|     |___sample5_2.fastq.gz
+|     |___sample6_1.fastq.gz
+|     |___sample6_2.fastq.gz
 |     |___ ...
 |
 |___pedigrees/
@@ -79,10 +95,7 @@ Requirements:
 - Input paired end fastq files need to identified with `_1` and `_2` (not `_R1` and `_R2`)
 - Currently, the filenames of the pedigree files need to be labelled with the name of the proband/individual affected with the disease phenotype in the cohort (we will be working towards removing this requirement)
 - Singletons and cohorts need to be run in separate pipeline runs
-
-Assumptions:
-
-- There is one proband/individual affected with the disease phenotype of interest in a given cohort (one individual with a value of 2 in the 6th column of the pedigree file)
+- It is assumed that there is one proband/individual affected with the disease phenotype of interest in a given cohort (one individual with a value of 2 in the 6th column of a given pedigree file)
 
 ### Test data
 
