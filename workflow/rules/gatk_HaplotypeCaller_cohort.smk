@@ -8,9 +8,9 @@ rule gatk_HaplotypeCaller_cohort:
         index = temp("../results/called/{sample}_raw_snps_indels_tmp.g.vcf.idx")
     params:
         maxmemory = expand('"-Xmx{maxmemory}"', maxmemory = config['MAXMEMORY']),
-        tdir = expand("{tdir}", tdir = config['TEMPDIR']),
-        padding = expand("{padding}", padding = config['WES']['PADDING']),
-        intervals = expand("{intervals}", intervals = config['WES']['INTERVALS']),
+        tdir = config['TEMPDIR'],
+        padding = get_wes_padding_command,
+        intervals = get_wes_intervals_command,
         other = "-ERC GVCF"
     log:
         "logs/gatk_HaplotypeCaller_cohort/{sample}.log"

@@ -1,0 +1,1 @@
+Snakemake and slurm log files will reside here

@@ -6,4 +6,5 @@ snakemake \
 --resources gpu=2 \
 --use-conda \
 --conda-frontend mamba \
+--latency-wait 120 \
 --configfile ../config/config.yaml

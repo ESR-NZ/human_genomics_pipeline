@@ -7,8 +7,8 @@ rule gatk_ApplyBQSR:
         bam = protected("../results/mapped/{sample}_recalibrated.bam")
     params:
         maxmemory = expand('"-Xmx{maxmemory}"', maxmemory = config['MAXMEMORY']),
-        padding = expand("{padding}", padding = config['WES']['PADDING']),
-        intervals = expand("{intervals}", intervals = config['WES']['INTERVALS'])
+        padding = get_wes_padding_command,
+        intervals = get_wes_intervals_command
     log:
         "logs/gatk_ApplyBQSR/{sample}.log"
     benchmark:

@@ -7,11 +7,11 @@ rule trim_galore_pe:
         temp("../results/trimmed/{sample}_2_val_2.fq.gz"),
         "../results/trimmed/{sample}_2.fastq.gz_trimming_report.txt"
     params:
-        adapters = expand("{adapters}", adapters = config['TRIMMING']['ADAPTERS']),
-        threads = expand("{threads}", threads = config['THREADS']),
+        adapters = config['TRIMMING']['ADAPTERS'],
+        threads = config['THREADS'],
         other = "-q 20 --paired"
     log:
-        "logs/trim_galore/{sample}.log"
+        "logs/trim_galore_pe/{sample}.log"
     benchmark:
         "benchmarks/trim_galore_pe/{sample}.tsv"
     conda:

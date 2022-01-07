@@ -1,6 +1,6 @@
 rule multiqc:
     input:
-        expand("../results/qc/fastqc/{sample}_fastqc.zip", sample = SAMPLES)
+        expand(["../results/qc/fastqc/{sample}_1_fastqc.zip", "../results/qc/fastqc/{sample}_2_fastqc.zip"], sample = SAMPLES)
     output:
         report("../results/qc/multiqc_report.html", caption = "../report/quality_checks.rst", category = "Quality checks")
     conda:

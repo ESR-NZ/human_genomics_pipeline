@@ -7,9 +7,9 @@ rule gatk_HaplotypeCaller_single:
         protected("../results/called/{sample}_raw_snps_indels.vcf")
     params:
         maxmemory = expand('"-Xmx{maxmemory}"', maxmemory = config['MAXMEMORY']),
-        tdir = expand("{tdir}", tdir = config['TEMPDIR']),
-        padding = expand("{padding}", padding = config['WES']['PADDING']),
-        intervals = expand("{intervals}", intervals = config['WES']['INTERVALS'])
+        tdir = config['TEMPDIR'],
+        padding = get_wes_padding_command,
+        intervals = get_wes_intervals_command
     log:
         "logs/gatk_HaplotypeCaller_single/{sample}.log"
     benchmark:
