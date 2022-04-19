@@ -72,7 +72,7 @@ Cohort samples:
 - `results/mapped/sample1_recalibrated.bam`
 - `results/mapped/sample2_recalibrated.bam`
 - `results/mapped/sample3_recalibrated.bam`
-- `results/called/proband1_raw_snps_indels.g.vcf`
+- `results/called/proband1_raw_snps_indels.vcf`
 
 ## Prerequisites
 
@@ -94,6 +94,7 @@ See the docs for a walkthrough guide for running [human_genomics_pipeline](https
 
 - Raise issues in [the issues page](https://github.com/ESR-NZ/human_genomics_pipeline/issues)
 - Create feature requests in [the issues page](https://github.com/ESR-NZ/human_genomics_pipeline/issues)
+- Start a discussion in [the discussion page](https://github.com/ESR-NZ/human_genomics_pipeline/discussions)
 - Contribute your code! Create your own branch from the [development branch](https://github.com/ESR-NZ/human_genomics_pipeline/tree/dev) and create a pull request to the [development branch](https://github.com/ESR-NZ/human_genomics_pipeline/tree/dev) once the code is on point!
 
 Contributions and feedback are always welcome! :blush:
