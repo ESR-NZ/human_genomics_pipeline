@@ -3,7 +3,7 @@ rule gatk_GenotypeGVCFs:
         gvcf = "../results/called/{family}_raw_snps_indels_tmp_combined.g.vcf",
         refgenome = expand("{refgenome}", refgenome = config['REFGENOME'])
     output:
-        protected("../results/called/{family}_raw_snps_indels.g.vcf")
+        protected("../results/called/{family}_raw_snps_indels.vcf")
     params:
         maxmemory = expand('"-Xmx{maxmemory}"', maxmemory = config['MAXMEMORY']),
         tdir = config['TEMPDIR'],

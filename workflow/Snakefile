@@ -163,7 +163,7 @@ if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
         input:
             "../results/qc/multiqc_report.html",
             expand("../results/mapped/{sample}_recalibrated.bam", sample = SAMPLES),
-            expand("../results/called/{family}_raw_snps_indels.g.vcf", family = FAMILIES)
+            expand("../results/called/{family}_raw_snps_indels.vcf", family = FAMILIES)
 
 ##### Load rules #####
 
