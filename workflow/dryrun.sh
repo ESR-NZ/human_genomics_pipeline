@@ -2,7 +2,7 @@
 
 snakemake \
 --dryrun \
---cores 32 \
+--jobs 32 \
 --resources mem_mb=150000 \
 --resources gpu=2 \
 --use-conda \

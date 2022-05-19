@@ -215,7 +215,7 @@ Set the maximum number of GPU's to be used per rule/sample for gpu-accelerated r
 GPU: 1
 ```
 
-It is a good idea to consider the number of samples that you are processing. For example, if you set `THREADS: "8"` and set the maximum number of cores to be used by the pipeline in the run script to `-j/--cores 32` (see [step 9](#9-modify-the-run-scripts)), a maximum of 3 samples will be able to run at one time for these rules (if they are deployed at the same time), but each sample will complete faster. In contrast, if you set `THREADS: "1"` and `-j/--cores 32`, a maximum of 32 samples could be run at one time, but each sample will take longer to complete. This also needs to be considered when setting `MAXMEMORY` + `--resources mem_mb` and `GPU` + `--resources gpu`.
+It is a good idea to consider the number of samples that you are processing. For example, if you set `THREADS: "8"` and set the maximum number of jobs to be run in the run script to `-j/--jobs 32` (see [step 9](#9-modify-the-run-scripts)), a maximum of 3 samples will be able to run at one time for these rules (if they are deployed at the same time), but each sample will complete faster. In contrast, if you set `THREADS: "1"` and `-j/--jobs 32`, a maximum of 32 samples could be run at one time, but each sample will take longer to complete. This also needs to be considered when setting `MAXMEMORY` + `--resources mem_mb` and `GPU` + `--resources gpu`.
 
 #### Trimming
 
@@ -269,14 +269,14 @@ There are a plethora of additional slurm parameters that can be configured (and 
 
 ## 9. Modify the run scripts
 
-Set the number maximum number of cores to be used with the `--cores` flag and the maximum amount of memory to be used (in megabytes) with the `resources mem_mb=` flag. If running GPU accelerated, also set the maximum number of GPU's to be used with the `--resources gpu=` flag. For example:
+Set the number maximum number of jobs to be deployed with the `--jobs` flag and the maximum amount of memory to be used (in megabytes) with the `resources mem_mb=` flag. If running GPU accelerated, also set the maximum number of GPU's to be used with the `--resources gpu=` flag. For example:
 
 Dry run (dryrun_hpc.sh):
 
 ```bash
 snakemake \
 --dryrun \
---cores 32 \
+--jobs 32 \
 --resources mem_mb=150000 \
 --resources gpu=2 \
 --use-conda \
@@ -293,7 +293,7 @@ Full run (run_hpc.sh):
 
 ```bash
 snakemake \
---cores 32 \
+--jobs 32 \
 --resources mem_mb=150000 \
 --resources gpu=2 \
 --use-conda \
