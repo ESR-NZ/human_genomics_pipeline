@@ -14,8 +14,8 @@ rule gatk_HaplotypeCaller_single:
         "logs/gatk_HaplotypeCaller_single/{sample}.log"
     benchmark:
         "benchmarks/gatk_HaplotypeCaller_single/{sample}.tsv"
-    conda:
-        "../envs/gatk4.yaml"
+    singularity:
+        "docker://broadinstitute/gatk:4.2.6.1"
     message:
         "Calling germline SNPs and indels via local re-assembly of haplotypes for {input.bams}"
     shell:

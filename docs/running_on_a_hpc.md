@@ -269,11 +269,13 @@ There are a plethora of additional slurm parameters that can be configured (and 
 
 ## 9. Modify the run scripts
 
-Set the number maximum number of jobs to be deployed with the `--jobs` flag and the maximum amount of memory to be used (in megabytes) with the `resources mem_mb=` flag. If running GPU accelerated, also set the maximum number of GPU's to be used with the `--resources gpu=` flag. For example:
+Set the singularity bind location to a directory that contains your pipeline working directory with the `--singularity-args '-B'` flag. Set the number maximum number of job to be deployed with the `--jobs` flag and the maximum amount of memory to be used (in megabytes) with the `resources mem_mb=` flag. If running GPU accelerated, also set the maximum number of GPU's to be used with the `--resources gpu=` flag. For example:
 
 Dry run (dryrun_hpc.sh):
 
 ```bash
+#!/bin/bash -x
+
 snakemake \
 --dryrun \
 --jobs 32 \
@@ -282,6 +284,8 @@ snakemake \
 --use-conda \
 --conda-frontend mamba \
 --latency-wait 120 \
+--use-singularity \
+--singularity-args '-B /scratch/' \
 --configfile ../config/config.yaml \
 --cluster-config ../config/cluster.json \
 --cluster "sbatch -A {cluster.account} \
@@ -292,6 +296,8 @@ snakemake \
 Full run (run_hpc.sh):
 
 ```bash
+#!/bin/bash -x
+
 snakemake \
 --jobs 32 \
 --resources mem_mb=150000 \
@@ -299,6 +305,8 @@ snakemake \
 --use-conda \
 --conda-frontend mamba \
 --latency-wait 120 \
+--use-singularity \
+--singularity-args '-B /scratch/' \
 --configfile ../config/config.yaml \
 --cluster-config ../config/cluster.json \
 --cluster "sbatch -A {cluster.account} \

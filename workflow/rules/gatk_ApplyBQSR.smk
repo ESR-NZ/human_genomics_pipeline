@@ -13,8 +13,8 @@ rule gatk_ApplyBQSR:
         "logs/gatk_ApplyBQSR/{sample}.log"
     benchmark:
         "benchmarks/gatk_ApplyBQSR/{sample}.tsv"
-    conda:
-        "../envs/gatk4.yaml"
+    singularity:
+        "docker://broadinstitute/gatk:4.2.6.1"
     message:
         "Applying base quality score recalibration and producing a recalibrated BAM file for {input.bam}"
     shell:
