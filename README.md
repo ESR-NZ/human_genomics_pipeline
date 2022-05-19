@@ -76,8 +76,8 @@ Cohort samples:
 
 ## Prerequisites
 
-- **Prerequisite hardware:** [NVIDIA GPUs](https://www.nvidia.com/en-gb/graphics-cards/) (for GPU accelerated runs)
-- **Prerequisite software:** [NVIDIA CLARA parabricks and dependencies](https://www.nvidia.com/en-us/docs/parabricks/local-installation/) (for GPU accelerated runs), [Git](https://git-scm.com/) (tested with version 2.7.4), [Mamba](https://github.com/TheSnakePit/mamba) (tested with version 0.4.4) with [Conda](https://docs.conda.io/projects/conda/en/latest/index.html) (tested with version 4.8.2), [gsutil](https://pypi.org/project/gsutil/) (tested with version 4.52), [gunzip](https://linux.die.net/man/1/gunzip) (tested with version 1.6)
+- **Prerequisite hardware:** [NVIDIA GPUs](https://www.nvidia.com/en-gb/graphics-cards/) (for GPU accelerated runs) (tested with NVIDIA V100)
+- **Prerequisite software:** [NVIDIA CLARA parabricks and dependencies](https://www.nvidia.com/en-us/docs/parabricks/local-installation/) (for GPU accelerated runs) (tested with parabricks version 3.6.1-1), [[Git](https://git-scm.com/) (tested with version 1.8.3.1), [Mamba](https://github.com/TheSnakePit/mamba) (tested with version 0.19.1) with [Conda](https://docs.conda.io/projects/conda/en/latest/index.html) (tested with version 4.11.0), [gsutil](https://pypi.org/project/gsutil/) (tested with version 4.34), [gunzip](https://linux.die.net/man/1/gunzip) (tested with version 1.5)
 
 ## Test human_genomics_pipeline
 
