@@ -123,7 +123,7 @@ This software is commonly pre-installed on HPC's, likely available as modules th
 
 ```bash
 cd ./workflow/
-mamba env create -f pipeline_run_env.yml
+mamba env create -f ./envs/pipeline_run_env.yml
 conda activate pipeline_run_env
 ```
 
