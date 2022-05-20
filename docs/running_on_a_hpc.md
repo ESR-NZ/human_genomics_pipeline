@@ -9,7 +9,7 @@
   - [3. Setup files and directories](#3-setup-files-and-directories)
     - [Test data](#test-data)
   - [4. Get prerequisite software/hardware](#4-get-prerequisite-softwarehardware)
-  - [5. Create and activate a conda environment with python, snakemake, gsutil and wget installed](#5-create-and-activate-a-conda-environment-with-python-snakemake-gsutil-and-wget-installed)
+  - [5. Create and activate a conda environment with software for installing databases](#5-create-and-activate-a-conda-environment-with-software-for-installing-databases)
   - [6. Create a local copy of the GATK resource bundle (either b37 or hg38)](#6-create-a-local-copy-of-the-gatk-resource-bundle-either-b37-or-hg38)
     - [b37](#b37)
     - [hg38](#hg38)
@@ -20,11 +20,12 @@
     - [Base recalibration](#base-recalibration)
   - [8. Configure to run on a HPC](#8-configure-to-run-on-a-hpc)
   - [9. Modify the run scripts](#9-modify-the-run-scripts)
-  - [10. Run the pipeline](#10-run-the-pipeline)
-  - [11. Evaluate the pipeline run](#11-evaluate-the-pipeline-run)
-  - [12. Commit and push to your forked version of the github repo](#12-commit-and-push-to-your-forked-version-of-the-github-repo)
-  - [13. Repeat step 12 each time you re-run the analysis with different parameters](#13-repeat-step-12-each-time-you-re-run-the-analysis-with-different-parameters)
-  - [14. Raise issues, create feature requests or create a pull request with the upstream repo to merge any useful changes to the pipeline (optional)](#14-raise-issues-create-feature-requests-or-create-a-pull-request-with-the-upstream-repo-to-merge-any-useful-changes-to-the-pipeline-optional)
+  - [10. Create and activate a conda environment with software for running the pipeline](#10-create-and-activate-a-conda-environment-with-software-for-running-the-pipeline)
+  - [11. Run the pipeline](#11-run-the-pipeline)
+  - [12. Evaluate the pipeline run](#12-evaluate-the-pipeline-run)
+  - [13. Commit and push to your forked version of the github repo](#13-commit-and-push-to-your-forked-version-of-the-github-repo)
+  - [14. Repeat step 13 each time you re-run the analysis with different parameters](#14-repeat-step-13-each-time-you-re-run-the-analysis-with-different-parameters)
+  - [15. Raise issues, create feature requests or create a pull request with the upstream repo to merge any useful changes to the pipeline (optional)](#15-raise-issues-create-feature-requests-or-create-a-pull-request-with-the-upstream-repo-to-merge-any-useful-changes-to-the-pipeline-optional)
 
 ## 1. Fork the pipeline repo to a personal or lab account
 
@@ -119,12 +120,14 @@ Other software required to get setup and run the pipeline:
 
 This software is commonly pre-installed on HPC's, likely available as modules that can be loaded. Talk to your system administrator if you need help with this.
 
-## 5. Create and activate a conda environment with python, snakemake, gsutil and wget installed
+## 5. Create and activate a conda environment with software for installing databases
+
+This installs [gsutil](https://cloud.google.com/storage/docs/gsutil), [wget](https://www.gnu.org/software/wget/) and their dependencies
 
 ```bash
 cd ./workflow/
-mamba env create -f ./envs/pipeline_run_env.yml
-conda activate pipeline_run_env
+mamba env create -f ./envs/download_databases_env.yaml
+conda activate download_databases_env
 ```
 
 ## 6. Create a local copy of the [GATK resource bundle](https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle) (either b37 or hg38)
@@ -316,7 +319,17 @@ snakemake \
 
 See the [snakemake documentation](https://snakemake.readthedocs.io/en/v4.5.1/executable.html#all-options) for additional run parameters.
 
-## 10. Run the pipeline
+## 10. Create and activate a conda environment with software for running the pipeline
+
+This installs [snakemake](https://snakemake.github.io/) and it's dependencies
+
+```bash
+cd ./workflow/
+mamba env create -f ./envs/pipeline_run_env.yaml
+conda activate pipeline_run_env
+```
+
+## 11. Run the pipeline
 
 First carry out a dry run
 
@@ -330,7 +343,7 @@ If there are no issues, start a full run
 bash run_hpc.sh
 ```
 
-## 11. Evaluate the pipeline run
+## 12. Evaluate the pipeline run
 
 Generate an interactive html report
 
@@ -338,7 +351,7 @@ Generate an interactive html report
 bash report.sh
 ```
 
-## 12. Commit and push to your forked version of the github repo
+## 13. Commit and push to your forked version of the github repo
 
 To maintain reproducibility, commit and push:
 
@@ -346,8 +359,8 @@ To maintain reproducibility, commit and push:
 - All run scripts
 - The final report
 
-## 13. Repeat step 12 each time you re-run the analysis with different parameters
+## 14. Repeat step 13 each time you re-run the analysis with different parameters
 
-## 14. Raise issues, create feature requests or create a pull request with the [upstream repo](https://github.com/ESR-NZ/human_genomics_pipeline) to merge any useful changes to the pipeline (optional)
+## 15. Raise issues, create feature requests or create a pull request with the [upstream repo](https://github.com/ESR-NZ/human_genomics_pipeline) to merge any useful changes to the pipeline (optional)
 
 See [the README](https://github.com/ESR-NZ/human_genomics_pipeline/blob/dev/README.md#contribute-back) for info on how to contribute back to the pipeline!
