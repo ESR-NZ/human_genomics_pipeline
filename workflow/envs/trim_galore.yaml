@@ -1,3 +1,4 @@
+name: trim_galore_env
 channels:
   - bioconda
   - conda-forge

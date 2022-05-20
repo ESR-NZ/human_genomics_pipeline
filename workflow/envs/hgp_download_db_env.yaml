@@ -72,4 +72,3 @@ dependencies:
   - yarl=1.7.2=py310h5764c6d_2
   - zipp=3.8.0=pyhd8ed1ab_0
   - zlib=1.2.11=h166bdaf_1014
-prefix: /home/lkemp/miniconda3/envs/hgp_download_db_env
