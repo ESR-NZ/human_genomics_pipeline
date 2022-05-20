@@ -122,12 +122,12 @@ This software is commonly pre-installed on HPC's, likely available as modules th
 
 ## 5. Create and activate a conda environment with software for downloading databases
 
-This installs [gsutil](https://cloud.google.com/storage/docs/gsutil), [wget](https://www.gnu.org/software/wget/) and their dependencies
+This installs [gsutil](https://cloud.google.com/storage/docs/gsutil) and it's dependencies
 
 ```bash
 cd ./workflow/
-mamba env create -f ./envs/download_databases_env.yaml
-conda activate download_databases_env
+mamba env create -f ./envs/hgp_download_db_env.yaml
+conda activate hgp_download_db_env
 ```
 
 ## 6. Create a local copy of the [GATK resource bundle](https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle) (either b37 or hg38)
