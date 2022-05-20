@@ -29,7 +29,7 @@ A Snakemake workflow to process single samples (unrelated individuals) or cohort
 1. Raw read QC ([FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) and [MultiQC](https://multiqc.info/))
 2. Adapter trimming ([Trim Galore](https://www.bioinformatics.babraham.ac.uk/projects/trim_galore/)) (*optional*)
 3. Alignment against reference genome, mark duplicates, base recalibration and haplotype calling ([parabricks germline pipeline](https://docs.nvidia.com/clara/parabricks/v3.6.1/text/germline_pipeline.html))
-   - *Equivilant to [Burrows-Wheeler Aligner](http://bio-bwa.sourceforge.net/), [GATK MarkDuplicates](https://gatk.broadinstitute.org/hc/en-us/articles/4414594430619-GenotypeGVCFs), [GATK BaseRecalibrator](https://gatk.broadinstitute.org/hc/en-us/articles/360036898312-BaseRecalibrator), [GATK ApplyBQSR](https://gatk.broadinstitute.org/hc/en-us/articles/360037055712-ApplyBQSR) and [GATK HaplotypeCalller](https://gatk.broadinstitute.org/hc/en-us/articles/360037225632-HaplotypeCaller)*
+   - *Equivalant to [Burrows-Wheeler Aligner](http://bio-bwa.sourceforge.net/), [GATK MarkDuplicates](https://gatk.broadinstitute.org/hc/en-us/articles/4414594430619-GenotypeGVCFs), [GATK BaseRecalibrator](https://gatk.broadinstitute.org/hc/en-us/articles/360036898312-BaseRecalibrator), [GATK ApplyBQSR](https://gatk.broadinstitute.org/hc/en-us/articles/360037055712-ApplyBQSR) and [GATK HaplotypeCalller](https://gatk.broadinstitute.org/hc/en-us/articles/360037225632-HaplotypeCaller)*
 
 <img src="./images/rulegraph_single_gpu.png" class="center">
 
@@ -51,7 +51,7 @@ A Snakemake workflow to process single samples (unrelated individuals) or cohort
 1. Raw read QC ([FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) and [MultiQC](https://multiqc.info/))
 2. Adapter trimming ([Trim Galore](https://www.bioinformatics.babraham.ac.uk/projects/trim_galore/)) (*optional*)
 3. Alignment against reference genome, mark duplicates, base recalibration and haplotype calling ([parabricks germline pipeline](https://docs.nvidia.com/clara/parabricks/v3.6.1/text/germline_pipeline.html))
-   - *Equivilant to [Burrows-Wheeler Aligner](http://bio-bwa.sourceforge.net/), [GATK MarkDuplicates](https://gatk.broadinstitute.org/hc/en-us/articles/4414594430619-GenotypeGVCFs), [GATK BaseRecalibrator](https://gatk.broadinstitute.org/hc/en-us/articles/360036898312-BaseRecalibrator), [GATK ApplyBQSR](https://gatk.broadinstitute.org/hc/en-us/articles/360037055712-ApplyBQSR) and [GATK HaplotypeCalller](https://gatk.broadinstitute.org/hc/en-us/articles/360037225632-HaplotypeCaller)*
+   - *Equivalant to [Burrows-Wheeler Aligner](http://bio-bwa.sourceforge.net/), [GATK MarkDuplicates](https://gatk.broadinstitute.org/hc/en-us/articles/4414594430619-GenotypeGVCFs), [GATK BaseRecalibrator](https://gatk.broadinstitute.org/hc/en-us/articles/360036898312-BaseRecalibrator), [GATK ApplyBQSR](https://gatk.broadinstitute.org/hc/en-us/articles/360037055712-ApplyBQSR) and [GATK HaplotypeCalller](https://gatk.broadinstitute.org/hc/en-us/articles/360037225632-HaplotypeCaller)*
 4. Combine GVCF into multi-sample GVCF ([parabricks trio combine gvcf](https://docs.nvidia.com/clara/parabricks/v3.6/text/joint_calling.html#trio-combine-gvcf))
    - *Equivalent to [GATK CombineGVCFs](https://gatk.broadinstitute.org/hc/en-us/articles/360037593911-CombineGVCFs)*
 5. Genotyping ([GATK GenotypeGVCFs](https://gatk.broadinstitute.org/hc/en-us/articles/4414594430619-GenotypeGVCFs))
