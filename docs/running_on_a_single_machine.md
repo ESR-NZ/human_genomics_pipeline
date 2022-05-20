@@ -292,7 +292,6 @@ See the [snakemake documentation](https://snakemake.readthedocs.io/en/v4.5.1/exe
 This installs [snakemake](https://snakemake.github.io/) and it's dependencies
 
 ```bash
-cd ./workflow/
 mamba env create -f ./envs/pipeline_run_env.yaml
 conda activate pipeline_run_env
 ```

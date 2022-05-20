@@ -125,7 +125,6 @@ This software is commonly pre-installed on HPC's, likely available as modules th
 This installs [gsutil](https://cloud.google.com/storage/docs/gsutil), [wget](https://www.gnu.org/software/wget/) and their dependencies
 
 ```bash
-cd ./workflow/
 mamba env create -f ./envs/download_databases_env.yaml
 conda activate download_databases_env
 ```
