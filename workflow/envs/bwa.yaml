@@ -1,0 +1,8 @@
+name: bwa
+hannels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - bioconda::bwa=0.7.17=pl5.22.0_2
+  - bioconda::gatk4=4.1.9.0

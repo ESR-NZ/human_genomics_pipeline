@@ -13,8 +13,8 @@ rule bwa_mem:
         "logs/bwa_mem/{sample}.log"
     benchmark:
         "benchmarks/bwa_mem/{sample}.tsv"
-    singularity:
-        "docker://biocontainers/bwa:v0.7.17_cv1"
+    conda:
+        "../envs/bwa.yaml"
     threads: config['THREADS']
     message:
         "Mapping sequences against a reference human genome with BWA-MEM for {input.fastq}"
