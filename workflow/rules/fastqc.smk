@@ -9,8 +9,8 @@ rule fastqc:
     benchmark:
         "benchmarks/fastqc/{sample}.tsv"
     threads: config['THREADS']
-    conda:
-        "../envs/fastqc.yaml"
+    singularity:
+        "docker://biocontainers/fastqc:v0.11.9_cv8"
     message:
         "Undertaking quality control checks on raw sequence data for {input}"
     shell:
