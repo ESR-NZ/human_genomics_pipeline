@@ -9,7 +9,7 @@
   - [3. Setup files and directories](#3-setup-files-and-directories)
     - [Test data](#test-data)
   - [4. Get prerequisite software/hardware](#4-get-prerequisite-softwarehardware)
-  - [5. Create and activate a conda environment with software for installing databases](#5-create-and-activate-a-conda-environment-with-software-for-installing-databases)
+  - [5. Create and activate a conda environment with software for downloading databases](#5-create-and-activate-a-conda-environment-with-software-for-downloading-databases)
   - [6. Create a local copy of the GATK resource bundle (either b37 or hg38)](#6-create-a-local-copy-of-the-gatk-resource-bundle-either-b37-or-hg38)
     - [b37](#b37)
     - [hg38](#hg38)
@@ -119,7 +119,7 @@ Other software required to get setup and run the pipeline:
 
 This software is commonly pre-installed on HPC's, likely available as modules that can be loaded. Talk to your system administrator if you need help with this.
 
-## 5. Create and activate a conda environment with software for installing databases
+## 5. Create and activate a conda environment with software for downloading databases
 
 This installs [gsutil](https://cloud.google.com/storage/docs/gsutil), [wget](https://www.gnu.org/software/wget/) and their dependencies
 
