@@ -3,4 +3,4 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - bioconda::trim-galore =0.6.5
+  - bioconda::trim-galore=0.6.7=hdfd78af_0
