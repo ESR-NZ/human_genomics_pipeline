@@ -11,8 +11,8 @@ rule gatk_MarkDuplicates:
         "logs/gatk_MarkDuplicates/{sample}.log"
     benchmark:
         "benchmarks/gatk_MarkDuplicates/{sample}.tsv"
-    conda:
-        "../envs/gatk4.yaml"
+    singularity:
+        "docker://broadinstitute/gatk:4.2.6.1"
     message:
         "Locating and tagging duplicate reads in {input}"
     shell:

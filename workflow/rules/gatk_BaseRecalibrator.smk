@@ -14,8 +14,8 @@ rule gatk_BaseRecalibrator:
         "logs/gatk_BaseRecalibrator/{sample}.log"
     benchmark:
         "benchmarks/gatk_BaseRecalibrator/{sample}.tsv"
-    conda:
-        "../envs/gatk4.yaml"
+    singularity:
+        "docker://broadinstitute/gatk:4.2.6.1"
     message:
         "Generating a recalibration table for {input.bams}"
     shell:

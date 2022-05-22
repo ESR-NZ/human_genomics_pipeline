@@ -3,8 +3,8 @@ rule multiqc:
         expand(["../results/qc/fastqc/{sample}_1_fastqc.zip", "../results/qc/fastqc/{sample}_2_fastqc.zip"], sample = SAMPLES)
     output:
         report("../results/qc/multiqc_report.html", caption = "../report/quality_checks.rst", category = "Quality checks")
-    conda:
-        "../envs/multiqc.yaml"
+    singularity:
+        "docker://ewels/multiqc:v1.12"
     log:
         "logs/multiqc/multiqc.log"
     message:

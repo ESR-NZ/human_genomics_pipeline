@@ -14,8 +14,8 @@ rule gatk_GenotypeGVCFs:
         "logs/gatk_GenotypeGVCFs/{family}.log"
     benchmark:
         "benchmarks/gatk_GenotypeGVCFs/{family}.tsv"
-    conda:
-        "../envs/gatk4.yaml"
+    singularity:
+        "docker://broadinstitute/gatk:4.2.6.1"
     message:
         "Performing joint genotyping on one or more samples pre-called with HaplotypeCaller for {input.gvcf}"
     shell:

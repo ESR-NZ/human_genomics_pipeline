@@ -15,8 +15,8 @@ rule gatk_CombineGVCFs:
         "logs/gatk_CombineGVCFs/{family}.log"
     benchmark:
         "benchmarks/gatk_CombineGVCFs/{family}.tsv"
-    conda:
-        "../envs/gatk4.yaml"
+    singularity:
+        "docker://broadinstitute/gatk:4.2.6.1"
     message:
         "Merging one or more HaplotypeCaller GVCF files into a single GVCF"
     shell:
