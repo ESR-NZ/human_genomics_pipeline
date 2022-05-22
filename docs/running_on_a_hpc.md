@@ -354,6 +354,7 @@ bash report.sh
 
 To maintain reproducibility, commit and push:
 
+- All documentation
 - All configuration files
 - All run scripts
 - The final report
