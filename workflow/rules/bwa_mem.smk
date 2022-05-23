@@ -16,6 +16,11 @@ rule bwa_mem:
     conda:
         "../envs/bwa.yaml"
     threads: config['THREADS']
+    resources:
+        cpus = config['THREADS'],
+        partition = config['PARTITION']['CPU'],
+        memory = config['MAXMEMORY'],
+        job_name = "bwa_mem"
     message:
         "Mapping sequences against a reference human genome with BWA-MEM for {input.fastq}"
     shell:

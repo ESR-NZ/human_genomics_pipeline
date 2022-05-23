@@ -13,6 +13,12 @@ rule gatk_MarkDuplicates:
         "benchmarks/gatk_MarkDuplicates/{sample}.tsv"
     singularity:
         "docker://broadinstitute/gatk:4.2.6.1"
+    threads: 1
+    resources:
+        cpus = 1,
+        partition = config['PARTITION']['CPU'],
+        memory = config['MAXMEMORY'],
+        job_name = "gatk_MarkDuplicates"
     message:
         "Locating and tagging duplicate reads in {input}"
     shell:

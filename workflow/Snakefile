@@ -167,8 +167,6 @@ if config['DATA'] == "Cohort" or config['DATA'] == 'cohort':
 
 ##### Load rules #####
 
-localrules: multiqc, pbrun_germline, pbrun_triocombinegvcf
-
 include: "rules/fastqc.smk"
 
 if config['TRIM'] == "No" or config['TRIM'] == "no":

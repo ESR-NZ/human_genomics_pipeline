@@ -1,8 +1,0 @@
-{
-    "__default__" :
-    {
-        "account" : "",
-        "partition" : "",
-        "output" : "logs/slurm-%j_{rule}.out"
-    }
-}

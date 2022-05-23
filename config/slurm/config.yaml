@@ -1,0 +1,14 @@
+jobs: 20
+cluster:
+    sbatch
+        --account lkemp
+        --mail-type FAIL
+        --mail-user leahmhkemp@gmail.com
+        --parsable
+        --mem {resources.memory}
+        --cpus-per-task {resources.cpus}
+        --output logs/slurm-%j-{rule}.out
+        --partition {resources.partition}
+        --job-name {resources.job_name}
+default-resources: [cpus=1, memory=512, time_min=20]
+cluster-cancel: scancel

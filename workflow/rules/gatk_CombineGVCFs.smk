@@ -17,6 +17,11 @@ rule gatk_CombineGVCFs:
         "benchmarks/gatk_CombineGVCFs/{family}.tsv"
     singularity:
         "docker://broadinstitute/gatk:4.2.6.1"
+    threads: 1
+    resources:
+        cpus = 1,
+        partition = config['PARTITION']['CPU'],
+        job_name = "bwa_mem"
     message:
         "Merging one or more HaplotypeCaller GVCF files into a single GVCF"
     shell:

@@ -17,6 +17,10 @@ rule trim_galore_pe:
     conda:
         "../envs/trim_galore.yaml"
     threads: config['THREADS']
+    resources:
+        cpus = config['THREADS'],
+        partition = config['PARTITION']['CPU'],
+        job_name = "trim_galore_pe"
     message:
         "Applying quality and adapter trimming to input fastq files: {input}"
     shell:

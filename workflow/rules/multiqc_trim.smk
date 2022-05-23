@@ -5,10 +5,17 @@ rule multiqc:
         trimming2 = expand("../results/trimmed/{sample}_2.fastq.gz_trimming_report.txt", sample = SAMPLES)
     output:
         report("../results/qc/multiqc_report.html", caption = "../report/quality_checks.rst", category = "Quality checks")
-    singularity:
-        "docker://ewels/multiqc:v1.12"
     log:
         "logs/multiqc/multiqc.log"
+    benchmark:
+        "benchmarks/multiqc/multiqc.tsv"
+    singularity:
+        "docker://ewels/multiqc:v1.12"
+    threads: 1
+    resources:
+        cpus = 1,
+        partition = config['PARTITION']['CPU'],
+        job_name = "multiqc"
     message:
         "Compiling a HTML report for quality control checks on raw sequence data"
     shell:

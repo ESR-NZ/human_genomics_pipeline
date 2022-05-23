@@ -16,6 +16,12 @@ rule gatk_GenotypeGVCFs:
         "benchmarks/gatk_GenotypeGVCFs/{family}.tsv"
     singularity:
         "docker://broadinstitute/gatk:4.2.6.1"
+    threads: 1
+    resources:
+        cpus = 1,
+        partition = config['PARTITION']['CPU'],
+        memory = config['MAXMEMORY'],
+        job_name = "gatk_GenotypeGVCFs"
     message:
         "Performing joint genotyping on one or more samples pre-called with HaplotypeCaller for {input.gvcf}"
     shell:

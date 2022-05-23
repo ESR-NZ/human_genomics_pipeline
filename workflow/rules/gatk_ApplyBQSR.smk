@@ -15,6 +15,12 @@ rule gatk_ApplyBQSR:
         "benchmarks/gatk_ApplyBQSR/{sample}.tsv"
     singularity:
         "docker://broadinstitute/gatk:4.2.6.1"
+    threads: 1
+    resources:
+        cpus = 1,
+        partition = config['PARTITION']['CPU'],
+        memory = config['MAXMEMORY'],
+        job_name = "gatk_ApplyBQSR"
     message:
         "Applying base quality score recalibration and producing a recalibrated BAM file for {input.bam}"
     shell:

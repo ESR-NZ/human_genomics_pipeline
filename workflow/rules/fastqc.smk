@@ -8,9 +8,13 @@ rule fastqc:
         "logs/fastqc/{sample}.log"
     benchmark:
         "benchmarks/fastqc/{sample}.tsv"
-    threads: config['THREADS']
     singularity:
         "docker://biocontainers/fastqc:v0.11.9_cv8"
+    threads: config['THREADS']
+    resources:
+        cpus = config['THREADS'],
+        partition = config['PARTITION']['CPU'],
+        job_name = "fastqc"
     message:
         "Undertaking quality control checks on raw sequence data for {input}"
     shell:

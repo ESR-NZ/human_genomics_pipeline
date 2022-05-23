@@ -18,6 +18,12 @@ rule gatk_HaplotypeCaller_cohort:
         "benchmarks/gatk_HaplotypeCaller_cohort/{sample}.tsv"
     singularity:
         "docker://broadinstitute/gatk:4.2.6.1"
+    threads: 1
+    resources:
+        cpus = 1,
+        partition = config['PARTITION']['CPU'],
+        memory = config['MAXMEMORY'],
+        job_name = "gatk_HaplotypeCaller_cohort"
     message:
         "Calling germline SNPs and indels via local re-assembly of haplotypes for {input.bams}"
     shell:
