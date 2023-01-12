@@ -31,12 +31,12 @@ WES:
 # Number of threads to use per rule/sample for multithreaded rules, multithreading will significantly speed up these rules (diminishing speed gains beyond 8 threads)
 # Defaults to 1 thread as per config/slurm/config.yaml
 #TODO Consider declaring threads at a rule level
-THREADS:
+THREADS: 8
 
 # Memory requested for rules in no in mb, do not include unit with integer (e.g. 1G = 1000).
 # Default memory set to 1000 - see config/slurm/config.yaml
 # rule level declarations for memory (resources.mem_mb) will supersede, and can be configured to be dynamic based on attempts 
-MAXMEMORY: 
+MAXMEMORY: 8000
 
 # Maximum number of GPU's to be used per rule/sample for gpu-accelerated runs (eg `1` for 1 GPU)
 GPU:
@@ -52,11 +52,11 @@ PARTITION:
 ##############################
 
 # Whether or not to trim the raw fastq reads (either 'Yes' or 'No')
-TRIM: ""
+TRIM: "Yes"
 
 # If trimming, choose the adapter sequence to be trimmed (eg. `--illumina`, `--nextera` or `--small_rna`) or pass adapter sequences to the `-a` and `-a2` flags
 TRIMMING:
-  ADAPTERS: ""
+  ADAPTERS: "--illumina"
 
 ##############################
 ##### Base recalibration #####
