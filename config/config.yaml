@@ -3,10 +3,10 @@
 ##############################
 
 # Type of input data (either 'Single' or 'Cohort')
-DATA: "Single"
+DATA: "Cohort"
 
 # Should the pipeline be GPU accelerated where possible? (either 'Yes' or 'No')
-GPU_ACCELERATED: "No"
+GPU_ACCELERATED: "Yes"
 
 # File path to the reference genome (.fasta)
 REFGENOME: "../../TESTREF.FA"
@@ -39,13 +39,13 @@ THREADS: 8
 MAXMEMORY: 8000
 
 # Maximum number of GPU's to be used per rule/sample for gpu-accelerated runs (eg `1` for 1 GPU)
-GPU: 0
+GPU: 1
 
 # Include GPU or CPU partitions for jobs to run on.
 # Rule level partitions can be indicated in the 'resources:' directive of a rule in the rules/*.smk files
 PARTITION:
-  CPU: ""
-  GPU: ""
+  CPU: "TEST"
+  GPU: "TEST"
 
 ##############################
 ########## Trimming ##########
@@ -64,4 +64,4 @@ TRIMMING:
 
 # List of resources to used for base recalibration
 RECALIBRATION:
-  RESOURCES: ""
+  RESOURCES: "TEST"
