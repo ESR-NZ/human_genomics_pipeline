@@ -29,9 +29,13 @@ WES:
 ##############################
 
 # Number of threads to use per rule/sample for multithreaded rules, multithreading will significantly speed up these rules (diminishing speed gains beyond 8 threads)
+# Defaults to 1 thread as per config/slurm/config.yaml
+#TODO Consider declaring threads at a rule level
 THREADS:
 
-# Maximum memory usage per rule/sample (eg. '40g' for 40 gigabytes, this should suffice for exomes)
+# Memory requested for rules in no in mb, do not include unit with integer (e.g. 1G = 1000).
+# Default memory set to 512 - see config/slurm/config.yaml
+# rule level declarations for memory (resources.mem_mb) will supersede, and may be dynamic based on attempts
 MAXMEMORY: ""
 
 # Maximum number of GPU's to be used per rule/sample for gpu-accelerated runs (eg `1` for 1 GPU)
