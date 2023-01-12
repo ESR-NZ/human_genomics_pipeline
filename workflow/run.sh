@@ -1,12 +1,17 @@
 #!/bin/bash -x
 
 snakemake \
---jobs 32 \
---resources mem_mb=150000 \
---resources gpu=2 \
+--latency-wait 600 \
+--jobs 4 \
+--resources mem_mb=8000 \ # Will conflict with the config.yaml
+--threads 8 \ # Will conflict with the config.yaml
 --use-conda \
 --conda-frontend mamba \
---latency-wait 120 \
 --use-singularity \
---singularity-args '-B /bind/location/' \
+# --singularity-args '-B /bind/location/' \
 --configfile ../config/config.yaml
+--keep-going \
+--keep-incomplete \
+--reason \
+--printshellcmds \
+--rerun-incomplete
