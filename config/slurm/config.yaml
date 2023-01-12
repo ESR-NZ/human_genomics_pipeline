@@ -31,6 +31,7 @@ rerun-incomplete: True
 printshellcmds: True
 scheduler: ilp
 use-conda: True
+conda-frontend: mamba
 use-singularity: True
 reason: True
 cluster-cancel: scancel
