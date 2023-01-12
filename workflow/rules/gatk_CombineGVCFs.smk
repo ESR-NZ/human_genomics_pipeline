@@ -19,10 +19,12 @@ rule gatk_CombineGVCFs:
         "docker://broadinstitute/gatk:4.2.6.1"
     threads: 1
     resources:
-        cpus = 1,
-        partition = config['PARTITION']['CPU'],
-        job_name = "bwa_mem"
+        partition = config['PARTITION']['CPU']
     message:
         "Merging one or more HaplotypeCaller GVCF files into a single GVCF"
     shell:
-        "gatk CombineGVCFs -R {input.refgenome} {params.command} -O {output.vcf} --tmp-dir {params.tdir} {params.other} &> {log}"
+        'gatk CombineGVCFs '
+        '-R {input.refgenome} {params.command} '
+        '-O {output.vcf} 
+        '--tmp-dir {params.tdir} {params.other} '
+        '&> {log}'

@@ -12,10 +12,11 @@ rule fastqc:
         "docker://biocontainers/fastqc:v0.11.9_cv8"
     threads: config['THREADS']
     resources:
-        cpus = config['THREADS'],
-        partition = config['PARTITION']['CPU'],
-        job_name = "fastqc"
+        partition = config['PARTITION']['CPU']
     message:
         "Undertaking quality control checks on raw sequence data for {input}"
     shell:
-        "fastqc {input} -o ../results/qc/fastqc/ -t {threads} &> {log}"
+        'fastqc {input} '
+        '-o ../results/qc/fastqc/ '
+        '-t {threads} '
+        '&> {log}'

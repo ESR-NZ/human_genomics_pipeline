@@ -6,7 +6,6 @@ rule gatk_HaplotypeCaller_single:
     output:
         protected("../results/called/{sample}_raw_snps_indels.vcf")
     params:
-        maxmemory = expand('"-Xmx{maxmemory}"', maxmemory = config['MAXMEMORY']),
         tdir = config['TEMPDIR'],
         padding = get_wes_padding_command,
         intervals = get_wes_intervals_command
@@ -18,11 +17,16 @@ rule gatk_HaplotypeCaller_single:
         "docker://broadinstitute/gatk:4.2.6.1"
     threads: 1
     resources:
-        cpus = 1,
-        partition = config['PARTITION']['CPU'],
-        memory = config['MAXMEMORY'],
-        job_name = "gatk_HaplotypeCaller_single"
+        mem_mb = config['MAXMEMORY'],
+        partition = config['PARTITION']['CPU']
     message:
         "Calling germline SNPs and indels via local re-assembly of haplotypes for {input.bams}"
     shell:
-        "gatk HaplotypeCaller --java-options {params.maxmemory} -I {input.bams} -R {input.refgenome} -D {input.dbsnp} -O {output} --tmp-dir {params.tdir} {params.padding} {params.intervals} &> {log}"
+        'gatk HaplotypeCaller '
+        '--java-options "-Xmx{resources.mem_mb}m" '
+        '-I {input.bams} '
+        '-R {input.refgenome} '
+        '-D {input.dbsnp} '
+        '-O {output} '
+        '--tmp-dir {params.tdir} {params.padding} {params.intervals} '
+        '&> {log}'

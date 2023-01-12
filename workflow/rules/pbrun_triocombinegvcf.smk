@@ -12,11 +12,14 @@ rule pbrun_triocombinegvcf:
         "benchmarks/pbrun_triocombinegvcf/{family}.tsv"
     threads: config['THREADS']
     resources:
-        cpus = config['THREADS'],
         gpu = config['GPU'],
         partition = config['PARTITION']['GPU'],
-        job_name = "pbrun_triocombinegvcf"
+        job_name = "pbrun_triocombinegvcf_gpu"
     message:
         "Merging one or more HaplotypeCaller GVCF files into a single GVCF"
     shell:
-        "pbrun triocombinegvcf --ref {input.refgenome} {params.command} --out-variants {output} &> {log}"
+        'pbrun triocombinegvcf '
+        '--ref {input.refgenome} '
+        '{params.command} '
+        '--out-variants {output} '
+        '&> {log}'

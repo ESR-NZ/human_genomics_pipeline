@@ -3,20 +3,23 @@ cluster:
     mkdir -p slurmLogs/{rule} &&
     sbatch
         --mail-type ALL
-        --mail-user ben.perry@agresearch.co.nz
+        --mail-user ben.perry@agresearch.co.nz #TODO Update as needed
         --parsable
         --partition={resources.partition}
+        --gpus={resources.gpu}
         --mem={resources.mem_mb}
         --cpus-per-task={threads}
-        --job-name={rule}-{wildcards}-smk
+        --job-name={resources.job_name}
         --time={resources.time}
         --output=slurmLogs/{rule}/{rule}-{wildcards}-%j.log
         --verbose
 default-resources:
-  - account=perrybe
-  - partition=inv-iranui-fast,inv-iranui,inv-blade-g8-fast,inv-blade-g8,inv-bigmem-fast,inv-bigmem
-  - time=20
-  - mem_mb=512
+  - account=perrybe #TODO Update as needed
+  - partition=inv-iranui-fast,inv-iranui,inv-blade-g8-fast,inv-blade-g8,inv-bigmem-fast,inv-bigmem #TODO Update as needed
+  - time=20 #minutes; can also use "HH:MM:SS" format with quotes included
+  - mem_mb=2000
+  - job_name={rule}-{wildcards}-smk
+  - gpu=0
 restart-times: 5
 max-jobs-per-second: 10
 max-status-checks-per-second: 1

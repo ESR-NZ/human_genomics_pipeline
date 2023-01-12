@@ -13,10 +13,13 @@ rule multiqc:
         "docker://ewels/multiqc:v1.12"
     threads: 1
     resources:
-        cpus = 1,
-        partition = config['PARTITION']['CPU'],
-        job_name = "multiqc"
+        partition = config['PARTITION']['CPU']
     message:
         "Compiling a HTML report for quality control checks on raw sequence data"
     shell:
-        "multiqc {input.fastqc} {input.trimming1} {input.trimming2} -o ../results/qc/ &> {log}"
+        'multiqc '
+        '{input.fastqc} '
+        '{input.trimming1} '
+        '{input.trimming2} '
+        '-o ../results/qc/ '
+        '&> {log}'
