@@ -6,7 +6,6 @@ rule bwa_mem:
         temp("../results/mapped/{sample}_sorted.bam")
     params:
         readgroup = "'@RG\\tID:{sample}_rg1\\tLB:lib1\\tPL:bar\\tSM:{sample}\\tPU:{sample}_rg1'",
-        maxmemory = expand('"-Xmx{maxmemory}"', maxmemory = config['MAXMEMORY']),
         sortsam = "--MAX_RECORDS_IN_RAM=5000000 --SORT_ORDER=coordinate -I=/dev/stdin",
         tdir = expand("{tdir}", tdir = config['TEMPDIR'])
     log:
@@ -17,11 +16,17 @@ rule bwa_mem:
         "../envs/bwa.yaml"
     threads: config['THREADS']
     resources:
-        cpus = config['THREADS'],
-        partition = config['PARTITION']['CPU'],
-        memory = config['MAXMEMORY'],
-        job_name = "bwa_mem"
+        mem_mb = config['MAXMEMORY']
     message:
         "Mapping sequences against a reference human genome with BWA-MEM for {input.fastq}"
     shell:
-        "bwa mem -R {params.readgroup} -t {threads} -K 10000000 {input.refgenome} {input.fastq} | gatk SortSam --java-options {params.maxmemory} {params.sortsam} -O={output} --TMP_DIR={params.tdir} &> {log}"
+        "bwa mem "
+        "-R {params.readgroup} "
+        "-t {threads} "
+        "-K 10000000 {input.refgenome} {input.fastq} | "
+        "gatk SortSam "
+        "--java-options -Xmx{resources.mem_mb}m "
+        "{params.sortsam} "
+        "-O={output} "
+        "--TMP_DIR={params.tdir} "
+        "&> {log}"
