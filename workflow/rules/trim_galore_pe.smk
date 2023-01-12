@@ -24,5 +24,5 @@ rule trim_galore_pe:
         'trim_galore {input} '
         '-o ../results/trimmed/ '
         '{params.adapters} {params.other} '
-        '-j {threads} 
+        '-j {threads} '
         '&> {log}'
